@@ -1727,6 +1727,408 @@
             font-size: 0.65rem;
             color: var(--text-dim);
         }
+
+        /* ========== DREAM JOURNAL - Duolingo Style ========== */
+
+        .dream-btn-wrap {
+            padding: 14px 20px 0;
+            display: flex;
+            gap: 12px;
+        }
+        .dream-btn {
+            flex: 1;
+            padding: 16px 14px;
+            border: none;
+            border-radius: 18px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .dream-btn:active {
+            transform: translateY(4px);
+        }
+        .dream-btn-add {
+            background: linear-gradient(135deg, #6c5ce7, #a855f7);
+            box-shadow: 0 5px 0 #4a3ab5, 0 7px 20px rgba(108,92,231,0.35);
+        }
+        .dream-btn-add:active {
+            box-shadow: 0 1px 0 #4a3ab5, 0 3px 10px rgba(108,92,231,0.2);
+        }
+        .dream-btn-diary {
+            background: linear-gradient(135deg, #1e3a5f, #2563eb);
+            box-shadow: 0 5px 0 #1a3050, 0 7px 20px rgba(37,99,235,0.35);
+        }
+        .dream-btn-diary:active {
+            box-shadow: 0 1px 0 #1a3050, 0 3px 10px rgba(37,99,235,0.2);
+        }
+        .dream-btn .btn-icon {
+            font-size: 1.3rem;
+        }
+        .dream-btn .btn-shimmer {
+            position: absolute;
+            top: 0; left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-15deg);
+            animation: dreamShimmer 3s ease-in-out infinite;
+        }
+        @keyframes dreamShimmer {
+            0%,100% { left: -60%; }
+            50% { left: 120%; }
+        }
+
+        /* Shared Modal Overlay */
+        .dream-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 8000;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .dream-modal-overlay.active {
+            display: flex;
+        }
+        .dream-modal {
+            width: 100%;
+            max-width: 500px;
+            max-height: 92vh;
+            background: linear-gradient(180deg, #1e1b4b 0%, #0f0a2e 100%);
+            border-radius: 28px 28px 0 0;
+            border: 1px solid rgba(139,92,246,0.2);
+            border-bottom: none;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 0 40px;
+            animation: dreamSlideUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @keyframes dreamSlideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .dream-modal-handle {
+            width: 40px;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin: 12px auto 0;
+        }
+        .dream-modal-header {
+            padding: 20px 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .dream-modal-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #e8e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dream-modal-title .moon-icon {
+            font-size: 1.4rem;
+            animation: dreamFloat 3s ease-in-out infinite;
+        }
+        @keyframes dreamFloat {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .dream-modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: #aaa;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .dream-modal-close:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+        }
+
+        /* Form Fields */
+        .dream-form { padding: 20px 24px 0; }
+        .dream-field { margin-bottom: 20px; }
+        .dream-field-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #c4b5fd;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dream-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(139,92,246,0.08);
+            border: 2px solid rgba(139,92,246,0.15);
+            border-radius: 16px;
+            color: #e8e8f0;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 500;
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+        .dream-input:focus {
+            border-color: #8b5cf6;
+            background: rgba(139,92,246,0.12);
+            box-shadow: 0 0 0 4px rgba(139,92,246,0.15);
+        }
+        .dream-input::placeholder { color: rgba(196,181,253,0.35); }
+        textarea.dream-input { min-height: 140px; resize: vertical; line-height: 1.6; }
+        .dream-time-input {
+            width: 140px;
+            padding: 12px 18px;
+            background: rgba(139,92,246,0.08);
+            border: 2px solid rgba(139,92,246,0.15);
+            border-radius: 16px;
+            color: #e8e8f0;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            outline: none;
+            transition: all 0.2s;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        .dream-time-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139,92,246,0.15);
+        }
+        .dream-time-input::-webkit-calendar-picker-indicator { filter: invert(0.7) hue-rotate(240deg); }
+
+        /* Lucid Toggle */
+        .dream-lucid-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            background: rgba(139,92,246,0.08);
+            border: 2px solid rgba(139,92,246,0.15);
+            border-radius: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .dream-lucid-row.active {
+            border-color: #22d3ee;
+            background: rgba(34,211,238,0.08);
+        }
+        .dream-lucid-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e8e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .dream-toggle {
+            width: 56px;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            position: relative;
+            flex-shrink: 0;
+            transition: background 0.3s;
+            border: 2px solid rgba(255,255,255,0.08);
+        }
+        .dream-toggle.active { background: #22d3ee; border-color: #22d3ee; }
+        .dream-toggle::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .dream-toggle.active::after { transform: translateX(26px); }
+
+        /* Dream Type Pills */
+        .dream-pills-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+        .dream-pill {
+            padding: 10px 18px;
+            background: rgba(139,92,246,0.08);
+            border: 2px solid rgba(139,92,246,0.15);
+            border-radius: 50px;
+            color: #c4b5fd;
+            font-size: 0.88rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dream-pill:active { transform: scale(0.95); }
+        .dream-pill.selected { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+        .dream-pill[data-type="bueno"].selected { background: linear-gradient(135deg, #22c55e, #16a34a); border-color: #22c55e; color: #fff; }
+        .dream-pill[data-type="regular"].selected { background: linear-gradient(135deg, #eab308, #ca8a04); border-color: #eab308; color: #fff; }
+        .dream-pill[data-type="borroso"].selected { background: linear-gradient(135deg, #94a3b8, #64748b); border-color: #94a3b8; color: #fff; }
+        .dream-pill[data-type="muy-bueno"].selected { background: linear-gradient(135deg, #a855f7, #7c3aed); border-color: #a855f7; color: #fff; }
+        .dream-pill[data-type="alegre"].selected { background: linear-gradient(135deg, #fb923c, #f97316); border-color: #fb923c; color: #fff; }
+        .dream-pill[data-type="pesadilla"].selected { background: linear-gradient(135deg, #ef4444, #dc2626); border-color: #ef4444; color: #fff; }
+
+        /* Save Button */
+        .dream-save-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #6c5ce7, #a855f7);
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 800;
+            font-family: inherit;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #4a3ab5, 0 6px 20px rgba(108,92,231,0.3);
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .dream-save-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #4a3ab5, 0 2px 8px rgba(108,92,231,0.2);
+        }
+
+        /* History */
+        .dream-history-section { padding: 20px 24px 0; }
+        .dream-history-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(196,181,253,0.5);
+            margin-bottom: 14px;
+        }
+        .dream-history-empty {
+            text-align: center;
+            padding: 30px 0;
+            color: rgba(196,181,253,0.3);
+            font-size: 0.9rem;
+        }
+        .dream-history-empty .empty-icon { font-size: 2.5rem; display: block; margin-bottom: 10px; opacity: 0.4; }
+        .dream-entry {
+            background: rgba(139,92,246,0.06);
+            border: 1px solid rgba(139,92,246,0.12);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            animation: dreamFadeIn 0.3s ease;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .dream-entry.lucid-glow {
+            border-color: rgba(37,99,235,0.5);
+            box-shadow: 0 0 15px rgba(37,99,235,0.3), 0 0 30px rgba(37,99,235,0.15);
+        }
+        @keyframes dreamFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .dream-entry-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .dream-entry-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #e8e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+        .dream-entry-badges { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
+        .dream-badge {
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .dream-badge.lucid { background: rgba(34,211,238,0.15); color: #22d3ee; }
+        .dream-badge.type-bueno { background: rgba(34,197,94,0.15); color: #22c55e; }
+        .dream-badge.type-regular { background: rgba(234,179,8,0.15); color: #eab308; }
+        .dream-badge.type-borroso { background: rgba(148,163,184,0.15); color: #94a3b8; }
+        .dream-badge.type-muy-bueno { background: rgba(168,85,247,0.15); color: #a855f7; }
+        .dream-badge.type-alegre { background: rgba(251,146,60,0.15); color: #fb923c; }
+        .dream-badge.type-pesadilla { background: rgba(239,68,68,0.15); color: #ef4444; }
+        .dream-entry-meta {
+            font-size: 0.78rem;
+            color: rgba(196,181,253,0.5);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .dream-entry-desc {
+            font-size: 0.9rem;
+            color: rgba(232,232,240,0.7);
+            line-height: 1.6;
+            word-break: break-word;
+        }
+        .dream-entry-delete {
+            background: none;
+            border: none;
+            color: rgba(239,68,68,0.4);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .dream-entry-delete:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
+        @keyframes dreamPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.3); }
+            50% { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+        }
+        .dream-input.invalid, .dream-pill.invalid {
+            border-color: #ef4444;
+            animation: dreamPulse 1s ease-in-out;
+        }
+
     </style>
 </head>
 <body>
@@ -1824,6 +2226,20 @@
                     <div class="time-text" id="current-time">00:00:00</div>
                     <div class="time-date" id="current-date">Cargando...</div>
                 </div>
+            </div>
+
+            <!-- ========== DREAM JOURNAL BUTTONS ========== -->
+            <div class="dream-btn-wrap">
+                <button class="dream-btn dream-btn-add" onclick="openAddDream()">
+                    <span class="btn-shimmer"></span>
+                    <span class="btn-icon">✨</span>
+                    <span>Agregar Sueño</span>
+                </button>
+                <button class="dream-btn dream-btn-diary" onclick="openDreamDiary()">
+                    <span class="btn-shimmer"></span>
+                    <span class="btn-icon">📖</span>
+                    <span>Mi Diario</span>
+                </button>
             </div>
 
             <div style="padding: 16px 20px 0;">
@@ -2585,6 +3001,82 @@ Mi subconsciente absorbe estas palabras.</textarea>
             </div>
         </div>
 
+        <!-- ========== ADD DREAM MODAL ========== -->
+        <div class="dream-modal-overlay" id="add-dream-overlay">
+            <div class="dream-modal" id="add-dream-modal">
+                <div class="dream-modal-handle"></div>
+                <div class="dream-modal-header">
+                    <div class="dream-modal-title">
+                        <span class="moon-icon">✨</span>
+                        Nuevo Sueño
+                    </div>
+                    <button class="dream-modal-close" onclick="closeAddDream()">&times;</button>
+                </div>
+
+                <div class="dream-form">
+                    <div class="dream-field">
+                        <div class="dream-field-label">✏️ Título del Sueño</div>
+                        <input type="text" class="dream-input" id="dream-title" placeholder="¿Qué soñaste?" maxlength="80">
+                    </div>
+
+                    <div class="dream-field">
+                        <div class="dream-field-label">🕐 Hora del Sueño</div>
+                        <input type="time" class="dream-time-input" id="dream-time">
+                    </div>
+
+                    <div class="dream-field">
+                        <div class="dream-field-label">📝 Descripción</div>
+                        <textarea class="dream-input" id="dream-desc" placeholder="Cuenta todo lo que recuerdes: lugares, personas, sensaciones..."></textarea>
+                    </div>
+
+                    <div class="dream-field">
+                        <div class="dream-field-label">👁️ ¿Fue Lúcido?</div>
+                        <div class="dream-lucid-row" id="dream-lucid-row">
+                            <div class="dream-lucid-label">
+                                <span>🔮</span>
+                                <span id="dream-lucid-text">No — No recuerdo si fue lúcido</span>
+                            </div>
+                            <div class="dream-toggle" id="dream-lucid-toggle"></div>
+                        </div>
+                    </div>
+
+                    <div class="dream-field">
+                        <div class="dream-field-label">🏷️ Tipo de Sueño</div>
+                        <div class="dream-pills-wrap" id="dream-pills">
+                            <button type="button" class="dream-pill" data-type="bueno">😊 Bueno</button>
+                            <button type="button" class="dream-pill" data-type="regular">😐 Regular</button>
+                            <button type="button" class="dream-pill" data-type="borroso">🌫️ Borroso</button>
+                            <button type="button" class="dream-pill" data-type="muy-bueno">🌟 Muy bueno</button>
+                            <button type="button" class="dream-pill" data-type="alegre">🎉 Alegre</button>
+                            <button type="button" class="dream-pill" data-type="pesadilla">😈 Pesadilla</button>
+                        </div>
+                    </div>
+
+                    <button type="button" class="dream-save-btn" id="dream-save-btn">
+                        💾 Guardar Sueño
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== DREAM DIARY MODAL ========== -->
+        <div class="dream-modal-overlay" id="diary-overlay">
+            <div class="dream-modal" id="diary-modal">
+                <div class="dream-modal-handle"></div>
+                <div class="dream-modal-header">
+                    <div class="dream-modal-title">
+                        <span class="moon-icon">📖</span>
+                        Mi Diario de Sueños
+                    </div>
+                    <button class="dream-modal-close" onclick="closeDreamDiary()">&times;</button>
+                </div>
+
+                <div class="dream-history-section">
+                    <div id="dream-history-list"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="toast" id="toast"></div>
     </div>
 
@@ -2694,6 +3186,7 @@ Mi subconsciente absorbe estas palabras.</textarea>
             loadMeditationSettings();
             await loadWbtbSettings();
             applyWbtbSettings();
+            await migrateDreamsFromLocalStorage();
             updateClock();
             setInterval(updateClock, 1000);
             updatePreview();
@@ -5260,7 +5753,314 @@ Mi subconsciente absorbe estas palabras.</textarea>
             } catch (e) {}
         }
 
+        /* ========== DREAM JOURNAL LOGIC ========== */
+
+        const DREAM_STORAGE_KEY = 'dream_journal_entries';
+        let dreamLucidState = false;
+        let dreamSelectedType = null;
+
+        // --- IndexedDB for Dream Journal ---
+        const DREAM_DB_NAME = 'LucidDreamJournal';
+        const DREAM_DB_VERSION = 1;
+        const DREAM_STORE_NAME = 'entries';
+
+        function openDreamDB() {
+            return new Promise(function(resolve, reject) {
+                var request = indexedDB.open(DREAM_DB_NAME, DREAM_DB_VERSION);
+                request.onupgradeneeded = function(e) {
+                    var db = e.target.result;
+                    if (!db.objectStoreNames.contains(DREAM_STORE_NAME)) {
+                        db.createObjectStore(DREAM_STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+                request.onsuccess = function(e) { resolve(e.target.result); };
+                request.onerror = function(e) { reject(e.target.error); };
+            });
+        }
+
+        async function migrateDreamsFromLocalStorage() {
+            try {
+                var raw = localStorage.getItem(DREAM_STORAGE_KEY);
+                if (raw) {
+                    var legacy = JSON.parse(raw);
+                    if (Array.isArray(legacy) && legacy.length > 0) {
+                        var db = await openDreamDB();
+                        var tx = db.transaction(DREAM_STORE_NAME, 'readwrite');
+                        var store = tx.objectStore(DREAM_STORE_NAME);
+                        legacy.forEach(function(dream) { store.put(dream); });
+                        await new Promise(function(resolve, reject) {
+                            tx.oncomplete = resolve;
+                            tx.onerror = function(e) { reject(e.target.error); };
+                        });
+                        localStorage.removeItem(DREAM_STORAGE_KEY);
+                        console.log('Migrados ' + legacy.length + ' sueños de localStorage a IndexedDB');
+                    }
+                }
+            } catch (e) {
+                console.log('Error migrando sueños desde localStorage:', e);
+            }
+        }
+
+        async function getDreams() {
+            try {
+                var db = await openDreamDB();
+                var tx = db.transaction(DREAM_STORE_NAME, 'readonly');
+                var store = tx.objectStore(DREAM_STORE_NAME);
+                var request = store.getAll();
+                return new Promise(function(resolve) {
+                    request.onsuccess = function(e) {
+                        var results = e.target.result || [];
+                        results.sort(function(a, b) { return (b.timestamp || 0) - (a.timestamp || 0); });
+                        resolve(results);
+                    };
+                    request.onerror = function() { resolve([]); };
+                });
+            } catch (e) {
+                console.log('Error leyendo sueños de IndexedDB:', e);
+                return [];
+            }
+        }
+
+        async function saveDreamsToStorage(dreams) {
+            try {
+                var db = await openDreamDB();
+                var tx = db.transaction(DREAM_STORE_NAME, 'readwrite');
+                var store = tx.objectStore(DREAM_STORE_NAME);
+                store.clear();
+                dreams.forEach(function(dream) { store.put(dream); });
+            } catch (e) {
+                console.log('Error guardando sueños en IndexedDB:', e);
+            }
+        }
+
+        async function saveSingleDream(dream) {
+            try {
+                var db = await openDreamDB();
+                var tx = db.transaction(DREAM_STORE_NAME, 'readwrite');
+                var store = tx.objectStore(DREAM_STORE_NAME);
+                store.put(dream);
+            } catch (e) {
+                console.log('Error guardando sueño en IndexedDB:', e);
+            }
+        }
+
+        async function deleteSingleDream(id) {
+            try {
+                var db = await openDreamDB();
+                var tx = db.transaction(DREAM_STORE_NAME, 'readwrite');
+                var store = tx.objectStore(DREAM_STORE_NAME);
+                store.delete(id);
+            } catch (e) {
+                console.log('Error eliminando sueño de IndexedDB:', e);
+            }
+        }
+
+        /* --- ADD DREAM MODAL --- */
+        function openAddDream() {
+            var overlay = document.getElementById('add-dream-overlay');
+            overlay.classList.add('active');
+            var now = new Date();
+            document.getElementById('dream-time').value =
+                String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+            document.getElementById('dream-title').value = '';
+            document.getElementById('dream-desc').value = '';
+            dreamLucidState = false;
+            dreamSelectedType = null;
+            document.getElementById('dream-lucid-toggle').classList.remove('active');
+            document.getElementById('dream-lucid-row').classList.remove('active');
+            document.getElementById('dream-lucid-text').textContent = 'No — No recuerdo si fue lúcido';
+            document.querySelectorAll('#add-dream-modal .dream-pill').forEach(function(p) { p.classList.remove('selected'); });
+            document.querySelectorAll('#add-dream-modal .dream-input').forEach(function(i) { i.classList.remove('invalid'); });
+            document.querySelectorAll('#add-dream-modal .dream-pill').forEach(function(p) { p.classList.remove('invalid'); });
+            document.body.style.overflow = 'hidden';
+        }
+        function closeAddDream() {
+            document.getElementById('add-dream-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        /* --- DIARY MODAL --- */
+        async function openDreamDiary() {
+            document.getElementById('diary-overlay').classList.add('active');
+            await renderDreamHistory();
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDreamDiary() {
+            document.getElementById('diary-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        /* --- LUCID TOGGLE --- */
+        function toggleDreamLucid() {
+            dreamLucidState = !dreamLucidState;
+            var toggle = document.getElementById('dream-lucid-toggle');
+            var row = document.getElementById('dream-lucid-row');
+            var text = document.getElementById('dream-lucid-text');
+            if (dreamLucidState) {
+                toggle.classList.add('active');
+                row.classList.add('active');
+                text.textContent = '¡Sí! — Fue un sueño lúcido 🔮';
+            } else {
+                toggle.classList.remove('active');
+                row.classList.remove('active');
+                text.textContent = 'No — No recuerdo si fue lúcido';
+            }
+        }
+
+        /* --- DREAM TYPE SELECT --- */
+        function selectDreamType(el) {
+            document.querySelectorAll('#add-dream-modal .dream-pill').forEach(function(p) { p.classList.remove('selected'); });
+            el.classList.add('selected');
+            dreamSelectedType = el.getAttribute('data-type');
+        }
+
+        /* --- SAVE DREAM --- */
+        async function saveDream() {
+            var title = document.getElementById('dream-title').value.trim();
+            var time = document.getElementById('dream-time').value;
+            var desc = document.getElementById('dream-desc').value.trim();
+            var valid = true;
+
+            document.querySelectorAll('#add-dream-modal .dream-input').forEach(function(i) { i.classList.remove('invalid'); });
+            document.querySelectorAll('#add-dream-modal .dream-pill').forEach(function(p) { p.classList.remove('invalid'); });
+
+            if (!title) { document.getElementById('dream-title').classList.add('invalid'); valid = false; }
+            if (!desc) { document.getElementById('dream-desc').classList.add('invalid'); valid = false; }
+            if (!dreamSelectedType) {
+                document.querySelectorAll('#add-dream-modal .dream-pill').forEach(function(p) { p.classList.add('invalid'); });
+                valid = false;
+            }
+            if (!valid) {
+                var missing = [];
+                if (!title) missing.push('título');
+                if (!desc) missing.push('descripción');
+                if (!dreamSelectedType) missing.push('tipo de sueño');
+                showToast('⚠️ Completa los campos: ' + missing.join(', '));
+                return;
+            }
+
+            var now = new Date();
+            var months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+            var days = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+            var dateStr = days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+            var entry = {
+                id: Date.now(),
+                timestamp: Date.now(),
+                title: title,
+                time: time || '00:00',
+                date: dateStr,
+                dateISO: now.toISOString(),
+                description: desc,
+                lucid: dreamLucidState,
+                type: dreamSelectedType
+            };
+
+            await saveSingleDream(entry);
+
+            /* Reset form */
+            document.getElementById('dream-title').value = '';
+            document.getElementById('dream-desc').value = '';
+            dreamLucidState = false;
+            dreamSelectedType = null;
+            document.getElementById('dream-lucid-toggle').classList.remove('active');
+            document.getElementById('dream-lucid-row').classList.remove('active');
+            document.getElementById('dream-lucid-text').textContent = 'No — No recuerdo si fue lúcido';
+            document.querySelectorAll('#add-dream-modal .dream-pill').forEach(function(p) { p.classList.remove('selected'); });
+
+            showToast('🌙 ¡Sueño guardado!');
+            closeAddDream();
+        }
+
+        /* --- DELETE DREAM --- */
+        async function deleteDream(id) {
+            await deleteSingleDream(id);
+            renderDreamHistory();
+            showToast('🗑️ Sueño eliminado');
+        }
+
+        /* --- RENDER HISTORY --- */
+        async function renderDreamHistory() {
+            var dreams = await getDreams();
+            var container = document.getElementById('dream-history-list');
+            if (dreams.length === 0) {
+                container.innerHTML = '<div class="dream-history-empty"><span class="empty-icon">💤</span>Aún no has registrado ningún sueño</div>';
+                return;
+            }
+            var typeLabels = {
+                'bueno': '😊 Bueno', 'regular': '😐 Regular', 'borroso': '🌫️ Borroso',
+                'muy-bueno': '🌟 Muy bueno', 'alegre': '🎉 Alegre', 'pesadilla': '😈 Pesadilla'
+            };
+            container.innerHTML = dreams.map(function(d) {
+                return '<div class="dream-entry' + (d.lucid ? ' lucid-glow' : '') + '">' +
+                    '<div class="dream-entry-header">' +
+                        '<div class="dream-entry-title">💭 ' + escapeHtml(d.title) + '</div>' +
+                        '<div class="dream-entry-badges">' +
+                            (d.lucid ? '<span class="dream-badge lucid">Lúcido</span>' : '') +
+                            '<span class="dream-badge type-' + d.type + '">' + (typeLabels[d.type] || d.type) + '</span>' +
+                            '<button class="dream-entry-delete" data-dream-id="' + d.id + '">✕</button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="dream-entry-meta">' +
+                        '<span>📅 ' + escapeHtml(d.date) + '</span>' +
+                        '<span>🕐 ' + escapeHtml(d.time) + '</span>' +
+                    '</div>' +
+                    '<div class="dream-entry-desc">' + escapeHtml(d.description) + '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        /* --- EVENT DELEGATION (one-time setup) --- */
+        function setupDreamEvents() {
+            /* Overlay click closes modal (only if clicking the backdrop itself) */
+            document.getElementById('add-dream-overlay').addEventListener('click', function(e) {
+                if (e.target === this) closeAddDream();
+            });
+            document.getElementById('diary-overlay').addEventListener('click', function(e) {
+                if (e.target === this) closeDreamDiary();
+            });
+
+            /* Lucid toggle click */
+            document.getElementById('dream-lucid-row').addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleDreamLucid();
+            });
+
+            /* Dream type pill clicks */
+            document.getElementById('dream-pills').addEventListener('click', function(e) {
+                var pill = e.target.closest('.dream-pill');
+                if (pill) selectDreamType(pill);
+            });
+
+            /* Save button click */
+            document.getElementById('dream-save-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var btn = this;
+                btn.style.opacity = '0.7';
+                btn.style.transform = 'scale(0.97)';
+                setTimeout(function() {
+                    btn.style.opacity = '';
+                    btn.style.transform = '';
+                }, 200);
+                saveDream();
+            });
+
+            /* Delete button clicks (delegated on diary list) */
+            document.getElementById('dream-history-list').addEventListener('click', function(e) {
+                var btn = e.target.closest('.dream-entry-delete');
+                if (btn) {
+                    var id = parseInt(btn.getAttribute('data-dream-id'));
+                    if (id) deleteDream(id);
+                }
+            });
+        }
+
+        /* Run once on load */
+        setupDreamEvents();
+
         init();
     </script>
 </body>
 </html>
+g
