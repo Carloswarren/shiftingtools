@@ -15,6 +15,10 @@
             -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
+        textarea, input[type="text"], input[type="number"], input[type="time"] {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+        }
 
         :root {
             --bg-primary: #0a0a0f;
@@ -2129,6 +2133,643 @@
             animation: dreamPulse 1s ease-in-out;
         }
 
+
+        /* ========== SUBLIMINAL AUDIO PLAYER ========== */
+        .audio-player-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .audio-player-header {
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .audio-player-body {
+            padding: 0 18px 18px;
+        }
+        .audio-upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: 14px;
+            padding: 28px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .audio-upload-zone:hover,
+        .audio-upload-zone.dragover {
+            border-color: var(--accent);
+            background: rgba(233, 69, 96, 0.04);
+        }
+        .audio-upload-zone input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .audio-upload-icon {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        .audio-upload-text {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .audio-upload-hint {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+        }
+        .audio-info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+        .audio-info-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .audio-info-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .audio-info-size {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            flex-shrink: 0;
+        }
+        .audio-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .audio-play-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #c4183c);
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 18px var(--accent-glow);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .audio-play-btn:active { transform: scale(0.93); }
+        .audio-play-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .audio-status-area {
+            flex: 1;
+            min-width: 0;
+        }
+        .audio-status-label {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+        .audio-status-state {
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .audio-status-state.playing { color: var(--success); }
+        .audio-status-state.paused { color: var(--warning); }
+        .audio-status-state.stopped { color: var(--text-secondary); }
+        .audio-status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+        .audio-status-state.playing .audio-status-dot {
+            animation: audioPulse 1.2s ease-in-out infinite;
+        }
+        @keyframes audioPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+        .audio-volume-group {
+            margin-bottom: 14px;
+        }
+        .audio-volume-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .audio-volume-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+        }
+        .audio-volume-pct {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 32px;
+            text-align: right;
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
+        }
+        .audio-remove-btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 23, 68, 0.08);
+            border: 1px solid rgba(255, 23, 68, 0.2);
+            border-radius: 10px;
+            color: var(--danger);
+            font-size: 0.78rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .audio-remove-btn:hover { background: rgba(255, 23, 68, 0.15); }
+        .audio-loop-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .audio-loop-indicator .loop-icon {
+            font-size: 0.85rem;
+        }
+
+        /* ========== TRANCE AUDIO PLAYER ========== */
+        .trance-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .trance-header {
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .trance-body {
+            padding: 0 18px 18px;
+        }
+        .trance-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .trance-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .trance-option:hover {
+            border-color: var(--border);
+        }
+        .trance-option.active {
+            border-color: var(--wbtb-accent);
+            background: rgba(124, 77, 255, 0.06);
+        }
+        .trance-option-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(124, 77, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .trance-option.active .trance-option-icon {
+            background: rgba(124, 77, 255, 0.25);
+        }
+        .trance-option-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .trance-option-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .trance-option-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .trance-option-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .trance-option.active .trance-option-check {
+            border-color: var(--wbtb-accent);
+            background: var(--wbtb-accent);
+        }
+        .trance-option.active .trance-option-check::after {
+            content: '✓';
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+        }
+        .trance-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .trance-play-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wbtb-accent), #5a3abf);
+            border: none;
+            color: #fff;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 18px var(--wbtb-accent-glow);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .trance-play-btn:active { transform: scale(0.93); }
+        .trance-play-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .trance-status-area {
+            flex: 1;
+            min-width: 0;
+        }
+        .trance-status-label {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+        .trance-status-state {
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .trance-status-state.playing { color: var(--success); }
+        .trance-status-state.paused { color: var(--warning); }
+        .trance-status-state.stopped { color: var(--text-secondary); }
+        .trance-status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+        .trance-status-state.playing .trance-status-dot {
+            animation: trancePulse 1.2s ease-in-out infinite;
+        }
+        @keyframes trancePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.4); }
+        }
+        .trance-volume-group {
+            margin-bottom: 10px;
+        }
+        .trance-volume-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .trance-volume-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+        }
+        .trance-volume-pct {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--wbtb-accent);
+            min-width: 32px;
+            text-align: right;
+            flex-shrink: 0;
+            font-variant-numeric: tabular-nums;
+        }
+        .trance-loop-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        /* ============================================
+           REPROGRAMACION VISUAL - OVERLAYS
+           ============================================ */
+        /* Flash Subliminal Overlay (Tachistoscopy) */
+        #vr-flash-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #000000;
+            z-index: 10000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(16px, 4vw, 40px);
+        }
+        #vr-flash-overlay.active { display: flex; }
+        #vr-flash-display {
+            font-size: clamp(1.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.3;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.6), 0 0 40px rgba(233, 69, 96, 0.3);
+            opacity: 0;
+            transition: opacity 0.01s linear;
+            max-width: 100%;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        #vr-flash-display.visible { opacity: 1; }
+        #vr-flash-counter {
+            position: absolute;
+            bottom: clamp(20px, 5vh, 40px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(0.65rem, 2.5vw, 0.85rem);
+            color: #555568;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+        #vr-flash-exit {
+            position: absolute;
+            top: clamp(12px, 3vh, 24px);
+            right: clamp(12px, 3vw, 24px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #555568;
+            font-size: clamp(0.7rem, 2.5vw, 0.85rem);
+            padding: clamp(8px, 2vw, 14px) clamp(14px, 3vw, 22px);
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        /* Trataka Overlay (Peripheral Vision) */
+        #vr-trataka-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #000000;
+            z-index: 10000;
+            display: none;
+            overflow: hidden;
+        }
+        #vr-trataka-overlay.active { display: block; }
+        #vr-trataka-anchor {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(10px, 3vw, 18px);
+            height: clamp(10px, 3vw, 18px);
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #00e5ff 40%, transparent 70%);
+            box-shadow: 0 0 15px #00e5ff44, 0 0 30px #00e5ff44, 0 0 60px rgba(0, 229, 255, 0.15);
+            animation: vr-anchor-pulse 2.5s ease-in-out infinite;
+            z-index: 10002;
+        }
+        #vr-trataka-anchor::before, #vr-trataka-anchor::after {
+            content: ''; position: absolute; background: rgba(0, 229, 255, 0.12);
+        }
+        #vr-trataka-anchor::before {
+            width: 1px; height: clamp(30px, 8vh, 60px);
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        #vr-trataka-anchor::after {
+            width: clamp(30px, 8vw, 60px); height: 1px;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+        }
+        @keyframes vr-anchor-pulse {
+            0%, 100% { box-shadow: 0 0 15px #00e5ff44, 0 0 30px #00e5ff44, 0 0 60px rgba(0, 229, 255, 0.15); }
+            50% { box-shadow: 0 0 20px #00e5ff44, 0 0 45px #00e5ff44, 0 0 90px rgba(0, 229, 255, 0.2); }
+        }
+        .vr-trataka-text {
+            position: absolute;
+            font-size: clamp(0.7rem, 2.8vw, 1.1rem);
+            color: #e8e8f0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            text-shadow: 0 0 8px rgba(233, 69, 96, 0.3);
+            max-width: clamp(80px, 25vw, 200px);
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            z-index: 10001;
+            letter-spacing: 0.5px;
+        }
+        .vr-trataka-text.visible { opacity: 0.9; }
+        #vr-trataka-exit {
+            position: absolute;
+            top: clamp(12px, 3vh, 24px); right: clamp(12px, 3vw, 24px);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #555568;
+            font-size: clamp(0.65rem, 2.5vw, 0.8rem);
+            padding: clamp(6px, 1.5vw, 10px) clamp(12px, 3vw, 18px);
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 10003;
+        }
+        #vr-trataka-info {
+            position: absolute;
+            bottom: clamp(16px, 4vh, 30px); left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(0.6rem, 2.2vw, 0.75rem);
+            color: #555568;
+            letter-spacing: 2px;
+            z-index: 10003;
+            white-space: nowrap;
+        }
+
+        /* Visual Reprogramming Section Styles */
+        .vr-tabs {
+            display: flex;
+            background: var(--bg-input);
+            border-radius: 12px;
+            padding: 3px;
+            margin-bottom: 16px;
+        }
+        .vr-tab {
+            flex: 1;
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .vr-tab.active {
+            background: var(--wbtb-accent);
+            color: white;
+            box-shadow: 0 2px 12px var(--wbtb-accent-glow);
+        }
+        .vr-panel { display: none; }
+        .vr-panel.active { display: block; }
+        .vr-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .vr-stat {
+            text-align: center;
+            padding: 10px 6px;
+            background: var(--bg-input);
+            border-radius: 10px;
+        }
+        .vr-stat-num {
+            font-size: 1rem; font-weight: 700;
+            color: var(--wbtb-accent);
+            font-variant-numeric: tabular-nums;
+        }
+        .vr-stat-label {
+            font-size: 0.6rem; color: var(--text-dim);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .vr-preset-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .vr-preset-chip {
+            padding: 6px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .vr-preset-chip:active {
+            background: var(--wbtb-accent);
+            color: white;
+            border-color: var(--wbtb-accent);
+        }
+        .vr-textarea {
+            width: 100%;
+            min-height: 120px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-family: inherit;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .vr-textarea:focus { border-color: var(--wbtb-accent); }
+        .vr-textarea::placeholder { color: var(--text-dim); }
+        .vr-hint {
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            margin-top: 6px;
+            text-align: right;
+        }
+        .vr-info-box {
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            border-radius: 12px;
+            padding: 14px;
+            margin-top: 10px;
+        }
+        .vr-info-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #00e5ff;
+            margin-bottom: 6px;
+        }
+        .vr-info-text {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .btn-vr-start {
+            background: linear-gradient(135deg, var(--wbtb-accent), #5a3abf);
+            color: white;
+            box-shadow: 0 4px 20px var(--wbtb-accent-glow);
+        }
+        .btn-vr-start:active { transform: scale(0.98); }
+        .btn-vr-start-cyan {
+            background: linear-gradient(135deg, #00b8d4, #006064);
+            color: white;
+            box-shadow: 0 4px 20px #00e5ff33;
+        }
+        .btn-vr-start-cyan:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
@@ -2973,15 +3614,320 @@ Mi subconsciente absorbe estas palabras.</textarea>
                 </div>
             </div>
 
+
+            <!-- ========== SUBLIMINAL AUDIO PLAYER (IndexedDB) ========== -->
+            <div class="section subliminal-section">
+                <div class="section-title">🎵 Audios Subliminales en Bucle</div>
+                <div class="audio-player-card">
+                    <div class="audio-player-header">
+                        <div class="card-header-left">
+                            <div class="card-icon" style="background: rgba(233, 69, 96, 0.12);">🎵</div>
+                            <div>
+                                <div class="card-title">Reproductor Subliminal</div>
+                                <div class="card-desc">Sube tu audio y reproducirlo en bucle infinito de fondo</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="audio-player-body">
+
+                        <!-- Upload Zone (shown when no audio loaded) -->
+                        <div id="audio-upload-zone" class="audio-upload-zone">
+                            <div class="audio-upload-icon">🎧</div>
+                            <div class="audio-upload-text">Sube tu audio subliminal</div>
+                            <div class="audio-upload-hint">MP3, WAV, OGG, M4A — Se guarda automáticamente en IndexedDB</div>
+                            <input type="file" accept="audio/*" id="audio-file-input" onchange="handleAudioUpload(event)">
+                        </div>
+
+                        <!-- Audio Info (shown when audio is loaded) -->
+                        <div id="audio-loaded-info" style="display: none;">
+                            <div class="audio-info-row">
+                                <div class="audio-info-icon">🎶</div>
+                                <div class="audio-info-name" id="audio-filename">—</div>
+                                <div class="audio-info-size" id="audio-filesize">—</div>
+                            </div>
+
+                            <!-- Play/Pause Controls -->
+                            <div class="audio-controls-row">
+                                <button class="audio-play-btn" id="audio-play-btn" onclick="toggleSubliminalAudio()" disabled>
+                                    ▶
+                                </button>
+                                <div class="audio-status-area">
+                                    <div class="audio-status-label">Estado</div>
+                                    <div class="audio-status-state stopped" id="audio-status-state">
+                                        <div class="audio-status-dot"></div>
+                                        <span id="audio-status-text">Sin audio</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Volume Control -->
+                            <div class="audio-volume-group">
+                                <div class="input-label">
+                                    <span>Volumen</span>
+                                    <span class="input-value" id="audio-volume-value" style="color: var(--accent);">50%</span>
+                                </div>
+                                <div class="audio-volume-row">
+                                    <div class="audio-volume-icon">🔈</div>
+                                    <input type="range" class="range-slider" id="audio-volume-slider" min="0" max="100" value="50" step="1" oninput="updateAudioVolume()">
+                                    <div class="audio-volume-icon">🔊</div>
+                                    <div class="audio-volume-pct" id="audio-volume-pct">50%</div>
+                                </div>
+                            </div>
+
+                            <!-- Remove Button -->
+                            <button class="audio-remove-btn" onclick="removeSubliminalAudio()">
+                                ✕ Eliminar audio guardado
+                            </button>
+
+                            <!-- Loop Indicator -->
+                            <div class="audio-loop-indicator">
+                                <span class="loop-icon">🔁</span>
+                                <span>Bucle infinito activado — Se repite automáticamente</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ========== TRANCE AUDIO PLAYER ========== -->
+            <div class="section subliminal-section">
+                <div class="section-title">🌀 Audios de Trance / Frecuencias</div>
+                <div class="trance-card">
+                    <div class="trance-header">
+                        <div class="card-header-left">
+                            <div class="card-icon" style="background: rgba(124, 77, 255, 0.12);">🌀</div>
+                            <div>
+                                <div class="card-title">Reproductor de Trance</div>
+                                <div class="card-desc">Sonidos ambientales integrados para concentración y meditación</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="trance-body">
+
+                        <!-- Audio Selector -->
+                        <div class="trance-selector" id="trance-selector">
+                            <div class="trance-option active" data-trance="cricket" onclick="selectTranceAudio('cricket')">
+                                <div class="trance-option-icon">🦗</div>
+                                <div class="trance-option-info">
+                                    <div class="trance-option-name">Sonido de Grillo / Frecuencia Trance</div>
+                                    <div class="trance-option-desc">Zumbido natural de grillo — ideal para trance y concentración</div>
+                                </div>
+                                <div class="trance-option-check"></div>
+                            </div>
+                            <div class="trance-option" data-trance="rain" onclick="selectTranceAudio('rain')">
+                                <div class="trance-option-icon">🌧️</div>
+                                <div class="trance-option-info">
+                                    <div class="trance-option-name">Lluvia Suave</div>
+                                    <div class="trance-option-desc">Lluvia constante y relajante para fondo de estudio</div>
+                                </div>
+                                <div class="trance-option-check"></div>
+                            </div>
+                            <div class="trance-option" data-trance="whitenoise" onclick="selectTranceAudio('whitenoise')">
+                                <div class="trance-option-icon">📡</div>
+                                <div class="trance-option-info">
+                                    <div class="trance-option-name">Ruido Blanco / Estática</div>
+                                    <div class="trance-option-desc">Estática suave tipo radio — bloquea distracciones</div>
+                                </div>
+                                <div class="trance-option-check"></div>
+                            </div>
+                        </div>
+
+                        <!-- Play Controls -->
+                        <div class="trance-controls">
+                            <button class="trance-play-btn" id="trance-play-btn" onclick="toggleTranceAudio()" disabled>
+                                ▶
+                            </button>
+                            <div class="trance-status-area">
+                                <div class="trance-status-label">Estado</div>
+                                <div class="trance-status-state stopped" id="trance-status-state">
+                                    <div class="trance-status-dot"></div>
+                                    <span id="trance-status-text">Selecciona un audio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Volume Control -->
+                        <div class="trance-volume-group">
+                            <div class="input-label">
+                                <span>Volumen</span>
+                                <span class="input-value" id="trance-volume-value" style="color: var(--wbtb-accent);">30%</span>
+                            </div>
+                            <div class="trance-volume-row">
+                                <div class="trance-volume-icon">🔈</div>
+                                <input type="range" class="range-slider" id="trance-volume-slider" min="0" max="100" value="30" step="1" oninput="updateTranceVolume()">
+                                <div class="trance-volume-icon">🔊</div>
+                                <div class="trance-volume-pct" id="trance-volume-pct">30%</div>
+                            </div>
+                        </div>
+
+                        <!-- Loop Indicator -->
+                        <div class="trance-loop-indicator">
+                            <span class="loop-icon">🔁</span>
+                            <span>Bucle infinito activado — Se repite automáticamente</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <div class="section" style="padding-top: 0;">
                 <button class="btn btn-primary" id="main-action-btn" onclick="toggleMainAlarm()">
                     <span>▶</span>
+
+
                     <span id="main-action-text">Iniciar Alarma</span>
                 </button>
                 <button class="btn btn-rest" onclick="enterRestMode()">
                     <span>🌑</span>
                     🌙 Modo Sueño
                 </button>
+            </div>
+
+
+            <!-- ========== REPROGRAMACION VISUAL ========== -->
+            <div class="section">
+                <div class="section-title">👁️ Reprogramación Visual — Taquistoscopia y Trataka</div>
+
+                <div class="vr-tabs">
+                    <div class="vr-tab active" onclick="switchVrTab('flashes')" id="vr-tab-flashes">
+                        ⚡ Flashes
+                    </div>
+                    <div class="vr-tab" onclick="switchVrTab('trataka')" id="vr-tab-trataka">
+                        🔮 Trataka
+                    </div>
+                </div>
+
+                <!-- MODE 1: FLASHES SUBLIMINALES -->
+                <div class="vr-panel active" id="vr-panel-flashes">
+                    <div class="vr-stats">
+                        <div class="vr-stat"><div class="vr-stat-num" id="vr-flash-total">0</div><div class="vr-stat-label">Afirmaciones</div></div>
+                        <div class="vr-stat"><div class="vr-stat-num" id="vr-flash-dur">25</div><div class="vr-stat-label">Ms Flash</div></div>
+                        <div class="vr-stat"><div class="vr-stat-num" id="vr-flash-gap">2.5</div><div class="vr-stat-label">Seg. Pausa</div></div>
+                    </div>
+
+                    <div class="section-title" style="margin-top: 0;">📌 Presets Rápidos</div>
+                    <div class="vr-preset-chips">
+                        <div class="vr-preset-chip" onclick="loadVrPreset('abundance')">Abundancia</div>
+                        <div class="vr-preset-chip" onclick="loadVrPreset('confidence')">Confianza</div>
+                        <div class="vr-preset-chip" onclick="loadVrPreset('health')">Salud</div>
+                        <div class="vr-preset-chip" onclick="loadVrPreset('love')">Amor</div>
+                        <div class="vr-preset-chip" onclick="loadVrPreset('success')">Éxito</div>
+                        <div class="vr-preset-chip" onclick="loadVrPreset('sleep')">Sueño</div>
+                    </div>
+
+                    <div class="subliminal-card">
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon" style="background: #7c4dff20;">✍️</div>
+                                <div><div class="card-title">Afirmaciones</div><div class="card-desc">Una afirmación por línea</div></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="vr-textarea" id="vr-flash-text"
+                                placeholder="Escribe tus afirmaciones aquí...
+Una por línea.
+
+Ejemplo:
+Soy abundante y próspero
+Mi mente subconsciente acepta la riqueza"></textarea>
+                            <div class="vr-hint" id="vr-flash-count">0 afirmaciones detectadas</div>
+                        </div>
+                    </div>
+
+                    <div class="subliminal-card">
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon" style="background: #e9456020;">⏱️</div>
+                                <div><div class="card-title">Configuración de Tiempos</div><div class="card-desc">Ajusta la velocidad del flash y la pausa</div></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <div class="input-label"><span>Duración del Flash</span><span class="input-value" style="color: var(--wbtb-accent);" id="vr-flash-dur-label">25 ms</span></div>
+                                <input type="range" class="range-slider purple-slider" id="vr-flash-dur-slider" min="16" max="50" value="25" step="1" oninput="updateVrFlashDur(this.value)">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-label"><span>Pausa entre Flashes</span><span class="input-value" style="color: var(--wbtb-accent);" id="vr-flash-gap-label">2.5 s</span></div>
+                                <input type="range" class="range-slider purple-slider" id="vr-flash-gap-slider" min="1" max="6" value="2.5" step="0.5" oninput="updateVrFlashGap(this.value)">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-label"><span>Ciclos (0 = infinito)</span><span class="input-value" style="color: var(--wbtb-accent);" id="vr-flash-cycles-label">Infinito</span></div>
+                                <input type="range" class="range-slider purple-slider" id="vr-flash-cycles-slider" min="0" max="20" value="0" step="1" oninput="updateVrFlashCycles(this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-vr-start" onclick="startVrFlashes()">⚡ Iniciar Flashes Subliminales</button>
+                </div>
+
+                <!-- MODE 2: TRATAKA MODIFICADO -->
+                <div class="vr-panel" id="vr-panel-trataka">
+                    <div class="vr-stats">
+                        <div class="vr-stat"><div class="vr-stat-num" id="vr-trataka-total">0</div><div class="vr-stat-label">Afirmaciones</div></div>
+                        <div class="vr-stat"><div class="vr-stat-num" id="vr-trataka-simul">3</div><div class="vr-stat-label">Simultáneas</div></div>
+                        <div class="vr-stat"><div class="vr-stat-num" id="vr-trataka-int">4</div><div class="vr-stat-label">Seg. Ciclo</div></div>
+                    </div>
+
+                    <div class="section-title" style="margin-top: 0;">📌 Presets Rápidos</div>
+                    <div class="vr-preset-chips">
+                        <div class="vr-preset-chip" onclick="loadVrPresetTrataka('abundance')">Abundancia</div>
+                        <div class="vr-preset-chip" onclick="loadVrPresetTrataka('confidence')">Confianza</div>
+                        <div class="vr-preset-chip" onclick="loadVrPresetTrataka('health')">Salud</div>
+                        <div class="vr-preset-chip" onclick="loadVrPresetTrataka('love')">Amor</div>
+                        <div class="vr-preset-chip" onclick="loadVrPresetTrataka('success')">Éxito</div>
+                        <div class="vr-preset-chip" onclick="loadVrPresetTrataka('sleep')">Sueño</div>
+                    </div>
+
+                    <div class="subliminal-card">
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon" style="background: #00e5ff15;">📝</div>
+                                <div><div class="card-title">Afirmaciones Periféricas</div><div class="card-desc">Aparecerán en los bordes de la pantalla</div></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <textarea class="vr-textarea" id="vr-trataka-text"
+                                placeholder="Escribe tus afirmaciones aquí...
+Una por línea.
+
+Se mostrarán en los bordes
+mientras fijas la vista en el centro."></textarea>
+                            <div class="vr-hint" id="vr-trataka-count">0 afirmaciones detectadas</div>
+                        </div>
+                    </div>
+
+                    <div class="subliminal-card">
+                        <div class="card-header">
+                            <div class="card-header-left">
+                                <div class="card-icon" style="background: #7c4dff20;">⚙️</div>
+                                <div><div class="card-title">Configuración Trataka</div><div class="card-desc">Ajusta la visualización periférica</div></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-group">
+                                <div class="input-label"><span>Afirmaciones simultáneas</span><span class="input-value" style="color: var(--wbtb-accent);" id="vr-trataka-simul-label">3</span></div>
+                                <input type="range" class="range-slider purple-slider" id="vr-trataka-simul-slider" min="1" max="6" value="3" step="1" oninput="updateVrTratakaSimul(this.value)">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-label"><span>Ciclo de rotación (seg)</span><span class="input-value" style="color: var(--wbtb-accent);" id="vr-trataka-int-label">4 s</span></div>
+                                <input type="range" class="range-slider purple-slider" id="vr-trataka-int-slider" min="2" max="10" value="4" step="1" oninput="updateVrTratakaInt(this.value)">
+                            </div>
+                            <div class="input-group">
+                                <div class="input-label"><span>Opacidad del texto</span><span class="input-value" style="color: var(--wbtb-accent);" id="vr-trataka-opacity-label">90%</span></div>
+                                <input type="range" class="range-slider purple-slider" id="vr-trataka-opacity-slider" min="30" max="100" value="90" step="5" oninput="updateVrTratakaOpacity(this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vr-info-box">
+                        <div class="vr-info-title">💡 Cómo funciona el Trataka</div>
+                        <div class="vr-info-text">Mantén tu vista fija en el punto brillante del centro. Las afirmaciones aparecerán en los bordes de la pantalla y tu visión periférica las captará subconscientemente sin necesidad de leerlas directamente.</div>
+                    </div>
+
+                    <div style="height: 14px;"></div>
+                    <button class="btn btn-vr-start-cyan" onclick="startVrTrataka()">🔮 Iniciar Trataka Modificado</button>
+                </div>
             </div>
 
             <div class="footer">
@@ -3079,6 +4025,21 @@ Mi subconsciente absorbe estas palabras.</textarea>
 
         <div class="toast" id="toast"></div>
     </div>
+
+
+        <!-- ========== FLASH OVERLAY (Reprogramacion Visual) ========== -->
+        <div id="vr-flash-overlay">
+            <button id="vr-flash-exit" onclick="stopVrFlashes()">✕ Salir</button>
+            <div id="vr-flash-display"></div>
+            <div id="vr-flash-counter"></div>
+        </div>
+
+        <!-- ========== TRATAKA OVERLAY (Reprogramacion Visual) ========== -->
+        <div id="vr-trataka-overlay">
+            <button id="vr-trataka-exit" onclick="stopVrTrataka()">✕ Salir</button>
+            <div id="vr-trataka-anchor"></div>
+            <div id="vr-trataka-info"></div>
+        </div>
 
     <script>
         const state = {
@@ -3238,6 +4199,12 @@ Mi subconsciente absorbe estas palabras.</textarea>
             document.getElementById('med-new-message').addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') addMedMessage();
             });
+
+            // Init subliminal audio player (load from IndexedDB)
+            initSubliminalAudioPlayer();
+
+            // Init trance audio player (load settings from localStorage)
+            loadTranceSettings();
         }
 
         function applyWbtbSettings() {
@@ -5672,6 +6639,256 @@ Mi subconsciente absorbe estas palabras.</textarea>
             }, totalDelay);
         }
         // ========== END SUBLIMINAL ENGINE ==========
+        // ========== REPROGRAMACION VISUAL - SUBLIMINAL AFFIRMATIONS ==========
+        var VR_PRESETS = {
+            abundance: [
+                "Soy un imán para la abundancia",
+                "El dinero fluye hacia mí con facilidad",
+                "Merezco riqueza y prosperidad",
+                "Mi cuenta bancaria crece cada día",
+                "La abundancia es mi estado natural",
+                "Recibo dinero de fuentes esperadas e inesperadas",
+                "Soy financieramente libre",
+                "La riqueza me busca y me encuentra",
+                "Tengo más de lo que necesito",
+                "La abundancia llena cada área de mi vida"
+            ],
+            confidence: [
+                "Soy increíblemente seguro de mí mismo",
+                "Confío plenamente en mis habilidades",
+                "Merezco respeto y admiración",
+                "Mi voz importa y es valorada",
+                "Soy capaz de lograr cualquier cosa",
+                "Cada día me vuelvo más fuerte",
+                "Mi confianza inspira a otros",
+                "No necesito aprobación externa",
+                "Soy suficiente tal como soy",
+                "Camino con poder y convicción"
+            ],
+            health: [
+                "Mi cuerpo se sana y regenera constantemente",
+                "Cada célula de mi cuerpo vibra en salud",
+                "Elijo alimentos que nutren mi cuerpo",
+                "Mi sistema inmunológico es poderoso",
+                "Duermo profunda y reparadoramente",
+                "Tengo energía ilimitada todo el día",
+                "Mi mente está en calma y mi cuerpo sano",
+                "Me amo y cuido mi cuerpo cada día",
+                "La salud es mi derecho de nacimiento",
+                "Mi cuerpo es un templo sagrado"
+            ],
+            love: [
+                "Soy digno de amor incondicional",
+                "El amor fluye libremente hacia mí",
+                "Mi corazón está abierto a recibir amor",
+                "Atraigo relaciones sanas y profundas",
+                "Amo y soy amado sin condiciones",
+                "Merezco una relación apasionada y dulce",
+                "Mi amor propio atrae amor exterior",
+                "El universo conspira en mi favor amoroso",
+                "Soy digno de la mejor relación",
+                "El amor es mi estado natural"
+            ],
+            success: [
+                "Soy un éxito en todo lo que emprendo",
+                "Mis metas se alcanzan con facilidad",
+                "Cada día me acerco más a mis sueños",
+                "Soy excepcional en mi campo",
+                "Las oportunidades me buscan constantemente",
+                "Mi mente está programada para el éxito",
+                "Transformo obstáculos en escalones",
+                "Soy resiliente, persistente e imparable",
+                "El éxito es inevitable para mí",
+                "Creo mi propia realidad de éxito"
+            ],
+            sleep: [
+                "Me duermo fácil y profundamente",
+                "Mi mente se calma al acostarme",
+                "Cada noche duermo reparadoramente",
+                "Merezco un descanso profundo y sanador",
+                "Mi subconsciente trabaja mientras duermo",
+                "Me libero del estrés del día antes de dormir",
+                "Mi cuerpo se relaja completamente",
+                "Duermo como un bebé toda la noche",
+                "Mi mente subconsciente procesa mientras descanso",
+                "Al despertar me siento renovado y poderoso"
+            ]
+        };
+
+        function switchVrTab(tab) {
+            document.querySelectorAll('.vr-tab').forEach(function(t) { t.classList.remove('active'); });
+            document.querySelectorAll('.vr-panel').forEach(function(p) { p.classList.remove('active'); });
+            document.getElementById('vr-tab-' + tab).classList.add('active');
+            document.getElementById('vr-panel-' + tab).classList.add('active');
+        }
+
+        function loadVrPreset(key) {
+            document.getElementById('vr-flash-text').value = VR_PRESETS[key].join('\n');
+            updateVrFlashCount();
+        }
+        function loadVrPresetTrataka(key) {
+            document.getElementById('vr-trataka-text').value = VR_PRESETS[key].join('\n');
+            updateVrTratakaCount();
+        }
+
+        // --- Flash Mode ---
+        var vrFlashDuration = 25, vrFlashGap = 2.5, vrFlashMaxCycles = 0;
+        var vrFlashRunning = false, vrFlashTimeout = null;
+        var vrFlashList = [], vrFlashIndex = 0, vrFlashCycles = 0, vrFlashTotal = 0;
+
+        function updateVrFlashDur(v) {
+            vrFlashDuration = parseInt(v);
+            document.getElementById('vr-flash-dur-label').textContent = v + ' ms';
+            document.getElementById('vr-flash-dur').textContent = v;
+        }
+        function updateVrFlashGap(v) {
+            vrFlashGap = parseFloat(v);
+            document.getElementById('vr-flash-gap-label').textContent = v + ' s';
+            document.getElementById('vr-flash-gap').textContent = v;
+        }
+        function updateVrFlashCycles(v) {
+            vrFlashMaxCycles = parseInt(v);
+            document.getElementById('vr-flash-cycles-label').textContent = v === '0' ? 'Infinito' : v + ' veces';
+        }
+        function updateVrFlashCount() {
+            var lines = document.getElementById('vr-flash-text').value.trim().split('\n').filter(function(l) { return l.trim().length > 0; });
+            document.getElementById('vr-flash-total').textContent = lines.length;
+            document.getElementById('vr-flash-count').textContent = lines.length + ' afirmación' + (lines.length !== 1 ? 'es' : '') + ' detectada' + (lines.length !== 1 ? 's' : '');
+        }
+        document.getElementById('vr-flash-text').addEventListener('input', updateVrFlashCount);
+
+        function startVrFlashes() {
+            var text = document.getElementById('vr-flash-text').value.trim();
+            if (!text) { alert('Escribe al menos una afirmación para comenzar.'); return; }
+            vrFlashList = text.split('\n').filter(function(l) { return l.trim().length > 0; });
+            if (vrFlashList.length === 0) { alert('Escribe al menos una afirmación válida.'); return; }
+            vrFlashIndex = 0; vrFlashCycles = 0; vrFlashTotal = 0; vrFlashRunning = true;
+            document.getElementById('vr-flash-overlay').classList.add('active');
+            document.getElementById('main-ui').style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            try { var el = document.documentElement; (el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen).call(el).catch(function(){}); } catch(e) {}
+            vrFlashShowNext();
+        }
+
+        function vrFlashShowNext() {
+            if (!vrFlashRunning) return;
+            var ft = document.getElementById('vr-flash-display');
+            ft.textContent = vrFlashList[vrFlashIndex];
+            ft.classList.add('visible');
+            vrFlashTotal++;
+            document.getElementById('vr-flash-counter').textContent = vrFlashTotal + ' flashes · ' + (vrFlashIndex + 1) + '/' + vrFlashList.length;
+            setTimeout(function() {
+                if (!vrFlashRunning) return;
+                ft.classList.remove('visible');
+                vrFlashIndex++;
+                if (vrFlashIndex >= vrFlashList.length) {
+                    vrFlashIndex = 0; vrFlashCycles++;
+                    if (vrFlashMaxCycles > 0 && vrFlashCycles >= vrFlashMaxCycles) { stopVrFlashes(); return; }
+                }
+                vrFlashTimeout = setTimeout(function() { vrFlashShowNext(); }, vrFlashGap * 1000);
+            }, vrFlashDuration);
+        }
+
+        function stopVrFlashes() {
+            vrFlashRunning = false;
+            clearTimeout(vrFlashTimeout);
+            document.getElementById('vr-flash-display').classList.remove('visible');
+            document.getElementById('vr-flash-overlay').classList.remove('active');
+            document.getElementById('main-ui').style.overflow = '';
+            document.body.style.overflow = '';
+            try { if (document.exitFullscreen) document.exitFullscreen().catch(function(){}); } catch(e) {}
+        }
+
+        // --- Trataka Mode ---
+        var vrTratakaRunning = false, vrTratakaInterval = null;
+        var vrTratakaList = [], vrTratakaCycle = 0;
+        var vrTratakaSimul = 3, vrTratakaCycleSec = 4, vrTratakaOpacity = 90;
+
+        function updateVrTratakaSimul(v) {
+            vrTratakaSimul = parseInt(v);
+            document.getElementById('vr-trataka-simul-label').textContent = v;
+            document.getElementById('vr-trataka-simul').textContent = v;
+        }
+        function updateVrTratakaInt(v) {
+            vrTratakaCycleSec = parseInt(v);
+            document.getElementById('vr-trataka-int-label').textContent = v + ' s';
+            document.getElementById('vr-trataka-int').textContent = v;
+        }
+        function updateVrTratakaOpacity(v) {
+            vrTratakaOpacity = parseInt(v);
+            document.getElementById('vr-trataka-opacity-label').textContent = v + '%';
+        }
+        function updateVrTratakaCount() {
+            var lines = document.getElementById('vr-trataka-text').value.trim().split('\n').filter(function(l) { return l.trim().length > 0; });
+            document.getElementById('vr-trataka-total').textContent = lines.length;
+            document.getElementById('vr-trataka-count').textContent = lines.length + ' afirmación' + (lines.length !== 1 ? 'es' : '') + ' detectada' + (lines.length !== 1 ? 's' : '');
+        }
+        document.getElementById('vr-trataka-text').addEventListener('input', updateVrTratakaCount);
+
+        function startVrTrataka() {
+            var text = document.getElementById('vr-trataka-text').value.trim();
+            if (!text) { alert('Escribe al menos una afirmación para comenzar.'); return; }
+            vrTratakaList = text.split('\n').filter(function(l) { return l.trim().length > 0; });
+            if (vrTratakaList.length === 0) { alert('Escribe al menos una afirmación válida.'); return; }
+            vrTratakaCycle = 0; vrTratakaRunning = true;
+            document.getElementById('vr-trataka-overlay').classList.add('active');
+            document.getElementById('main-ui').style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
+            try { var el = document.documentElement; (el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen).call(el).catch(function(){}); } catch(e) {}
+            vrTratakaShowCycle();
+            vrTratakaInterval = setInterval(function() {
+                if (!vrTratakaRunning) return;
+                vrTratakaShowCycle();
+            }, vrTratakaCycleSec * 1000);
+        }
+
+        function vrTratakaShowCycle() {
+            if (!vrTratakaRunning) return;
+            var ov = document.getElementById('vr-trataka-overlay');
+            ov.querySelectorAll('.vr-trataka-text').forEach(function(el) { el.remove(); });
+            var edges = ['top', 'bottom', 'left', 'right'];
+            var vw = window.innerWidth, vh = window.innerHeight;
+            var margin = Math.min(vw, vh) * 0.15;
+            for (var i = 0; i < vrTratakaSimul; i++) {
+                var affIdx = (vrTratakaCycle + i) % vrTratakaList.length;
+                var el = document.createElement('div');
+                el.className = 'vr-trataka-text';
+                el.textContent = vrTratakaList[affIdx];
+                var edge = edges[i % edges.length];
+                switch (edge) {
+                    case 'top':
+                        el.style.top = (margin + Math.random() * vh * 0.1) + 'px';
+                        el.style.left = '50%'; el.style.transform = 'translateX(-50%)'; break;
+                    case 'bottom':
+                        el.style.bottom = (margin + Math.random() * vh * 0.1) + 'px';
+                        el.style.left = '50%'; el.style.transform = 'translateX(-50%)'; break;
+                    case 'left':
+                        el.style.left = (margin + Math.random() * vw * 0.05) + 'px';
+                        el.style.top = (Math.random() < 0.5 ? margin + Math.random() * vh * 0.2 : vh - margin - Math.random() * vh * 0.2) + 'px';
+                        el.style.transform = 'translateY(-50%)'; break;
+                    case 'right':
+                        el.style.right = (margin + Math.random() * vw * 0.05) + 'px';
+                        el.style.top = (Math.random() < 0.5 ? margin + Math.random() * vh * 0.2 : vh - margin - Math.random() * vh * 0.2) + 'px';
+                        el.style.transform = 'translateY(-50%)'; break;
+                }
+                ov.appendChild(el);
+                requestAnimationFrame((function(e, o) { return function() { e.style.opacity = o / 100; e.classList.add('visible'); }; })(el, vrTratakaOpacity));
+            }
+            vrTratakaCycle += vrTratakaSimul;
+            document.getElementById('vr-trataka-info').textContent = 'CICLO ' + Math.floor(vrTratakaCycle / vrTratakaSimul) + ' · ' + vrTratakaList.length + ' AFIRMACIONES';
+        }
+
+        function stopVrTrataka() {
+            vrTratakaRunning = false;
+            clearInterval(vrTratakaInterval);
+            document.getElementById('vr-trataka-overlay').querySelectorAll('.vr-trataka-text').forEach(function(el) { el.remove(); });
+            document.getElementById('vr-trataka-overlay').classList.remove('active');
+            document.getElementById('main-ui').style.overflow = '';
+            document.body.style.overflow = '';
+            try { if (document.exitFullscreen) document.exitFullscreen().catch(function(){}); } catch(e) {}
+        }
+        // ========== END REPROGRAMACION VISUAL ==========
+
 
         function scrollToSection(section) {
             var el = document.getElementById('main-ui');
@@ -6057,7 +7274,534 @@ Mi subconsciente absorbe estas palabras.</textarea>
         }
 
         /* Run once on load */
+
+        /* ========== SUBLIMINAL AUDIO PLAYER (IndexedDB) ========== */
+        const AUDIO_DB_NAME = 'LucidSubliminalAudio';
+        const AUDIO_DB_VERSION = 1;
+        const AUDIO_STORE_NAME = 'audioFile';
+
+        let subliminalAudioEl = null;
+        let subliminalAudioBlobURL = null;
+        let subliminalAudioPlaying = false;
+
+        function openAudioDB() {
+            return new Promise(function(resolve, reject) {
+                var request = indexedDB.open(AUDIO_DB_NAME, AUDIO_DB_VERSION);
+                request.onupgradeneeded = function(e) {
+                    var db = e.target.result;
+                    if (!db.objectStoreNames.contains(AUDIO_STORE_NAME)) {
+                        db.createObjectStore(AUDIO_STORE_NAME, { keyPath: 'id' });
+                    }
+                };
+                request.onsuccess = function(e) { resolve(e.target.result); };
+                request.onerror = function(e) { reject(e.target.error); };
+            });
+        }
+
+        async function saveAudioToDB(blob, fileName, fileSize) {
+            try {
+                var db = await openAudioDB();
+                var tx = db.transaction(AUDIO_STORE_NAME, 'readwrite');
+                var store = tx.objectStore(AUDIO_STORE_NAME);
+                store.put({
+                    id: 'subliminal_audio',
+                    blob: blob,
+                    fileName: fileName,
+                    fileSize: fileSize,
+                    savedAt: Date.now()
+                });
+                return new Promise(function(resolve, reject) {
+                    tx.oncomplete = function() { resolve(true); };
+                    tx.onerror = function(e) { reject(e.target.error); };
+                });
+            } catch (e) {
+                console.log('Error guardando audio en IndexedDB:', e);
+                return false;
+            }
+        }
+
+        async function loadAudioFromDB() {
+            try {
+                var db = await openAudioDB();
+                var tx = db.transaction(AUDIO_STORE_NAME, 'readonly');
+                var store = tx.objectStore(AUDIO_STORE_NAME);
+                var request = store.get('subliminal_audio');
+                return new Promise(function(resolve) {
+                    request.onsuccess = function(e) {
+                        resolve(e.target.result || null);
+                    };
+                    request.onerror = function() { resolve(null); };
+                });
+            } catch (e) {
+                console.log('Error leyendo audio de IndexedDB:', e);
+                return null;
+            }
+        }
+
+        async function deleteAudioFromDB() {
+            try {
+                var db = await openAudioDB();
+                var tx = db.transaction(AUDIO_STORE_NAME, 'readwrite');
+                var store = tx.objectStore(AUDIO_STORE_NAME);
+                store.delete('subliminal_audio');
+                return new Promise(function(resolve) {
+                    tx.oncomplete = function() { resolve(true); };
+                    tx.onerror = function() { resolve(false); };
+                });
+            } catch (e) {
+                console.log('Error eliminando audio de IndexedDB:', e);
+                return false;
+            }
+        }
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        async function handleAudioUpload(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+
+            // Validate audio type
+            if (!file.type.startsWith('audio/')) {
+                showToast('Por favor selecciona un archivo de audio válido');
+                return;
+            }
+
+            // Validate size (max 50MB)
+            if (file.size > 50 * 1024 * 1024) {
+                showToast('El archivo es demasiado grande (máx. 50MB)');
+                return;
+            }
+
+            // Stop current playback if any
+            stopSubliminalAudio();
+
+            // Save to IndexedDB
+            showToast('Guardando audio en IndexedDB...');
+            var saved = await saveAudioToDB(file, file.name, file.size);
+            if (saved) {
+                showToast('Audio guardado correctamente ✓');
+                loadAudioPlayer(file, file.name, file.size);
+            } else {
+                showToast('Error al guardar el audio');
+            }
+
+            // Reset file input
+            event.target.value = '';
+        }
+
+        function loadAudioPlayer(blob, fileName, fileSize) {
+            // Create blob URL
+            if (subliminalAudioBlobURL) {
+                URL.revokeObjectURL(subliminalAudioBlobURL);
+            }
+            subliminalAudioBlobURL = URL.createObjectURL(blob);
+
+            // Create or reuse audio element
+            if (!subliminalAudioEl) {
+                subliminalAudioEl = new Audio();
+                subliminalAudioEl.loop = true;
+                subliminalAudioEl.addEventListener('ended', function() {
+                    // loop attribute handles this, but just in case
+                    if (subliminalAudioPlaying) {
+                        subliminalAudioEl.currentTime = 0;
+                        subliminalAudioEl.play();
+                    }
+                });
+            }
+
+            subliminalAudioEl.src = subliminalAudioBlobURL;
+            subliminalAudioEl.load();
+
+            // Apply saved volume
+            var savedVol = localStorage.getItem('subliminal_audio_volume');
+            var volume = savedVol ? parseInt(savedVol) : 50;
+            subliminalAudioEl.volume = volume / 100;
+
+            // Update UI
+            document.getElementById('audio-upload-zone').style.display = 'none';
+            document.getElementById('audio-loaded-info').style.display = 'block';
+            document.getElementById('audio-filename').textContent = fileName || 'Audio sin nombre';
+            document.getElementById('audio-filesize').textContent = formatBytes(fileSize || 0);
+            document.getElementById('audio-play-btn').disabled = false;
+            document.getElementById('audio-volume-slider').value = volume;
+            document.getElementById('audio-volume-value').textContent = volume + '%';
+            document.getElementById('audio-volume-pct').textContent = volume + '%';
+
+            updateAudioStatus('stopped', 'Listo — Presiona ▶ para reproducir');
+        }
+
+        function toggleSubliminalAudio() {
+            if (!subliminalAudioEl || !subliminalAudioEl.src) return;
+
+            if (subliminalAudioPlaying) {
+                pauseSubliminalAudio();
+            } else {
+                playSubliminalAudio();
+            }
+        }
+
+        async function playSubliminalAudio() {
+            if (!subliminalAudioEl) return;
+            try {
+                await subliminalAudioEl.play();
+                subliminalAudioPlaying = true;
+                document.getElementById('audio-play-btn').textContent = '⏸';
+                updateAudioStatus('playing', 'Reproduciendo en bucle 🔁');
+            } catch (e) {
+                console.log('Error reproduciendo audio:', e);
+                showToast('Error al reproducir. Toca de nuevo.');
+            }
+        }
+
+        function pauseSubliminalAudio() {
+            if (!subliminalAudioEl) return;
+            subliminalAudioEl.pause();
+            subliminalAudioPlaying = false;
+            document.getElementById('audio-play-btn').textContent = '▶';
+            updateAudioStatus('paused', 'En pausa');
+        }
+
+        function stopSubliminalAudio() {
+            if (!subliminalAudioEl) return;
+            subliminalAudioEl.pause();
+            subliminalAudioEl.currentTime = 0;
+            subliminalAudioPlaying = false;
+            document.getElementById('audio-play-btn').textContent = '▶';
+            updateAudioStatus('stopped', 'Detenido');
+        }
+
+        function updateAudioVolume() {
+            var slider = document.getElementById('audio-volume-slider');
+            var vol = parseInt(slider.value);
+            if (subliminalAudioEl) {
+                subliminalAudioEl.volume = vol / 100;
+            }
+            document.getElementById('audio-volume-value').textContent = vol + '%';
+            document.getElementById('audio-volume-pct').textContent = vol + '%';
+            localStorage.setItem('subliminal_audio_volume', vol.toString());
+        }
+
+        function updateAudioStatus(state, text) {
+            var el = document.getElementById('audio-status-state');
+            el.className = 'audio-status-state ' + state;
+            document.getElementById('audio-status-text').textContent = text;
+        }
+
+        async function removeSubliminalAudio() {
+            if (!confirm('¿Eliminar el audio subliminal guardado?')) return;
+
+            stopSubliminalAudio();
+
+            if (subliminalAudioBlobURL) {
+                URL.revokeObjectURL(subliminalAudioBlobURL);
+                subliminalAudioBlobURL = null;
+            }
+            subliminalAudioEl = null;
+
+            await deleteAudioFromDB();
+
+            document.getElementById('audio-upload-zone').style.display = '';
+            document.getElementById('audio-loaded-info').style.display = 'none';
+            document.getElementById('audio-play-btn').disabled = true;
+            document.getElementById('audio-play-btn').textContent = '▶';
+
+            showToast('Audio eliminado ✓');
+        }
+
+        async function initSubliminalAudioPlayer() {
+            try {
+                var record = await loadAudioFromDB();
+                if (record && record.blob) {
+                    loadAudioPlayer(record.blob, record.fileName, record.fileSize);
+                    console.log('Audio subliminal cargado desde IndexedDB:', record.fileName);
+                }
+            } catch (e) {
+                console.log('Error inicializando reproductor subliminal:', e);
+            }
+        }
+
+        // Drag & drop support
+        (function() {
+            var zone = document.getElementById('audio-upload-zone');
+            if (!zone) return;
+            zone.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                zone.classList.add('dragover');
+            });
+            zone.addEventListener('dragleave', function() {
+                zone.classList.remove('dragover');
+            });
+            zone.addEventListener('drop', function(e) {
+                e.preventDefault();
+                zone.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    var fakeEvent = { target: { files: e.dataTransfer.files, value: '' } };
+                    handleAudioUpload(fakeEvent);
+                }
+            });
+        })();
         setupDreamEvents();
+
+
+        /* ========== TRANCE AUDIO PLAYER (Web Audio API Synthesis) ========== */
+        const TRANCE_STORAGE_KEY = 'lucid_trance_settings';
+        let tranceAudioCtx = null;
+        let tranceNodes = [];
+        let trancePlaying = false;
+        let tranceSelected = 'cricket';
+        let tranceVolume = 30;
+
+        function getTranceAudioContext() {
+            if (!tranceAudioCtx || tranceAudioCtx.state === 'closed') {
+                tranceAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (tranceAudioCtx.state === 'suspended') {
+                tranceAudioCtx.resume();
+            }
+            return tranceAudioCtx;
+        }
+
+        function createCricketSound(ctx, masterGain) {
+            /* Cricket = layered oscillators with rapid amplitude modulation */
+            var nodes = [];
+            var freqs = [4200, 4800, 5400, 6200];
+
+            freqs.forEach(function(freq, i) {
+                var osc = ctx.createOscillator();
+                osc.type = 'sine';
+                osc.frequency.value = freq + (i * 130);
+
+                /* Amplitude modulator for chirping effect */
+                var modulator = ctx.createOscillator();
+                modulator.type = 'square';
+                modulator.frequency.value = 38 + (i * 7); /* chirp rate */
+
+                var modGain = ctx.createGain();
+                modGain.gain.value = 0.5 + (i * 0.12);
+
+                var oscGain = ctx.createGain();
+                oscGain.gain.value = 0;
+
+                modulator.connect(modGain);
+                modGain.connect(oscGain.gain);
+
+                osc.connect(oscGain);
+                oscGain.connect(masterGain);
+
+                osc.start();
+                modulator.start();
+                nodes.push(osc, modulator);
+            });
+
+            /* Add subtle background hum */
+            var hum = ctx.createOscillator();
+            hum.type = 'sine';
+            hum.frequency.value = 180;
+            var humGain = ctx.createGain();
+            humGain.gain.value = 0.02;
+            hum.connect(humGain);
+            humGain.connect(masterGain);
+            hum.start();
+            nodes.push(hum);
+
+            return nodes;
+        }
+
+        function createRainSound(ctx, masterGain) {
+            /* Rain = filtered white noise */
+            var bufferSize = ctx.sampleRate * 2;
+            var buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            var data = buffer.getChannelData(0);
+            for (var i = 0; i < bufferSize; i++) {
+                data[i] = (Math.random() * 2 - 1);
+            }
+            var noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+
+            /* Low-pass filter for rain character */
+            var lpFilter = ctx.createBiquadFilter();
+            lpFilter.type = 'lowpass';
+            lpFilter.frequency.value = 3000;
+            lpFilter.Q.value = 0.5;
+
+            /* High-pass to remove rumble */
+            var hpFilter = ctx.createBiquadFilter();
+            hpFilter.type = 'highpass';
+            hpFilter.frequency.value = 200;
+
+            var rainGain = ctx.createGain();
+            rainGain.gain.value = 0.6;
+
+            noise.connect(lpFilter);
+            lpFilter.connect(hpFilter);
+            hpFilter.connect(rainGain);
+            rainGain.connect(masterGain);
+            noise.start();
+
+            return [noise];
+        }
+
+        function createWhiteNoise(ctx, masterGain) {
+            /* White noise / static */
+            var bufferSize = ctx.sampleRate * 2;
+            var buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            var data = buffer.getChannelData(0);
+            for (var i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            var noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+            noise.loop = true;
+
+            var noiseGain = ctx.createGain();
+            noiseGain.gain.value = 0.35;
+
+            noise.connect(noiseGain);
+            noiseGain.connect(masterGain);
+            noise.start();
+
+            return [noise];
+        }
+
+        function startTranceAudio() {
+            if (trancePlaying) return;
+
+            var ctx = getTranceAudioContext();
+            var masterGain = ctx.createGain();
+            masterGain.gain.value = tranceVolume / 100;
+            masterGain.connect(ctx.destination);
+
+            switch (tranceSelected) {
+                case 'cricket':
+                    tranceNodes = createCricketSound(ctx, masterGain);
+                    break;
+                case 'rain':
+                    tranceNodes = createRainSound(ctx, masterGain);
+                    break;
+                case 'whitenoise':
+                    tranceNodes = createWhiteNoise(ctx, masterGain);
+                    break;
+                default:
+                    tranceNodes = createCricketSound(ctx, masterGain);
+            }
+
+            /* Store master gain for volume updates */
+            tranceNodes._masterGain = masterGain;
+            trancePlaying = true;
+
+            document.getElementById('trance-play-btn').textContent = '⏸';
+            updateTranceStatus('playing', 'Reproduciendo en bucle 🔁');
+        }
+
+        function stopTranceAudio() {
+            if (!trancePlaying) return;
+
+            tranceNodes.forEach(function(node) {
+                try { node.stop(); } catch(e) {}
+            });
+
+            if (tranceNodes._masterGain) {
+                try { tranceNodes._masterGain.disconnect(); } catch(e) {}
+            }
+
+            tranceNodes = [];
+            trancePlaying = false;
+
+            document.getElementById('trance-play-btn').textContent = '▶';
+            updateTranceStatus('stopped', 'Detenido');
+        }
+
+        function toggleTranceAudio() {
+            if (trancePlaying) {
+                stopTranceAudio();
+            } else {
+                startTranceAudio();
+            }
+        }
+
+        function selectTranceAudio(type) {
+            var wasPlaying = trancePlaying;
+            if (wasPlaying) stopTranceAudio();
+
+            tranceSelected = type;
+
+            /* Update UI selection */
+            var options = document.querySelectorAll('.trance-option');
+            options.forEach(function(opt) {
+                opt.classList.remove('active');
+                if (opt.getAttribute('data-trance') === type) {
+                    opt.classList.add('active');
+                }
+            });
+
+            document.getElementById('trance-play-btn').disabled = false;
+            updateTranceStatus('stopped', 'Listo — Presiona ▶ para reproducir');
+
+            saveTranceSettings();
+
+            if (wasPlaying) startTranceAudio();
+        }
+
+        function updateTranceVolume() {
+            var slider = document.getElementById('trance-volume-slider');
+            tranceVolume = parseInt(slider.value);
+
+            document.getElementById('trance-volume-value').textContent = tranceVolume + '%';
+            document.getElementById('trance-volume-pct').textContent = tranceVolume + '%';
+
+            /* Update live gain if playing */
+            if (trancePlaying && tranceNodes._masterGain) {
+                tranceNodes._masterGain.gain.value = tranceVolume / 100;
+            }
+
+            saveTranceSettings();
+        }
+
+        function updateTranceStatus(state, text) {
+            var el = document.getElementById('trance-status-state');
+            el.className = 'trance-status-state ' + state;
+            document.getElementById('trance-status-text').textContent = text;
+        }
+
+        function saveTranceSettings() {
+            try {
+                localStorage.setItem(TRANCE_STORAGE_KEY, JSON.stringify({
+                    selected: tranceSelected,
+                    volume: tranceVolume
+                }));
+            } catch(e) {}
+        }
+
+        function loadTranceSettings() {
+            try {
+                var raw = localStorage.getItem(TRANCE_STORAGE_KEY);
+                if (raw) {
+                    var data = JSON.parse(raw);
+                    if (data.selected) tranceSelected = data.selected;
+                    if (typeof data.volume === 'number') tranceVolume = data.volume;
+                }
+            } catch(e) {}
+
+            /* Apply to UI */
+            var options = document.querySelectorAll('.trance-option');
+            options.forEach(function(opt) {
+                opt.classList.remove('active');
+                if (opt.getAttribute('data-trance') === tranceSelected) {
+                    opt.classList.add('active');
+                }
+            });
+
+            document.getElementById('trance-volume-slider').value = tranceVolume;
+            document.getElementById('trance-volume-value').textContent = tranceVolume + '%';
+            document.getElementById('trance-volume-pct').textContent = tranceVolume + '%';
+            document.getElementById('trance-play-btn').disabled = false;
+            updateTranceStatus('stopped', 'Listo — Presiona ▶ para reproducir');
+        }
 
         init();
     </script>
