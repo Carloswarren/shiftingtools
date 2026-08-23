@@ -727,6 +727,289 @@
             font-size: 0.7rem;
         }
 
+        /* ========== ELECTROCHOQUE MODULE ========== */
+        .ek-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid #4a3000;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .ek-card .card-header { border-bottom: 1px solid #4a3000; }
+        .ek-card .card-icon { background: #ff6d0020; }
+        .ek-card .card-title { color: #ffab00; }
+        .ek-alert-flash {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: #ff6d00;
+            z-index: 9998;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.08s ease;
+        }
+        .ek-alert-flash.active { display: block; }
+        .ek-alert-flash.visible { opacity: 0.3; }
+        .ek-status-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 12px;
+        }
+        .ek-status-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+        }
+        .ek-status-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ff6d00;
+            font-variant-numeric: tabular-nums;
+        }
+        .ek-status-value.inactive { color: var(--text-dim); }
+        .ek-scheduled-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .ek-alert-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .ek-alert-item .ek-alert-time {
+            flex: 1;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+        .ek-alert-item .ek-alert-remaining {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            font-variant-numeric: tabular-nums;
+        }
+        .ek-alert-item .ek-alert-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ff6d0020;
+            color: #ff6d00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .ek-alert-item .ek-alert-remove {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            background: #ff174420;
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.6rem;
+            flex-shrink: 0;
+        }
+        .ek-add-time-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .ek-add-time-row .ek-min-input {
+            flex: 1;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .ek-add-time-row .ek-min-input:focus { border-color: #ff6d00; }
+        .ek-add-time-row .ek-min-input::placeholder { color: var(--text-dim); }
+        .ek-add-time-row .ek-add-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            background: #ff6d00;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .ek-add-time-row .ek-add-btn:active { transform: scale(0.95); }
+        .ek-range-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ek-range-row .range-slider { flex: 1; }
+        .ek-range-row .range-slider::-webkit-slider-thumb { background: #ff6d00; box-shadow: 0 0 10px #ff6d0055; }
+        .ek-range-row .range-slider::-moz-range-thumb { background: #ff6d00; box-shadow: 0 0 10px #ff6d0055; }
+        .ek-range-val {
+            min-width: 45px;
+            text-align: right;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ff6d00;
+            font-variant-numeric: tabular-nums;
+        }
+        .ek-volume-slider .range-slider::-webkit-slider-thumb { background: #ff6d00; box-shadow: 0 0 10px #ff6d0055; }
+        .ek-volume-slider .range-slider::-moz-range-thumb { background: #ff6d00; box-shadow: 0 0 10px #ff6d0055; }
+        .ek-test-btn {
+            background: linear-gradient(135deg, #ff6d00, #e65100);
+            color: white;
+            box-shadow: 0 4px 20px #ff6d0033;
+        }
+        .ek-test-btn:active { transform: scale(0.98); }
+        .ek-active-indicator {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff6d00;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            z-index: 8500;
+            display: none;
+            animation: pulse-glow 1s infinite;
+            box-shadow: 0 4px 20px #ff6d0044;
+        }
+        .ek-active-indicator.show {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ek-sound-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1.5px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .ek-sound-option:hover { background: #1e1e32; }
+        .ek-sound-option.selected {
+            border-color: #ff6d00;
+            background: #1e1a10;
+            box-shadow: 0 0 16px #ff6d0018;
+        }
+        .ek-sound-option .ek-radio {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--text-dim);
+            flex-shrink: 0;
+            position: relative;
+            transition: border-color 0.25s;
+        }
+        .ek-sound-option.selected .ek-radio { border-color: #ff6d00; }
+        .ek-sound-option.selected .ek-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #ff6d00;
+        }
+        .ek-sound-info { flex: 1; min-width: 0; }
+        .ek-sound-name { font-size: 0.82rem; font-weight: 500; color: var(--text-primary); }
+        .ek-sound-desc { font-size: 0.68rem; color: var(--text-dim); margin-top: 2px; }
+        .ek-play-btn {
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background: var(--bg-input); color: var(--text-secondary);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.25s; flex-shrink: 0; font-size: 0.8rem;
+        }
+        .ek-play-btn:hover { background: #e65100; color: white; }
+        .ek-play-btn.playing { background: #ff6d00; color: white; box-shadow: 0 0 14px #ff6d0055; }
+        .ek-play-btn svg { width: 14px; height: 14px; fill: currentColor; }
+        .ek-upload-area {
+            padding: 16px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+        .ek-upload-area:hover, .ek-upload-area.dragover {
+            border-color: #ff6d00;
+            background: #ff6d0008;
+        }
+        .ek-upload-area .ek-upload-icon { font-size: 1.3rem; margin-bottom: 4px; }
+        .ek-upload-area .ek-upload-text { font-size: 0.78rem; color: var(--text-secondary); }
+        .ek-upload-area .ek-upload-hint { font-size: 0.66rem; color: var(--text-dim); margin-top: 3px; }
+        .ek-upload-area input[type="file"] {
+            position: absolute; inset: 0; opacity: 0; cursor: pointer;
+        }
+        .ek-custom-selected {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1.5px solid #00c853;
+            margin-top: 10px;
+        }
+        .ek-custom-selected .ek-radio { border-color: #00c853; }
+        .ek-custom-selected .ek-radio::after { background: #00c853; }
+        .ek-custom-selected .ek-sound-name { color: #00c853; }
+        .ek-custom-remove {
+            width: 26px; height: 26px; border-radius: 50%; border: none;
+            background: #ff174420; color: var(--danger);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 0.7rem; flex-shrink: 0; transition: all 0.2s;
+        }
+        .ek-custom-remove:hover { background: #ff174440; }
+        .ek-ducking-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .ek-ducking-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ek-helper-text {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            margin-top: 6px;
+            line-height: 1.5;
+            padding-left: 2px;
+        }
+
         .alarm-active-indicator {
             position: fixed;
             top: 20px;
@@ -3534,12 +3817,190 @@
                 </div>
             </div>
 
+            <!-- ========== ELECTROCHOQUE — Alertas Anti-Sueño Personalizadas ========== -->
+            <div class="section">
+                <div class="section-title">⚡ ELECTROCHOQUE — Alertas Anti-Sueño</div>
+                <div class="ek-card">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <div class="card-icon" style="background: #ff6d0020;">⚡</div>
+                            <div>
+                                <div class="card-title">ELECTROCHOQUE</div>
+                                <div class="card-desc">Pulsos de alerta programados para mantenerte despierto</div>
+                            </div>
+                        </div>
+                        <div class="toggle" id="ek-toggle" onclick="toggleElectrochoque()"></div>
+                    </div>
+                    <div class="card-body" id="ek-settings">
+
+                        <!-- Status Row -->
+                        <div class="ek-status-row" id="ek-next-alert-row">
+                            <div class="ek-status-label">⚡ Próximo pulso en</div>
+                            <div class="ek-status-value inactive" id="ek-next-alert-val">--:--</div>
+                        </div>
+
+                        <!-- Sound Selection -->
+                        <div class="input-group">
+                            <div class="input-label"><span>Tipo de pulso</span></div>
+                            <div id="ek-sound-list">
+                                <div class="ek-sound-option selected" data-sound="ek-alert-pulse" onclick="setEkSound('ek-alert-pulse')" style="margin-bottom: 6px;">
+                                    <div class="ek-radio"></div>
+                                    <div class="ek-sound-info">
+                                        <div class="ek-sound-name">Pulso de Alerta</div>
+                                        <div class="ek-sound-desc">Tono fuerte y penetrante — 880 Hz</div>
+                                    </div>
+                                    <button class="ek-play-btn" onclick="event.stopPropagation(); previewEkSound('ek-alert-pulse', this)" title="Reproducir">
+                                        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                    </button>
+                                </div>
+                                <div class="ek-sound-option" data-sound="ek-urgent-beep" onclick="setEkSound('ek-urgent-beep')" style="margin-bottom: 6px;">
+                                    <div class="ek-radio"></div>
+                                    <div class="ek-sound-info">
+                                        <div class="ek-sound-name">Beep Urgente</div>
+                                        <div class="ek-sound-desc">Triple beep electrónico — 1200 Hz</div>
+                                    </div>
+                                    <button class="ek-play-btn" onclick="event.stopPropagation(); previewEkSound('ek-urgent-beep', this)" title="Reproducir">
+                                        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                    </button>
+                                </div>
+                                <div class="ek-sound-option" data-sound="ek-shock-tone" onclick="setEkSound('ek-shock-tone')" style="margin-bottom: 6px;">
+                                    <div class="ek-radio"></div>
+                                    <div class="ek-sound-info">
+                                        <div class="ek-sound-name">Tono de Choque</div>
+                                        <div class="ek-sound-desc">Sweep ascendente agresivo — 400→2000 Hz</div>
+                                    </div>
+                                    <button class="ek-play-btn" onclick="event.stopPropagation(); previewEkSound('ek-shock-tone', this)" title="Reproducir">
+                                        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                    </button>
+                                </div>
+                                <div class="ek-sound-option" data-sound="ek-deep-bass" onclick="setEkSound('ek-deep-bass')" style="margin-bottom: 6px;">
+                                    <div class="ek-radio"></div>
+                                    <div class="ek-sound-info">
+                                        <div class="ek-sound-name">Baja Profunda</div>
+                                        <div class="ek-sound-desc">Golpe grave y retumbante — 80 Hz</div>
+                                    </div>
+                                    <button class="ek-play-btn" onclick="event.stopPropagation(); previewEkSound('ek-deep-bass', this)" title="Reproducir">
+                                        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                    </button>
+                                </div>
+                                <div class="ek-sound-option" data-sound="ek-laser-zap" onclick="setEkSound('ek-laser-zap')" style="margin-bottom: 6px;">
+                                    <div class="ek-radio"></div>
+                                    <div class="ek-sound-info">
+                                        <div class="ek-sound-name">Láser Zap</div>
+                                        <div class="ek-sound-desc">Pulso descendente estilo sci-fi — 2000→200 Hz</div>
+                                    </div>
+                                    <button class="ek-play-btn" onclick="event.stopPropagation(); previewEkSound('ek-laser-zap', this)" title="Reproducir">
+                                        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                    </button>
+                                </div>
+                                <div class="ek-sound-option" data-sound="ek-alarm-siren" onclick="setEkSound('ek-alarm-siren')">
+                                    <div class="ek-radio"></div>
+                                    <div class="ek-sound-info">
+                                        <div class="ek-sound-name">Sirena de Alarma</div>
+                                        <div class="ek-sound-desc">Oscilación tonal tipo ambulancia — 600-900 Hz</div>
+                                    </div>
+                                    <button class="ek-play-btn" onclick="event.stopPropagation(); previewEkSound('ek-alarm-siren', this)" title="Reproducir">
+                                        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="ek-helper-text">Selecciona el tipo de pulso que sonará en los tiempos configurados</div>
+                        </div>
+
+                        <!-- Custom Sound Upload -->
+                        <div class="input-group">
+                            <div class="input-label"><span>O sube tu propio tono</span></div>
+                            <div class="ek-upload-area" id="ek-upload-area">
+                                <div class="ek-upload-icon">📁</div>
+                                <div class="ek-upload-text">Subir tono personalizado</div>
+                                <div class="ek-upload-hint">Archivos .mp3, .wav, .ogg — Máx. 2MB</div>
+                                <input type="file" accept="audio/*" onchange="handleEkUpload(event)">
+                            </div>
+                            <div class="ek-custom-selected" id="ek-custom-info" style="display: none;">
+                                <div class="ek-radio"></div>
+                                <div class="ek-sound-info">
+                                    <div class="ek-sound-name" id="ek-custom-name">Mi tono</div>
+                                    <div class="ek-sound-desc" id="ek-custom-detail"></div>
+                                </div>
+                                <button class="ek-play-btn" onclick="previewEkSound('ek-custom', this)">
+                                    <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+                                </button>
+                                <button class="ek-custom-remove" onclick="removeEkCustomSound()">✕</button>
+                            </div>
+                        </div>
+
+                        <!-- Volume Control -->
+                        <div class="input-group ek-volume-slider">
+                            <div class="input-label">
+                                <span>Volumen del pulso</span>
+                                <span class="input-value" id="ek-volume-value" style="color: #ff6d00;">70%</span>
+                            </div>
+                            <div class="ek-range-row">
+                                <input type="range" class="range-slider" id="ek-volume-slider" min="10" max="100" value="70" step="5" oninput="updateEkVolume()">
+                                <span class="ek-range-val" id="ek-volume-pct">70%</span>
+                            </div>
+                            <div class="ek-helper-text">Volumen del pulso de alerta (recomendado: 70-100%)</div>
+                        </div>
+
+                        <!-- Ducking Toggle -->
+                        <div class="input-group">
+                            <div class="ek-ducking-toggle-row">
+                                <div class="ek-ducking-label">
+                                    <span>🔉</span>
+                                    <span>Ducking — Bajar volumen de meditación</span>
+                                </div>
+                                <div class="toggle active" id="ek-ducking-toggle" onclick="toggleEkDucking()"></div>
+                            </div>
+                            <div class="ek-helper-text">Reduce momentáneamente el volumen del audio de meditación cuando suena el pulso</div>
+                        </div>
+
+                        <!-- Scheduled Alert Times -->
+                        <div class="input-group">
+                            <div class="input-label"><span>Marcas de tiempo (minutos de sesión)</span></div>
+                            <div class="ek-scheduled-list" id="ek-scheduled-list"></div>
+                            <div class="ek-add-time-row">
+                                <input type="number" class="ek-min-input" id="ek-min-input" min="1" max="480" placeholder="Minutos (ej: 45)">
+                                <button class="ek-add-btn" onclick="addEkAlertTime()">+ Agregar</button>
+                            </div>
+                            <div class="ek-helper-text">Agrega múltiples alertas. El tiempo es en minutos desde el inicio de la meditación (ej: 45 = minuto 45, 70 = 1h 10min)</div>
+                        </div>
+
+                        <!-- Next Alert Preview -->
+                        <div class="ek-status-row" id="ek-next-box" style="display: none; margin-top: 12px;">
+                            <div>
+                                <div class="ek-status-label">⚡ Próximo pulso ELECTROCHOQUE en</div>
+                                <div class="ek-status-value" id="ek-next-countdown" style="color: #ff6d00;">--:--</div>
+                            </div>
+                            <div class="ek-status-value" id="ek-next-time" style="color: #ff6d00;">--:--</div>
+                        </div>
+
+                        <!-- Test Button -->
+                        <div class="input-group" style="margin-top: 16px;">
+                            <button class="btn ek-test-btn" onclick="testEkAlert()">
+                                <span>⚡</span> Probar Pulso ELECTROCHOQUE
+                            </button>
+                            <div class="ek-helper-text" style="text-align: center; margin-top: 8px;">
+                                Reproduce el pulso seleccionado inmediatamente
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Meditation Alert Flash Overlay -->
             <div class="med-alert-flash" id="med-alert-flash"></div>
+
+            <!-- ELECTROCHOQUE Alert Flash Overlay -->
+            <div class="ek-alert-flash" id="ek-alert-flash"></div>
 
             <!-- Meditation Active Indicator -->
             <div class="med-active-indicator" id="med-indicator">
                 <span class="status-dot"></span> Meditación activa
+            </div>
+
+            <!-- ELECTROCHOQUE Active Indicator -->
+            <div class="ek-active-indicator" id="ek-indicator">
+                <span class="status-dot"></span> ELECTROCHOQUE activo
             </div>
 
             <!-- ========== SUBLIMINAL AFFIRMATION ENGINE ========== -->
@@ -4140,6 +4601,19 @@ mientras fijas la vista en el centro."></textarea>
             subliminalEcho: false,
             _subliminalTimer: null,
             _subliminalPhraseIndex: 0,
+            // ELECTROCHOQUE state
+            ekActive: false,
+            ekSound: 'ek-alert-pulse',
+            ekVolume: 70,
+            ekDucking: true,
+            ekAlertTimes: [],
+            ekCustomSoundData: null,
+            ekCustomSoundName: null,
+            _ekAudioCtx: null,
+            _ekNextAlertMin: 0,
+            _ekNextAlertTimer: null,
+            _ekCountdownInterval: null,
+            _ekAlertTimeouts: [],
         };
 
         async function init() {
@@ -4205,6 +4679,26 @@ mientras fijas la vista en el centro."></textarea>
 
             // Init trance audio player (load settings from localStorage)
             loadTranceSettings();
+
+            // Init ELECTROCHOQUE
+            loadEkSettings();
+            // Drag-and-drop for ELECTROCHOQUE upload
+            var ekUploadArea = document.getElementById('ek-upload-area');
+            ekUploadArea.addEventListener('dragover', function(e) { e.preventDefault(); ekUploadArea.classList.add('dragover'); });
+            ekUploadArea.addEventListener('dragleave', function() { ekUploadArea.classList.remove('dragover'); });
+            ekUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault(); ekUploadArea.classList.remove('dragover');
+                var files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type.startsWith('audio/')) {
+                    var input = ekUploadArea.querySelector('input[type="file"]');
+                    var dt = new DataTransfer(); dt.items.add(files[0]);
+                    input.files = dt.files; input.dispatchEvent(new Event('change'));
+                }
+            });
+            // Enter key for adding ELECTROCHOQUE alert times
+            document.getElementById('ek-min-input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') addEkAlertTime();
+            });
         }
 
         function applyWbtbSettings() {
@@ -5724,6 +6218,11 @@ mientras fijas la vista en el centro."></textarea>
             updateMedNextAlertDisplay();
             updateMedNextAlertBox();
 
+            // Schedule ELECTROCHOQUE alerts if active
+            if (state.ekActive && state.ekAlertTimes.length > 0) {
+                scheduleEkAlerts();
+            }
+
             state.meditationTimerInterval = setInterval(function() {
                 state.meditationElapsedSeconds = Math.floor((Date.now() - state.meditationStartTime) / 1000);
                 updateMedTimerDisplay();
@@ -5735,6 +6234,7 @@ mientras fijas la vista en el centro."></textarea>
 
         function stopMeditationTimer() {
             if (state.meditationTimerInterval) { clearInterval(state.meditationTimerInterval); state.meditationTimerInterval = null; }
+            cancelEkAlerts();
             state.meditationElapsedSeconds = 0;
             state.meditationStartTime = null;
             state._medNextAnnounceMin = 0;
@@ -5745,6 +6245,13 @@ mientras fijas la vista en el centro."></textarea>
             document.getElementById('med-next-alert-val').textContent = '--:--';
             document.getElementById('med-next-alert-val').className = 'med-status-value orange inactive';
             document.getElementById('med-next-alert-box').style.display = 'none';
+            // Reset ELECTROCHOQUE remaining display
+            state.ekAlertTimes.forEach(function(alertMin) {
+                var el = document.getElementById('ek-remaining-' + alertMin);
+                if (el) { el.textContent = ''; }
+            });
+            document.getElementById('ek-next-alert-val').textContent = '--:--';
+            document.getElementById('ek-next-alert-val').className = 'ek-status-value inactive';
         }
 
         function updateMedTimerDisplay() {
@@ -6512,6 +7019,462 @@ mientras fijas la vista en el centro."></textarea>
                 }
             } catch(e) {}
         }
+
+        // ========== ELECTROCHOQUE MODULE ==========
+
+        // --- Sound Generators for ELECTROCHOQUE ---
+        function getEkAudioContext() {
+            if (!state._ekAudioCtx) state._ekAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            return state._ekAudioCtx;
+        }
+
+        function genEkAlertPulse(ctx, t) {
+            var o = ctx.createOscillator(), g = ctx.createGain();
+            o.type = 'square'; o.frequency.setValueAtTime(880, t);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.5, t);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.5, t + 0.3);
+            g.gain.exponentialRampToValueAtTime(0.001, t + 0.6);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(t); o.stop(t + 0.65);
+            return { stop: function() { try { o.stop(); } catch(e) {} } };
+        }
+
+        function genEkUrgentBeep(ctx, t) {
+            var sources = [];
+            var freqs = [1200, 1200, 1200];
+            var durations = [0.08, 0.08, 0.15];
+            var gap = 0.18;
+            var tt = t;
+            for (var i = 0; i < freqs.length; i++) {
+                var o = ctx.createOscillator(), g = ctx.createGain();
+                o.type = 'sine'; o.frequency.setValueAtTime(freqs[i], tt);
+                g.gain.setValueAtTime(state.ekVolume / 100 * 0.5, tt);
+                g.gain.exponentialRampToValueAtTime(0.001, tt + durations[i]);
+                o.connect(g); g.connect(ctx.destination);
+                o.start(tt); o.stop(tt + durations[i] + 0.01);
+                sources.push(o);
+                tt += gap;
+            }
+            return { stop: function() { sources.forEach(function(s) { try { s.stop(); } catch(e) {} }); } };
+        }
+
+        function genEkShockTone(ctx, t) {
+            var o = ctx.createOscillator(), g = ctx.createGain();
+            o.type = 'sawtooth';
+            o.frequency.setValueAtTime(400, t);
+            o.frequency.exponentialRampToValueAtTime(2000, t + 0.3);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.4, t);
+            g.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(t); o.stop(t + 0.55);
+            return { stop: function() { try { o.stop(); } catch(e) {} } };
+        }
+
+        function genEkDeepBass(ctx, t) {
+            var o = ctx.createOscillator(), g = ctx.createGain();
+            o.type = 'sine'; o.frequency.setValueAtTime(80, t);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.6, t);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.6, t + 0.4);
+            g.gain.exponentialRampToValueAtTime(0.001, t + 1.0);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(t); o.stop(t + 1.05);
+            return { stop: function() { try { o.stop(); } catch(e) {} } };
+        }
+
+        function genEkLaserZap(ctx, t) {
+            var o = ctx.createOscillator(), g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.setValueAtTime(2000, t);
+            o.frequency.exponentialRampToValueAtTime(200, t + 0.25);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.5, t);
+            g.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(t); o.stop(t + 0.4);
+            return { stop: function() { try { o.stop(); } catch(e) {} } };
+        }
+
+        function genEkAlarmSiren(ctx, t) {
+            var o = ctx.createOscillator(), g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.setValueAtTime(600, t);
+            o.frequency.linearRampToValueAtTime(900, t + 0.25);
+            o.frequency.linearRampToValueAtTime(600, t + 0.5);
+            o.frequency.linearRampToValueAtTime(900, t + 0.75);
+            o.frequency.linearRampToValueAtTime(600, t + 1.0);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.45, t);
+            g.gain.setValueAtTime(state.ekVolume / 100 * 0.45, t + 0.9);
+            g.gain.exponentialRampToValueAtTime(0.001, t + 1.1);
+            o.connect(g); g.connect(ctx.destination);
+            o.start(t); o.stop(t + 1.15);
+            return { stop: function() { try { o.stop(); } catch(e) {} } };
+        }
+
+        var ekSoundGenerators = {
+            'ek-alert-pulse': genEkAlertPulse,
+            'ek-urgent-beep': genEkUrgentBeep,
+            'ek-shock-tone': genEkShockTone,
+            'ek-deep-bass': genEkDeepBass,
+            'ek-laser-zap': genEkLaserZap,
+            'ek-alarm-siren': genEkAlarmSiren,
+        };
+
+        function playEkSound(key, onComplete) {
+            if (key === 'ek-custom' && state.ekCustomSoundData) {
+                var audio = new Audio(state.ekCustomSoundData);
+                audio.volume = state.ekVolume / 100;
+                audio.play().then(function() {
+                    audio.onended = function() { if (onComplete) onComplete(); };
+                }).catch(function() { if (onComplete) onComplete(); });
+                return { stop: function() { audio.pause(); audio.currentTime = 0; } };
+            }
+            if (ekSoundGenerators[key]) {
+                var ctx = getEkAudioContext();
+                if (ctx.state === 'suspended') ctx.resume();
+                var src = ekSoundGenerators[key](ctx, ctx.currentTime);
+                if (onComplete) {
+                    var dur = key === 'ek-deep-bass' ? 1100 : key === 'ek-alarm-siren' ? 1200 : key === 'ek-shock-tone' ? 600 : key === 'ek-laser-zap' ? 500 : 700;
+                    setTimeout(onComplete, dur);
+                }
+                return src;
+            }
+            if (onComplete) onComplete();
+            return null;
+        }
+
+        function getEkSoundDuration(key) {
+            var durs = {
+                'ek-alert-pulse': 700, 'ek-urgent-beep': 700, 'ek-shock-tone': 600,
+                'ek-deep-bass': 1100, 'ek-laser-zap': 500, 'ek-alarm-siren': 1200
+            };
+            return durs[key] || 1000;
+        }
+
+        // --- UI Functions ---
+        function toggleElectrochoque() {
+            state.ekActive = !state.ekActive;
+            var toggle = document.getElementById('ek-toggle');
+            var indicator = document.getElementById('ek-indicator');
+            if (state.ekActive) {
+                toggle.classList.add('active');
+                indicator.classList.add('show');
+                showToast('⚡ ELECTROCHOQUE activado');
+                if (state.meditationActive) scheduleEkAlerts();
+            } else {
+                toggle.classList.remove('active');
+                indicator.classList.remove('show');
+                cancelEkAlerts();
+                showToast('⚡ ELECTROCHOQUE desactivado');
+            }
+            saveEkSettings();
+        }
+
+        function setEkSound(key) {
+            state.ekSound = key;
+            document.querySelectorAll('#ek-sound-list .ek-sound-option').forEach(function(opt) {
+                opt.classList.toggle('selected', opt.dataset.sound === key);
+            });
+            if (key === 'ek-custom' && !state.ekCustomSoundData) {
+                var ua = document.getElementById('ek-upload-area');
+                ua.style.borderColor = '#ff6d00';
+                setTimeout(function() { ua.style.borderColor = ''; }, 1500);
+            }
+            saveEkSettings();
+        }
+
+        function previewEkSound(key, btn) {
+            stopCurrentPreview();
+            if (btn) { btn.classList.add('playing'); btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>'; }
+            var onDone = function() {
+                if (btn) { btn.classList.remove('playing'); btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>'; }
+            };
+            playEkSound(key, onDone);
+        }
+
+        function handleEkUpload(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) { showToast('⚠️ Máximo 2MB'); event.target.value = ''; return; }
+            if (!file.type.startsWith('audio/')) { showToast('⚠️ Selecciona un archivo de audio'); event.target.value = ''; return; }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                state.ekCustomSoundData = e.target.result;
+                state.ekCustomSoundName = file.name;
+                state.ekSound = 'ek-custom';
+                var infoEl = document.getElementById('ek-custom-info');
+                infoEl.style.display = 'flex';
+                document.getElementById('ek-custom-name').textContent = file.name;
+                document.getElementById('ek-custom-detail').textContent = Math.round(file.size / 1024) + ' KB — ' + file.type.split('/')[1].toUpperCase();
+                document.querySelectorAll('#ek-sound-list .ek-sound-option').forEach(function(opt) { opt.classList.remove('selected'); });
+                showToast('⚡ Sonido ELECTROCHOQUE cargado: ' + file.name);
+                saveEkSettings();
+            };
+            reader.readAsDataURL(file);
+            event.target.value = '';
+        }
+
+        function removeEkCustomSound() {
+            state.ekCustomSoundData = null;
+            state.ekCustomSoundName = null;
+            document.getElementById('ek-custom-info').style.display = 'none';
+            setEkSound('ek-alert-pulse');
+            showToast('🗑️ Sonido personalizado eliminado');
+        }
+
+        function updateEkVolume() {
+            state.ekVolume = parseInt(document.getElementById('ek-volume-slider').value);
+            document.getElementById('ek-volume-value').textContent = state.ekVolume + '%';
+            document.getElementById('ek-volume-pct').textContent = state.ekVolume + '%';
+            saveEkSettings();
+        }
+
+        function toggleEkDucking() {
+            state.ekDucking = !state.ekDucking;
+            var toggle = document.getElementById('ek-ducking-toggle');
+            toggle.classList.toggle('active', state.ekDucking);
+            saveEkSettings();
+        }
+
+        // --- Alert Time Management ---
+        function addEkAlertTime() {
+            var input = document.getElementById('ek-min-input');
+            var val = parseInt(input.value, 10);
+            if (isNaN(val) || val < 1) { showToast('⚠️ Ingresa un número válido de minutos'); return; }
+            if (val > 480) { showToast('⚠️ Máximo 480 minutos (8 horas)'); return; }
+            var exists = state.ekAlertTimes.indexOf(val) !== -1;
+            if (exists) { showToast('⚠️ Este tiempo ya está configurado'); return; }
+            state.ekAlertTimes.push(val);
+            state.ekAlertTimes.sort(function(a, b) { return a - b; });
+            input.value = '';
+            renderEkAlertTimes();
+            if (state.ekActive && state.meditationActive) { cancelEkAlerts(); scheduleEkAlerts(); }
+            showToast('⚡ Alerta agregada: minuto ' + val);
+            saveEkSettings();
+        }
+
+        function removeEkAlertTime(minutes) {
+            state.ekAlertTimes = state.ekAlertTimes.filter(function(t) { return t !== minutes; });
+            renderEkAlertTimes();
+            if (state.ekActive && state.meditationActive) { cancelEkAlerts(); scheduleEkAlerts(); }
+            saveEkSettings();
+        }
+
+        function renderEkAlertTimes() {
+            var container = document.getElementById('ek-scheduled-list');
+            container.innerHTML = state.ekAlertTimes.map(function(minutes, i) {
+                var h = Math.floor(minutes / 60);
+                var m = minutes % 60;
+                var timeStr = h > 0 ? h + 'h ' + String(m).padStart(2, '0') + 'm' : m + ' min';
+                return '<div class="ek-alert-item">' +
+                    '<div class="ek-alert-num">' + (i + 1) + '</div>' +
+                    '<div class="ek-alert-time">Minuto ' + minutes + ' (' + timeStr + ')</div>' +
+                    '<div class="ek-alert-remaining" id="ek-remaining-' + minutes + '"></div>' +
+                    '<button class="ek-alert-remove" onclick="removeEkAlertTime(' + minutes + ')">✕</button>' +
+                    '</div>';
+            }).join('');
+        }
+
+        // --- Alert Scheduling (relative to meditation start) ---
+        function scheduleEkAlerts() {
+            cancelEkAlerts();
+            if (!state.ekActive || !state.meditationActive || state.ekAlertTimes.length === 0) return;
+
+            var elapsedSec = state.meditationElapsedSeconds || 0;
+            var elapsedMin = elapsedSec / 60;
+
+            state.ekAlertTimes.forEach(function(alertMin) {
+                var secUntil = (alertMin * 60) - elapsedSec;
+                if (secUntil <= 0) return; // already past
+                var timeout = setTimeout(function() {
+                    triggerEkPulse();
+                }, secUntil * 1000);
+                state._ekAlertTimeouts.push(timeout);
+            });
+
+            updateEkNextAlertDisplay();
+            updateEkCountdown();
+            if (state._ekCountdownInterval) clearInterval(state._ekCountdownInterval);
+            state._ekCountdownInterval = setInterval(function() {
+                updateEkCountdown();
+                updateEkRemainingTimes();
+            }, 1000);
+        }
+
+        function cancelEkAlerts() {
+            state._ekAlertTimeouts.forEach(function(t) { clearTimeout(t); });
+            state._ekAlertTimeouts = [];
+            if (state._ekCountdownInterval) { clearInterval(state._ekCountdownInterval); state._ekCountdownInterval = null; }
+            document.getElementById('ek-next-box').style.display = 'none';
+        }
+
+        function triggerEkPulse() {
+            // Flash overlay (ELECTROCHOQUE orange)
+            var flash = document.getElementById('ek-alert-flash');
+            flash.classList.add('active');
+            setTimeout(function() { flash.classList.add('visible'); }, 10);
+            setTimeout(function() {
+                flash.classList.remove('visible');
+                setTimeout(function() { flash.classList.remove('active'); }, 200);
+            }, 400);
+
+            // Duck meditation audio if enabled
+            var medAudioReduced = false;
+            if (state.ekDucking && state.meditationActive) {
+                medAudioReduced = true;
+                // Try to duck subliminal audio if playing
+                if (subliminalAudioEl && subliminalAudioPlaying) {
+                    subliminalAudioEl.volume = Math.max(0.05, subliminalAudioEl.volume * 0.2);
+                }
+                // Try to duck trance audio if playing
+                if (trancePlaying && tranceNodes._masterGain) {
+                    tranceNodes._masterGain.gain.value = Math.max(0.02, tranceVolume / 100 * 0.2);
+                }
+            }
+
+            // Play the ELECTROCHOQUE sound
+            playEkSound(state.ekSound, function() {
+                // Restore ducked audio
+                if (medAudioReduced) {
+                    if (subliminalAudioEl && subliminalAudioPlaying) {
+                        var savedVol = localStorage.getItem('subliminal_audio_volume');
+                        subliminalAudioEl.volume = savedVol ? parseInt(savedVol) / 100 : 0.5;
+                    }
+                    if (trancePlaying && tranceNodes._masterGain) {
+                        tranceNodes._masterGain.gain.value = tranceVolume / 100;
+                    }
+                }
+            });
+
+            showToast('⚡ ELECTROCHOQUE — Pulso de alerta activado');
+            updateEkNextAlertDisplay();
+        }
+
+        function updateEkNextAlertDisplay() {
+            var val = document.getElementById('ek-next-alert-val');
+            if (!state.ekActive || !state.meditationActive || state.ekAlertTimes.length === 0) {
+                val.textContent = '--:--'; val.className = 'ek-status-value inactive'; return;
+            }
+            var elapsedMin = (state.meditationElapsedSeconds || 0) / 60;
+            var nextMin = null;
+            for (var i = 0; i < state.ekAlertTimes.length; i++) {
+                if (state.ekAlertTimes[i] > elapsedMin + 0.1) { nextMin = state.ekAlertTimes[i]; break; }
+            }
+            if (nextMin !== null) {
+                var secUntil = (nextMin * 60) - (state.meditationElapsedSeconds || 0);
+                if (secUntil < 0) secUntil = 0;
+                var m = Math.floor(secUntil / 60), s = Math.floor(secUntil % 60);
+                val.textContent = String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+                val.className = 'ek-status-value';
+            } else {
+                val.textContent = 'Todas completadas';
+                val.className = 'ek-status-value';
+            }
+        }
+
+        function updateEkCountdown() {
+            var box = document.getElementById('ek-next-box');
+            if (!state.ekActive || !state.meditationActive || state.ekAlertTimes.length === 0) {
+                box.style.display = 'none'; return;
+            }
+            var elapsedMin = (state.meditationElapsedSeconds || 0) / 60;
+            var nextMin = null;
+            for (var i = 0; i < state.ekAlertTimes.length; i++) {
+                if (state.ekAlertTimes[i] > elapsedMin + 0.1) { nextMin = state.ekAlertTimes[i]; break; }
+            }
+            if (nextMin === null) { box.style.display = 'none'; return; }
+            box.style.display = 'flex';
+            var secUntil = (nextMin * 60) - (state.meditationElapsedSeconds || 0);
+            if (secUntil < 0) secUntil = 0;
+            var m = Math.floor(secUntil / 60), s = Math.floor(secUntil % 60);
+            document.getElementById('ek-next-countdown').textContent = String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+            var futureTime = new Date(state.meditationStartTime + nextMin * 60 * 1000);
+            document.getElementById('ek-next-time').textContent =
+                String(futureTime.getHours()).padStart(2, '0') + ':' + String(futureTime.getMinutes()).padStart(2, '0');
+        }
+
+        function updateEkRemainingTimes() {
+            var elapsedMin = (state.meditationElapsedSeconds || 0) / 60;
+            state.ekAlertTimes.forEach(function(alertMin) {
+                var el = document.getElementById('ek-remaining-' + alertMin);
+                if (!el) return;
+                var diff = alertMin - elapsedMin;
+                if (diff <= 0) {
+                    el.textContent = '✅ Ejecutado';
+                    el.style.color = 'var(--success)';
+                } else {
+                    var h = Math.floor(diff / 60);
+                    var m = Math.floor(diff % 60);
+                    el.textContent = h > 0 ? 'en ' + h + 'h ' + m + 'm' : 'en ' + m + ' min';
+                    el.style.color = 'var(--text-dim)';
+                }
+            });
+        }
+
+        function testEkAlert() {
+            showToast('⚡ Probando pulso ELECTROCHOQUE...');
+            triggerEkPulse();
+        }
+
+        // --- Save/Load ---
+        function saveEkSettings() {
+            try {
+                localStorage.setItem('lucid_ek_settings', JSON.stringify({
+                    ekActive: state.ekActive,
+                    ekSound: state.ekSound,
+                    ekVolume: state.ekVolume,
+                    ekDucking: state.ekDucking,
+                    ekAlertTimes: state.ekAlertTimes,
+                    ekCustomSoundName: state.ekCustomSoundName,
+                    ekCustomSoundData: state.ekCustomSoundData,
+                }));
+            } catch (e) {}
+        }
+
+        function loadEkSettings() {
+            try {
+                var data = JSON.parse(localStorage.getItem('lucid_ek_settings'));
+                if (data) {
+                    state.ekActive = data.ekActive || false;
+                    state.ekSound = data.ekSound || 'ek-alert-pulse';
+                    state.ekVolume = data.ekVolume || 70;
+                    state.ekDucking = data.ekDucking !== false;
+                    state.ekAlertTimes = data.ekAlertTimes || [];
+                    state.ekCustomSoundData = data.ekCustomSoundData || null;
+                    state.ekCustomSoundName = data.ekCustomSoundName || null;
+
+                    // Apply to UI
+                    document.getElementById('ek-volume-slider').value = state.ekVolume;
+                    document.getElementById('ek-volume-value').textContent = state.ekVolume + '%';
+                    document.getElementById('ek-volume-pct').textContent = state.ekVolume + '%';
+                    var duckingToggle = document.getElementById('ek-ducking-toggle');
+                    duckingToggle.classList.toggle('active', state.ekDucking);
+
+                    if (state.ekActive) {
+                        document.getElementById('ek-toggle').classList.add('active');
+                        document.getElementById('ek-indicator').classList.add('show');
+                    }
+                    renderEkAlertTimes();
+                    updateEkSoundUI();
+                }
+            } catch (e) {}
+        }
+
+        function updateEkSoundUI() {
+            document.querySelectorAll('#ek-sound-list .ek-sound-option').forEach(function(opt) {
+                opt.classList.toggle('selected', opt.dataset.sound === state.ekSound);
+            });
+            if (state.ekCustomSoundData && state.ekCustomSoundName) {
+                var infoEl = document.getElementById('ek-custom-info');
+                infoEl.style.display = 'flex';
+                document.getElementById('ek-custom-name').textContent = state.ekCustomSoundName;
+                if (state.ekSound === 'ek-custom') {
+                    document.querySelectorAll('#ek-sound-list .ek-sound-option').forEach(function(opt) {
+                        opt.classList.remove('selected');
+                    });
+                }
+            }
+        }
+
+        // ========== END ELECTROCHOQUE MODULE ==========
 
         // ========== END MEDITATION MODULE ==========
 
@@ -7807,4 +8770,3 @@ mientras fijas la vista en el centro."></textarea>
     </script>
 </body>
 </html>
-g
