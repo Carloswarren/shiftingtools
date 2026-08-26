@@ -3053,6 +3053,380 @@
             box-shadow: 0 4px 20px #00e5ff33;
         }
         .btn-vr-start-cyan:active { transform: scale(0.98); }
+    
+        /* ========== RESPIRACION GUIADA MODULE ========== */
+        .rb-section { padding: 20px; }
+        .rb-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid #1a4a3a;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+        .rb-card .card-header { border-bottom: 1px solid #1a4a3a; }
+        .rb-card .card-icon { background: #00e5ff15; }
+        .rb-card .card-title { color: #00e5ff; }
+        .rb-settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+        .rb-setting-item {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+        }
+        .rb-setting-label {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .rb-setting-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #00e5ff;
+            font-variant-numeric: tabular-nums;
+        }
+        .rb-setting-value small {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-dim);
+        }
+        .rb-setting-stepper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .rb-stepper-btn {
+            width: 30px;
+            height: 26px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-input);
+            color: var(--text-primary);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .rb-stepper-btn:active { background: #00e5ff30; border-color: #00e5ff; }
+        .rb-stepper-val {
+            flex: 1;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #00e5ff;
+            font-variant-numeric: tabular-nums;
+        }
+        .rb-session-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary);
+            z-index: 9500;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .rb-session-overlay.active { display: flex; opacity: 1; }
+        .rb-session-top {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .rb-round-indicator {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+        .rb-round-indicator span { color: #00e5ff; }
+        .rb-phase-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #00e5ff;
+            background: rgba(0, 229, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .rb-orb-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rb-orb {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #00e5ff, #006080, #003040);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.3), 0 0 80px rgba(0, 229, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .rb-orb.fire {
+            background: radial-gradient(circle at 35% 35%, #ff4444, #cc2200, #661100);
+            box-shadow: 0 0 40px rgba(255, 68, 68, 0.4), 0 0 80px rgba(255, 68, 68, 0.15);
+        }
+        .rb-orb.alkaline {
+            background: radial-gradient(circle at 35% 35%, #44ff88, #22aa55, #115533);
+            box-shadow: 0 0 40px rgba(68, 255, 136, 0.3), 0 0 80px rgba(68, 255, 136, 0.1);
+        }
+        .rb-orb.shamanic {
+            background: radial-gradient(circle at 35% 35%, #aa66ff, #7733cc, #441177);
+            box-shadow: 0 0 40px rgba(170, 102, 255, 0.3), 0 0 80px rgba(170, 102, 255, 0.1);
+        }
+        .rb-orb.inhale-hold {
+            background: radial-gradient(circle at 35% 35%, #ffaa00, #cc7700, #664400);
+            box-shadow: 0 0 50px rgba(255, 170, 0, 0.4), 0 0 100px rgba(255, 170, 0, 0.15);
+        }
+        .rb-orb.exhale-hold {
+            background: radial-gradient(circle at 35% 35%, #666688, #444466, #222244);
+            box-shadow: 0 0 30px rgba(102, 102, 136, 0.3), 0 0 60px rgba(102, 102, 136, 0.1);
+        }
+        .rb-orb.rest {
+            background: radial-gradient(circle at 35% 35%, #88aacc, #557799, #334466);
+            box-shadow: 0 0 30px rgba(136, 170, 204, 0.3), 0 0 60px rgba(136, 170, 204, 0.1);
+        }
+        @keyframes rb-inhale { from { transform: scale(0.5); } to { transform: scale(1.3); } }
+        @keyframes rb-exhale { from { transform: scale(1.3); } to { transform: scale(0.5); } }
+        @keyframes rb-pulse { 0%, 100% { transform: scale(0.7); } 50% { transform: scale(1.15); } }
+        /* 1. FUEGO — 0.6s total: bombeo rapido y energetico */
+        @keyframes breathFire {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        /* 2. ALCALINA — 2.2s total: profunda pero agil */
+        @keyframes breathAlkaline {
+            0%, 100% { transform: scale(1); }
+            55% { transform: scale(1.6); }
+        }
+        /* 3. CHAMANICA — 1.3s total: doble inhalacion escalonada */
+        @keyframes breathShamanic {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.4); }
+            60% { transform: scale(1.8); }
+            100% { transform: scale(1); }
+        }
+        .rb-orb.inhaling { animation: rb-inhale 1.5s ease-in-out forwards; }
+        .rb-orb.exhaling { animation: rb-exhale 1.5s ease-in-out forwards; }
+        .rb-orb.pulsing { animation: rb-pulse 2s ease-in-out infinite; }
+        .rb-orb.breathing-fire { animation: breathFire 0.6s ease-in-out infinite; }
+        .rb-orb.breathing-alkaline { animation: breathAlkaline 2.2s ease-in-out infinite; }
+        .rb-orb.breathing-shamanic { animation: breathShamanic 1.3s ease-in-out infinite; }
+        .rb-orb.hold-max { transform: scale(1.9); transition: transform 2s ease-in-out; }
+        .rb-orb.hold-max-recovery { transform: scale(1.8); transition: transform 2s ease-in-out; }
+        .rb-orb.hold-min { transform: scale(0.9); transition: transform 1s ease-in-out; }
+        .rb-timer-ring {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+        .rb-timer-ring svg {
+            transform: rotate(-90deg);
+            width: 220px;
+            height: 220px;
+        }
+        .rb-timer-ring .ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-width: 3;
+        }
+        .rb-timer-ring .ring-progress {
+            fill: none;
+            stroke: #00e5ff;
+            stroke-width: 3;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+            filter: drop-shadow(0 0 6px rgba(0, 229, 255, 0.5));
+        }
+        .rb-orb-count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            font-variant-numeric: tabular-nums;
+            z-index: 2;
+        }
+        .rb-orb-count small {
+            font-size: 0.7rem;
+            font-weight: 400;
+            display: block;
+            opacity: 0.7;
+        }
+        .rb-instruction {
+            margin-top: 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .rb-instruction-sub {
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+        .rb-progress-bar {
+            width: 280px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .rb-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00e5ff, #00a5cc);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .rb-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            padding: 0 20px;
+        }
+        .rb-ctrl-btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .rb-ctrl-btn:active { transform: scale(0.96); }
+        .rb-btn-pause {
+            background: linear-gradient(135deg, #ffaa00, #cc7700);
+            color: white;
+        }
+        .rb-btn-pause.paused {
+            background: linear-gradient(135deg, #00e5ff, #00a5cc);
+        }
+        .rb-btn-skip {
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .rb-btn-end {
+            background: linear-gradient(135deg, var(--danger), #b71030);
+            color: white;
+        }
+        .rb-start-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: linear-gradient(135deg, #00e5ff, #0088aa);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .rb-start-btn:active { transform: scale(0.98); }
+        .rb-round-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .rb-round-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+        .rb-round-dot.active {
+            background: #00e5ff;
+            border-color: #00e5ff;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        .rb-round-dot.completed {
+            background: #00c853;
+            border-color: #00c853;
+        }
+        .rb-complete-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-primary);
+            z-index: 9600;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .rb-complete-overlay.active { display: flex; opacity: 1; }
+        .rb-complete-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: rb-float 2s ease-in-out infinite;
+        }
+        @keyframes rb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .rb-complete-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .rb-complete-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+        .rb-complete-btn {
+            padding: 14px 40px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #00e5ff, #0088aa);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
+            transition: all 0.2s;
+        }
+        .rb-complete-btn:active { transform: scale(0.96); }
+
     </style>
 </head>
 <body>
@@ -4003,6 +4377,138 @@
                 <span class="status-dot"></span> ELECTROCHOQUE activo
             </div>
 
+            
+            <!-- ========== RESPIRACION GUIADA MODULE ========== -->
+            <div class="rb-section">
+                <div class="section-title">🌬️ Respiración Guiada — Preparación de Consciencia</div>
+                <div class="rb-card">
+                    <div class="card-header">
+                        <div class="card-header-left">
+                            <div class="card-icon" style="background: rgba(0, 229, 255, 0.1);">🌬️</div>
+                            <div>
+                                <div class="card-title">Respiración Guiada Multi-Fase</div>
+                                <div class="card-desc">Rondas de respiración con retenciones y descanso</div>
+                            </div>
+                        </div>
+                        <div class="rb-round-indicator" id="rb-settings-preview">
+                            <span>3</span> rondas
+                        </div>
+                    </div>
+                    <div class="card-body" id="rb-settings-body">
+                        <div class="rb-settings-grid">
+                            <div class="rb-setting-item">
+                                <div class="rb-setting-label">Rondas Totales</div>
+                                <div class="rb-setting-stepper">
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('rounds', -1)">−</button>
+                                    <div class="rb-stepper-val" id="rb-rounds-val">3</div>
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('rounds', 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="rb-setting-item">
+                                <div class="rb-setting-label">🔥 Respiración de Fuego</div>
+                                <div class="rb-setting-stepper">
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('fire', -5)">−</button>
+                                    <div class="rb-stepper-val" id="rb-fire-val">20</div>
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('fire', 5)">+</button>
+                                </div>
+                            </div>
+                            <div class="rb-setting-item">
+                                <div class="rb-setting-label">💚 Respiración Alcalina</div>
+                                <div class="rb-setting-stepper">
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('alkaline', -5)">−</button>
+                                    <div class="rb-stepper-val" id="rb-alkaline-val">10</div>
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('alkaline', 5)">+</button>
+                                </div>
+                            </div>
+                            <div class="rb-setting-item">
+                                <div class="rb-setting-label">💜 Respiración Chamánica</div>
+                                <div class="rb-setting-stepper">
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('shamanic', -5)">−</button>
+                                    <div class="rb-stepper-val" id="rb-shamanic-val">10</div>
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('shamanic', 5)">+</button>
+                                </div>
+                            </div>
+                            <div class="rb-setting-item">
+                                <div class="rb-setting-label">🟡 Retención en Lleno</div>
+                                <div class="rb-setting-stepper">
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('inhaleHold', -5)">−</button>
+                                    <div class="rb-stepper-val" id="rb-inhaleHold-val">10<small>s</small></div>
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('inhaleHold', 5)">+</button>
+                                </div>
+                            </div>
+                            <div class="rb-setting-item">
+                                <div class="rb-setting-label">⚫ Retención en Vacío</div>
+                                <div class="rb-setting-stepper">
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('exhaleHold', -5)">−</button>
+                                    <div class="rb-stepper-val" id="rb-exhaleHold-val">60<small>s</small></div>
+                                    <button class="rb-stepper-btn" onclick="rbAdjustSetting('exhaleHold', 5)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="rb-setting-item" style="margin-bottom: 14px;">
+                            <div class="rb-setting-label">🧘 Tiempo de Descanso</div>
+                            <div class="rb-setting-stepper">
+                                <button class="rb-stepper-btn" onclick="rbAdjustSetting('rest', -5)">−</button>
+                                <div class="rb-stepper-val" id="rb-rest-val">20<small>s</small></div>
+                                <button class="rb-stepper-btn" onclick="rbAdjustSetting('rest', 5)">+</button>
+                            </div>
+                        </div>
+                        <button class="rb-start-btn" id="rb-main-btn" onclick="rbStartSession()">
+                            <span>▶</span> Iniciar Sesión de Respiración
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== BREATHING SESSION OVERLAY ========== -->
+            <div class="rb-session-overlay" id="rb-session">
+                <div class="rb-session-top">
+                    <div class="rb-round-indicator" id="rb-round-display">
+                        Ronda <span>1</span> de <span>3</span>
+                    </div>
+                    <div class="rb-phase-name" id="rb-phase-display">PREPARANDO</div>
+                </div>
+                <div class="rb-orb-container">
+                    <div class="rb-timer-ring">
+                        <svg viewBox="0 0 220 220">
+                            <circle class="ring-bg" cx="110" cy="110" r="100"></circle>
+                            <circle class="ring-progress" id="rb-ring-progress" cx="110" cy="110" r="100"
+                                stroke-dasharray="628.3" stroke-dashoffset="0"></circle>
+                        </svg>
+                    </div>
+                    <div class="rb-orb" id="rb-orb">
+                        <div class="rb-orb-count" id="rb-orb-count">
+                            <span id="rb-count-number">3</span>
+                            <small id="rb-count-label">PREPARAR</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="rb-instruction" id="rb-instruction">Preparando...</div>
+                <div class="rb-instruction-sub" id="rb-instruction-sub"></div>
+                <div class="rb-progress-bar">
+                    <div class="rb-progress-fill" id="rb-progress-fill" style="width: 0%;"></div>
+                </div>
+                <div class="rb-round-dots" id="rb-round-dots"></div>
+                <div class="rb-controls">
+                    <button class="rb-ctrl-btn rb-btn-pause" id="rb-pause-btn" onclick="rbTogglePause()">
+                        ⏸ Pausar
+                    </button>
+                    <button class="rb-ctrl-btn rb-btn-skip" onclick="rbSkipPhase()">
+                        ⏭ Saltar
+                    </button>
+                    <button class="rb-ctrl-btn rb-btn-end" onclick="rbEndSession()">
+                        ⏹ Terminar
+                    </button>
+                </div>
+            </div>
+
+            <!-- ========== BREATHING COMPLETE OVERLAY ========== -->
+            <div class="rb-complete-overlay" id="rb-complete">
+                <div class="rb-complete-icon">✨</div>
+                <div class="rb-complete-title">Sesión Completada</div>
+                <div class="rb-complete-subtitle" id="rb-complete-stats">3 rondas completadas</div>
+                <button class="rb-complete-btn" onclick="rbCloseComplete()">Volver</button>
+            </div>
             <!-- ========== SUBLIMINAL AFFIRMATION ENGINE ========== -->
             <div class="section subliminal-section">
                 <div class="section-title">🧠 Motor de Afirmaciones Subliminales</div>
@@ -4614,11 +5120,36 @@ mientras fijas la vista en el centro."></textarea>
             _ekNextAlertTimer: null,
             _ekCountdownInterval: null,
             _ekAlertTimeouts: [],
+
+            // Respiracion Guiada state
+            rbSettings: {
+                rounds: 3,
+                fire: 20,
+                alkaline: 10,
+                shamanic: 10,
+                inhaleHold: 10,
+                exhaleHold: 60,
+                rest: 20
+            },
+            rbSessionActive: false,
+            rbPaused: false,
+            rbCurrentRound: 1,
+            rbCurrentPhase: 'fire',
+            rbPhaseIndex: 0,
+            rbBreathCount: 0,
+            rbTimerSeconds: 0,
+            _rbInterval: null,
+            _rbTimeout: null,
+            _rbAudioCtx: null,
+            _rbAnimationFrame: null,
+            _rbPhaseStartTime: 0,
+            _rbPhaseDuration: 0,
         };
 
         async function init() {
             loadSettings();
             loadMeditationSettings();
+            rbLoadSettings();
             await loadWbtbSettings();
             applyWbtbSettings();
             await migrateDreamsFromLocalStorage();
@@ -8764,6 +9295,410 @@ mientras fijas la vista en el centro."></textarea>
             document.getElementById('trance-volume-pct').textContent = tranceVolume + '%';
             document.getElementById('trance-play-btn').disabled = false;
             updateTranceStatus('stopped', 'Listo — Presiona ▶ para reproducir');
+        }
+
+
+        // ========== RESPIRACION GUIADA MODULE ==========
+
+        function rbGetAudioContext() {
+            if (!state._rbAudioCtx) {
+                state._rbAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (state._rbAudioCtx.state === 'suspended') state._rbAudioCtx.resume();
+            return state._rbAudioCtx;
+        }
+
+        function rbPlayBellSound() {
+            var ctx = rbGetAudioContext();
+            var t = ctx.currentTime;
+            var freqs = [528, 792, 1056];
+            var gain = ctx.createGain();
+            gain.gain.setValueAtTime(0, t);
+            gain.gain.linearRampToValueAtTime(0.3, t + 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 2.5);
+            gain.connect(ctx.destination);
+            freqs.forEach(function(f, i) {
+                var osc = ctx.createOscillator();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(f, t);
+                osc.connect(gain);
+                osc.start(t);
+                osc.stop(t + 2.5);
+            });
+        }
+
+        function rbPlayShortChime() {
+            var ctx = rbGetAudioContext();
+            var t = ctx.currentTime;
+            var gain = ctx.createGain();
+            gain.gain.setValueAtTime(0.25, t);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 0.4);
+            gain.connect(ctx.destination);
+            var osc = ctx.createOscillator();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, t);
+            osc.connect(gain);
+            osc.start(t);
+            osc.stop(t + 0.4);
+        }
+
+        function rbVibrate(pattern) {
+            if (navigator.vibrate) { navigator.vibrate(pattern); }
+        }
+
+        function rbLoadSettings() {
+            try {
+                var raw = localStorage.getItem('rb_settings');
+                if (raw) { Object.assign(state.rbSettings, JSON.parse(raw)); }
+            } catch(e) {}
+            rbUpdateSettingsUI();
+        }
+
+        function rbSaveSettings() {
+            try { localStorage.setItem('rb_settings', JSON.stringify(state.rbSettings)); } catch(e) {}
+        }
+
+        function rbUpdateSettingsUI() {
+            var s = state.rbSettings;
+            document.getElementById('rb-rounds-val').textContent = s.rounds;
+            document.getElementById('rb-fire-val').textContent = s.fire;
+            document.getElementById('rb-alkaline-val').textContent = s.alkaline;
+            document.getElementById('rb-shamanic-val').textContent = s.shamanic;
+            document.getElementById('rb-inhaleHold-val').innerHTML = s.inhaleHold + '<small>s</small>';
+            document.getElementById('rb-exhaleHold-val').innerHTML = s.exhaleHold + '<small>s</small>';
+            document.getElementById('rb-rest-val').innerHTML = s.rest + '<small>s</small>';
+            document.getElementById('rb-settings-preview').innerHTML = '<span>' + s.rounds + '</span> rondas';
+        }
+
+        function rbAdjustSetting(key, delta) {
+            var limits = {
+                rounds: { min: 1, max: 10 },
+                fire: { min: 5, max: 50 },
+                alkaline: { min: 3, max: 30 },
+                shamanic: { min: 3, max: 30 },
+                inhaleHold: { min: 3, max: 60 },
+                exhaleHold: { min: 10, max: 180 },
+                rest: { min: 5, max: 120 }
+            };
+            var l = limits[key];
+            state.rbSettings[key] = Math.max(l.min, Math.min(l.max, state.rbSettings[key] + delta));
+            rbUpdateSettingsUI();
+            rbSaveSettings();
+        }
+
+        function rbGetPhases() {
+            var s = state.rbSettings;
+            return [
+                { key: 'fire', name: 'Fuego', emoji: '🔥', count: s.fire, breathSpeed: 0.6, color: 'fire', instruction: 'Respiracion de Fuego', sub: 'Bombeo rapido: inhala-exhala en 0.6s' },
+                { key: 'alkaline', name: 'Alcalina', emoji: '💚', count: s.alkaline, breathSpeed: 2.2, color: 'alkaline', instruction: 'Respiracion Alcalina', sub: 'Profunda: inhala 1.2s, exhala 1s' },
+                { key: 'shamanic', name: 'Chamanica', emoji: '💜', count: s.shamanic, breathSpeed: 1.3, color: 'shamanic', instruction: 'Respiracion Chamanica', sub: 'Doble inhalacion + exhalacion rapida en 1.3s' },
+                { key: 'inhaleHold', name: 'Retencion Lleno', emoji: '🟡', count: -1, duration: s.inhaleHold, color: 'inhale-hold', instruction: 'Retencion en Lleno', sub: 'Inhala profundo y reten el aire' },
+                { key: 'exhaleHold', name: 'Retencion Vacio', emoji: '⚫', count: -1, duration: s.exhaleHold, color: 'exhale-hold', instruction: 'Retencion en Vacio (Apnea)', sub: 'Exhala completamente y sostien' },
+                { key: 'rest', name: 'Descanso', emoji: '🧘', count: -1, duration: state.rbSettings.rest, color: 'rest', instruction: 'Descanso / Integracion', sub: 'Respira normal antes de la siguiente ronda' }
+            ];
+        }
+
+        function rbStartSession() {
+            state.rbSessionActive = true;
+            state.rbPaused = false;
+            state.rbCurrentRound = 1;
+            state.rbPhaseIndex = 0;
+            state.rbBreathCount = 0;
+            document.getElementById('rb-session').classList.add('active');
+            var dotsHtml = '';
+            for (var i = 0; i < state.rbSettings.rounds; i++) {
+                dotsHtml += '<div class="rb-round-dot' + (i === 0 ? ' active' : '') + '" id="rb-dot-' + i + '"></div>';
+            }
+            document.getElementById('rb-round-dots').innerHTML = dotsHtml;
+            rbUpdateRoundDisplay();
+            rbPlayBellSound();
+            rbVibrate(200);
+            rbCountdown(3);
+        }
+
+        function rbCountdown(num) {
+            if (num <= 0) { rbStartPhase(); return; }
+            var orb = document.getElementById('rb-orb');
+            orb.className = 'rb-orb';
+            document.getElementById('rb-count-number').textContent = num;
+            document.getElementById('rb-count-label').textContent = 'PREPARAR';
+            document.getElementById('rb-instruction').textContent = 'Comenzando en ' + num + '...';
+            document.getElementById('rb-instruction-sub').textContent = '';
+            rbPlayShortChime();
+            state._rbTimeout = setTimeout(function() { rbCountdown(num - 1); }, 1000);
+        }
+
+        function rbStartPhase() {
+            if (!state.rbSessionActive || state.rbPaused) return;
+            var phases = rbGetPhases();
+            var phase = phases[state.rbPhaseIndex];
+            document.getElementById('rb-phase-display').textContent = phase.emoji + ' ' + phase.name.toUpperCase();
+            document.getElementById('rb-instruction').textContent = phase.instruction;
+            document.getElementById('rb-instruction-sub').textContent = phase.sub;
+            var orb = document.getElementById('rb-orb');
+            orb.className = 'rb-orb ' + phase.color;
+            orb.style.animation = '';
+            var ring = document.getElementById('rb-ring-progress');
+            ring.setAttribute('stroke-dashoffset', '0');
+            if (phase.count > 0) {
+                state.rbBreathCount = 0;
+                rbUpdateBreathCount(phase);
+                rbRunBreathingPhase(phase);
+            } else {
+                state.rbTimerSeconds = phase.duration;
+                rbUpdateTimerCount(phase);
+                rbRunTimerPhase(phase);
+            }
+        }
+
+        function rbUpdateBreathCount(phase) {
+            document.getElementById('rb-count-number').textContent = state.rbBreathCount + '/' + phase.count;
+            document.getElementById('rb-count-label').textContent = phase.name;
+            var progress = (state.rbBreathCount / phase.count) * 100;
+            document.getElementById('rb-progress-fill').style.width = progress + '%';
+        }
+
+        function rbUpdateTimerCount(phase) {
+            document.getElementById('rb-count-number').textContent = state.rbTimerSeconds;
+            document.getElementById('rb-count-label').textContent = phase.name;
+            var total = phase.duration;
+            var progress = ((total - state.rbTimerSeconds) / total) * 100;
+            document.getElementById('rb-progress-fill').style.width = progress + '%';
+            var ring = document.getElementById('rb-ring-progress');
+            var circumference = 628.3;
+            var offset = circumference * (1 - state.rbTimerSeconds / total);
+            ring.setAttribute('stroke-dashoffset', offset.toString());
+        }
+
+        function rbRunBreathingPhase(phase) {
+            var orb = document.getElementById('rb-orb');
+            var breathDuration = phase.breathSpeed * 1000;
+            function doBreath() {
+                if (!state.rbSessionActive || state.rbPaused) return;
+                if (state.rbBreathCount >= phase.count) {
+                    rbPlayShortChime();
+                    rbVibrate(150);
+                    rbNextPhase();
+                    return;
+                }
+                state.rbBreathCount++;
+                rbUpdateBreathCount(phase);
+                orb.style.animation = '';
+                orb.offsetHeight;
+                if (phase.key === 'fire') {
+                    orb.className = 'rb-orb ' + phase.color + ' breathing-fire';
+                } else if (phase.key === 'alkaline') {
+                    orb.className = 'rb-orb ' + phase.color + ' breathing-alkaline';
+                } else if (phase.key === 'shamanic') {
+                    orb.className = 'rb-orb ' + phase.color + ' breathing-shamanic';
+                } else {
+                    orb.className = 'rb-orb ' + phase.color;
+                    orb.style.animation = 'rb-pulse ' + phase.breathSpeed + 's ease-in-out';
+                }
+                rbPlayShortChime();
+                state._rbTimeout = setTimeout(doBreath, breathDuration);
+            }
+            doBreath();
+        }
+
+        /* --- Orb Animation Helpers for Timer Phases --- */
+        function rbAnimateOrb(fromScale, toScale, durationMs, callback) {
+            var orb = document.getElementById('rb-orb');
+            orb.style.transition = 'transform ' + durationMs + 'ms ease-in-out';
+            orb.style.transform = 'scale(' + fromScale + ')';
+            orb.offsetHeight; /* force reflow */
+            orb.style.transform = 'scale(' + toScale + ')';
+            if (callback) setTimeout(callback, durationMs);
+        }
+
+        function rbAnimateRing(durationMs, callback) {
+            var ring = document.getElementById('rb-ring-progress');
+            var circumference = 628.3;
+            ring.style.transition = 'stroke-dashoffset ' + durationMs + 'ms linear';
+            ring.setAttribute('stroke-dashoffset', '0');
+            ring.offsetHeight;
+            ring.setAttribute('stroke-dashoffset', circumference.toString());
+            if (callback) setTimeout(callback, durationMs);
+        }
+
+        function rbRunTimerPhase(phase) {
+            var orb = document.getElementById('rb-orb');
+            orb.style.transition = '';
+            orb.style.animation = '';
+
+            if (phase.key === 'inhaleHold') {
+                /* === INHALE HOLD: deep inhale(2s) → hold(countdown) → exhale(2s) === */
+                document.getElementById('rb-instruction').textContent = 'Inhala profundo y llena al 100%';
+                document.getElementById('rb-instruction-sub').textContent = '';
+                /* Step 1: Deep inhale animation 2s → scale(1.9) */
+                rbAnimateOrb(1, 1.9, 2000, function() {
+                    orb.className = 'rb-orb ' + phase.color + ' hold-max';
+                    document.getElementById('rb-instruction').textContent = 'Retencion — Sostien el aire';
+                    document.getElementById('rb-instruction-sub').textContent = '';
+                    /* Step 2: Hold at max with countdown */
+                    rbRunHoldCountdown(phase, function() {
+                        /* Step 3: Exhale animation 2s → scale(1) */
+                        document.getElementById('rb-instruction').textContent = 'Exhala todo el aire';
+                        document.getElementById('rb-instruction-sub').textContent = '';
+                        orb.className = 'rb-orb ' + phase.color;
+                        orb.style.transition = 'transform 2s ease-in-out';
+                        orb.style.transform = 'scale(1)';
+                        setTimeout(function() {
+                            rbPlayShortChime();
+                            rbVibrate(150);
+                            rbNextPhase();
+                        }, 2000);
+                    });
+                });
+
+            } else if (phase.key === 'exhaleHold') {
+                /* === EXHALE HOLD: quick exhale(1s) → hold(countdown) === */
+                document.getElementById('rb-instruction').textContent = 'Exhala completamente';
+                document.getElementById('rb-instruction-sub').textContent = '';
+                /* Step 1: Quick exhale to min 1s */
+                rbAnimateOrb(1, 0.9, 1000, function() {
+                    orb.className = 'rb-orb ' + phase.color + ' hold-min';
+                    document.getElementById('rb-instruction').textContent = 'Retencion en Vacio — Apnea';
+                    document.getElementById('rb-instruction-sub').textContent = '';
+                    /* Step 2: Hold at min with countdown */
+                    rbRunHoldCountdown(phase, function() {
+                        rbPlayShortChime();
+                        rbVibrate(150);
+                        rbNextPhase();
+                    });
+                });
+
+            } else {
+                /* === REST / RECOVERY: inhale(2s) → hold(7s) → exhale(2s) === */
+                document.getElementById('rb-instruction').textContent = 'Inhala profundo para recuperar';
+                document.getElementById('rb-instruction-sub').textContent = '';
+                /* Step 1: Recovery inhale 2s → scale(1.8) */
+                rbAnimateOrb(1, 1.8, 2000, function() {
+                    orb.className = 'rb-orb ' + phase.color + ' hold-max-recovery';
+                    document.getElementById('rb-instruction').textContent = 'Sostien — Recuperacion';
+                    document.getElementById('rb-instruction-sub').textContent = '';
+                    /* Step 2: Recovery hold with countdown */
+                    rbRunHoldCountdown(phase, function() {
+                        /* Step 3: Recovery exhale 2s → scale(1) */
+                        document.getElementById('rb-instruction').textContent = 'Suelta y respira normal';
+                        document.getElementById('rb-instruction-sub').textContent = '';
+                        orb.className = 'rb-orb ' + phase.color;
+                        orb.style.transition = 'transform 2s ease-in-out';
+                        orb.style.transform = 'scale(1)';
+                        setTimeout(function() {
+                            rbPlayShortChime();
+                            rbVibrate(150);
+                            rbNextPhase();
+                        }, 2000);
+                    });
+                });
+            }
+        }
+
+        /* --- Hold Countdown with ring animation --- */
+        function rbRunHoldCountdown(phase, onComplete) {
+            var total = phase.duration;
+            state.rbTimerSeconds = total;
+            rbUpdateTimerCount(phase);
+            var ring = document.getElementById('rb-ring-progress');
+            var circumference = 628.3;
+            ring.style.transition = 'none';
+            ring.setAttribute('stroke-dashoffset', '0');
+            function tick() {
+                if (!state.rbSessionActive || state.rbPaused) return;
+                if (state.rbTimerSeconds <= 0) {
+                    ring.style.transition = 'none';
+                    ring.setAttribute('stroke-dashoffset', '0');
+                    if (onComplete) onComplete();
+                    return;
+                }
+                state.rbTimerSeconds--;
+                rbUpdateTimerCount(phase);
+                var progress = 1 - (state.rbTimerSeconds / total);
+                ring.setAttribute('stroke-dashoffset', (circumference * progress).toString());
+                state._rbTimeout = setTimeout(tick, 1000);
+            }
+            state._rbTimeout = setTimeout(tick, 1000);
+        }
+
+        function rbNextPhase() {
+            if (state._rbTimeout) { clearTimeout(state._rbTimeout); state._rbTimeout = null; }
+            var phases = rbGetPhases();
+            state.rbPhaseIndex++;
+            if (state.rbPhaseIndex >= phases.length) {
+                var dot = document.getElementById('rb-dot-' + (state.rbCurrentRound - 1));
+                if (dot) dot.className = 'rb-round-dot completed';
+                state.rbCurrentRound++;
+                if (state.rbCurrentRound > state.rbSettings.rounds) { rbSessionComplete(); return; }
+                state.rbPhaseIndex = 0;
+                rbUpdateRoundDisplay();
+                rbPlayBellSound();
+                rbVibrate([200, 100, 200]);
+                document.getElementById('rb-instruction').textContent = 'Preparando siguiente ronda...';
+                document.getElementById('rb-instruction-sub').textContent = '';
+                state._rbTimeout = setTimeout(function() { rbCountdown(3); }, 1500);
+                return;
+            }
+            rbStartPhase();
+        }
+
+        function rbUpdateRoundDisplay() {
+            document.getElementById('rb-round-display').innerHTML =
+                'Ronda <span>' + state.rbCurrentRound + '</span> de <span>' + state.rbSettings.rounds + '</span>';
+            for (var i = 0; i < state.rbSettings.rounds; i++) {
+                var dot = document.getElementById('rb-dot-' + i);
+                if (dot && !dot.classList.contains('completed')) {
+                    dot.className = 'rb-round-dot' + (i === state.rbCurrentRound - 1 ? ' active' : '');
+                }
+            }
+        }
+
+        function rbTogglePause() {
+            if (!state.rbSessionActive) return;
+            state.rbPaused = !state.rbPaused;
+            var btn = document.getElementById('rb-pause-btn');
+            if (state.rbPaused) {
+                btn.innerHTML = '▶ Reanudar';
+                btn.classList.add('paused');
+                document.getElementById('rb-instruction').textContent = '⏸ PAUSADO';
+                document.getElementById('rb-instruction-sub').textContent = 'Toca para continuar';
+                if (state._rbTimeout) { clearTimeout(state._rbTimeout); state._rbTimeout = null; }
+            } else {
+                btn.innerHTML = '⏸ Pausar';
+                btn.classList.remove('paused');
+                rbStartPhase();
+            }
+        }
+
+        function rbSkipPhase() {
+            if (!state.rbSessionActive || state.rbPaused) return;
+            if (state._rbTimeout) { clearTimeout(state._rbTimeout); state._rbTimeout = null; }
+            rbPlayShortChime();
+            rbNextPhase();
+        }
+
+        function rbEndSession() {
+            state.rbSessionActive = false;
+            state.rbPaused = false;
+            if (state._rbTimeout) { clearTimeout(state._rbTimeout); state._rbTimeout = null; }
+            document.getElementById('rb-session').classList.remove('active');
+            showToast('⏹ Sesion de respiracion terminada');
+        }
+
+        function rbSessionComplete() {
+            state.rbSessionActive = false;
+            if (state._rbTimeout) { clearTimeout(state._rbTimeout); state._rbTimeout = null; }
+            document.getElementById('rb-session').classList.remove('active');
+            rbPlayBellSound();
+            rbVibrate([200, 100, 200, 100, 200]);
+            document.getElementById('rb-complete-stats').textContent =
+                state.rbSettings.rounds + ' rondas completadas - ¡Excelente!';
+            document.getElementById('rb-complete').classList.add('active');
+        }
+
+        function rbCloseComplete() {
+            document.getElementById('rb-complete').classList.remove('active');
+            showToast('✨ Sesion de respiracion completada');
         }
 
         init();
