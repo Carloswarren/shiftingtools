@@ -2015,6 +2015,212 @@
             color: var(--text-dim);
         }
 
+        /* ========== BREATHING GUIDE 4-7-8 ========== */
+        .breath-guide-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .breath-guide-toggle-row:active {
+            transform: scale(0.98);
+        }
+        .breath-guide-toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .breath-guide-toggle-label .breath-icon {
+            font-size: 1.2rem;
+        }
+        .breath-guide-toggle-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .breath-guide-panel {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 16px;
+            margin-top: 12px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            animation: breathSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .breath-guide-panel.active {
+            display: flex;
+        }
+        @keyframes breathSlideIn {
+            from { opacity: 0; transform: translateY(-12px); max-height: 0; }
+            to { opacity: 1; transform: translateY(0); max-height: 600px; }
+        }
+
+        .breath-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            z-index: 2;
+        }
+        .breath-close-btn:active {
+            background: rgba(255,255,255,0.15);
+            transform: scale(0.9);
+        }
+
+        .breath-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+        .breath-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .breath-circle-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 8px 0 20px;
+        }
+        @media (max-width: 380px) {
+            .breath-circle-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .breath-circle-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 200, 83, 0.15);
+            transition: border-color 0.5s ease;
+        }
+        .breath-circle-bg.inhale { border-color: rgba(0, 200, 83, 0.4); }
+        .breath-circle-bg.hold { border-color: rgba(255, 171, 0, 0.4); }
+        .breath-circle-bg.exhale { border-color: rgba(100, 181, 246, 0.4); }
+
+        .breath-circle {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #00c853, #00a040);
+            transform: translate(-50%, -50%) scale(1);
+            transition: transform 0.3s ease, background 0.5s ease;
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.3);
+        }
+        .breath-circle.inhale {
+            transform: translate(-50%, -50%) scale(2.8);
+            background: radial-gradient(circle at 40% 40%, #00c853, #2e7d32);
+            box-shadow: 0 0 40px rgba(0, 200, 83, 0.5);
+        }
+        .breath-circle.hold {
+            transform: translate(-50%, -50%) scale(2.8);
+            background: radial-gradient(circle at 40% 40%, #ffab00, #ff8f00);
+            box-shadow: 0 0 40px rgba(255, 171, 0, 0.5);
+        }
+        .breath-circle.exhale {
+            transform: translate(-50%, -50%) scale(1);
+            background: radial-gradient(circle at 40% 40%, #64b5f6, #1e88e5);
+            box-shadow: 0 0 20px rgba(100, 181, 246, 0.3);
+        }
+
+        .breath-phase-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            min-height: 1.4em;
+            text-align: center;
+        }
+        .breath-phase-text.inhale { color: #00c853; }
+        .breath-phase-text.hold { color: #ffab00; }
+        .breath-phase-text.exhale { color: #64b5f6; }
+
+        .breath-countdown {
+            font-size: 2rem;
+            font-weight: 300;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-primary);
+            min-height: 1.2em;
+            text-align: center;
+        }
+
+        .breath-pattern-info {
+            display: flex;
+            gap: 16px;
+            margin-top: 12px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .breath-pattern-info span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .breath-pattern-info .dot-inhale { color: #00c853; }
+        .breath-pattern-info .dot-hold { color: #ffab00; }
+        .breath-pattern-info .dot-exhale { color: #64b5f6; }
+
+        .breath-rounds-info {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .breath-voice-btn {
+            margin-top: 14px;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+        }
+        .breath-voice-btn.active {
+            background: linear-gradient(135deg, rgba(0,200,83,0.15), rgba(0,200,83,0.05));
+            border-color: rgba(0,200,83,0.3);
+            color: #00c853;
+        }
+        .breath-voice-btn:active {
+            transform: scale(0.96);
+        }
+
         /* ========== DREAM JOURNAL - Duolingo Style ========== */
 
         .dream-btn-wrap {
@@ -3427,6 +3633,320 @@
         }
         .rb-complete-btn:active { transform: scale(0.96); }
 
+        /* ========== PANEL DE ESTIMULACIÓN GAMIFICADO ========== */
+        /* Trigger button */
+        .est-trigger-btn {
+            width: 100%;
+            padding: 18px;
+            border: 2px solid #6366f1;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #6366f122, #a855f722);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .est-trigger-btn:active { transform: scale(0.97); }
+        .est-trigger-btn .est-trigger-icon { font-size: 1.3rem; }
+        .est-trigger-btn .est-trigger-sub {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Full screen modal */
+        .est-fullmodal {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: var(--bg-primary);
+            display: none;
+            flex-direction: column;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .est-fullmodal.visible { display: flex; }
+        .est-fullmodal-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+        }
+        .est-fullmodal-header .est-back-btn {
+            background: none; border: none;
+            color: var(--text-primary);
+            font-size: 1.4rem; cursor: pointer;
+            padding: 4px;
+        }
+        .est-fullmodal-header .est-header-title {
+            font-size: 1rem; font-weight: 700;
+            background: linear-gradient(135deg, #ef4444, #a855f7);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .est-fullmodal-header .est-config-btn {
+            background: none; border: 2px solid var(--border);
+            border-radius: 12px; padding: 6px 10px;
+            color: var(--text-secondary); font-size: 1rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .est-fullmodal-header .est-config-btn:active { transform: scale(0.9); }
+        .est-fullmodal-body {
+            flex: 1;
+            padding: 16px;
+            padding-bottom: 40px;
+        }
+
+        /* Progress in modal */
+        .est-m-progress {
+            max-width: 360px;
+            margin: 0 auto 20px auto;
+            border-radius: 24px;
+            background: linear-gradient(180deg, #0d0d20, #12122a);
+            border: 1.5px solid var(--border);
+            padding: 16px;
+            overflow: hidden;
+        }
+        .est-m-progress-title {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .est-m-body-svg { width: 100%; display: flex; justify-content: center; }
+        .est-m-body-svg svg { width: 100%; max-width: 280px; height: auto; }
+        .est-chakra-dot {
+            transition: all 0.6s cubic-bezier(0.34,1.56,0.64,1);
+            filter: grayscale(100%) brightness(0.3);
+            opacity: 0.35;
+        }
+        .est-chakra-dot.active { filter: grayscale(0%) brightness(1.2); opacity: 1; }
+        .est-chakra-dot.activating { animation: estChPulse 1.5s ease-out forwards; }
+        @keyframes estChPulse {
+            0% { filter: grayscale(100%) brightness(0.3); opacity:0.35; transform-origin:center; transform:scale(0.5); }
+            40% { filter: grayscale(0%) brightness(2); opacity:1; transform:scale(1.8); }
+            70% { filter: grayscale(0%) brightness(1.5); opacity:1; transform:scale(1.2); }
+            100% { filter: grayscale(0%) brightness(1.2); opacity:1; transform:scale(1); }
+        }
+        .est-chakra-glow { opacity: 0; transition: opacity 0.6s ease; }
+        .est-chakra-glow.active { opacity: 0.6; animation: estGlowB 3s ease-in-out infinite; }
+        @keyframes estGlowB { 0%,100%{opacity:0.4;} 50%{opacity:0.8;} }
+
+        .est-m-bar { margin-top: 10px; background: #1a1a35; border-radius: 10px; height: 8px; overflow: hidden; }
+        .est-m-bar-fill {
+            height: 100%; border-radius: 10px;
+            background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #6366f1, #a855f7);
+            transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1); width: 0%;
+        }
+        .est-m-bar-text { text-align: center; font-size: 0.72rem; color: var(--text-secondary); margin-top: 5px; }
+
+        /* Level path in modal */
+        .est-m-path { position: relative; padding: 12px 0; max-width: 400px; margin: 0 auto; }
+        .est-m-connector { position: absolute; left: 50%; transform: translateX(-50%); width: 3px; top: 0; bottom: 0; background: var(--border); border-radius: 2px; z-index: 0; }
+        .est-m-item { position: relative; display: flex; align-items: center; margin-bottom: 16px; z-index: 1; }
+        .est-m-item:nth-child(odd) { justify-content: flex-start; padding-left: 50px; }
+        .est-m-item:nth-child(even) { justify-content: flex-end; padding-right: 50px; }
+        .est-m-node {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 36px; height: 36px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.85rem; font-weight: 800;
+            color: var(--text-dim); background: var(--bg-card); border: 3px solid var(--border);
+            z-index: 2; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .est-m-node.active { transform: translateX(-50%) scale(1.15); color: #fff; }
+        .est-m-node.completed { transform: translateX(-50%) scale(1.1); }
+        .est-m-card {
+            width: calc(100% - 62px); background: var(--bg-card);
+            border: 2px solid var(--border); border-radius: 16px;
+            padding: 12px 14px; cursor: not-allowed;
+            opacity: 0.4; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            position: relative;
+        }
+        .est-m-card.active { cursor: pointer; opacity: 1; border-color: #555; transform: scale(1.02); box-shadow: 0 6px 24px rgba(0,0,0,0.3); }
+        .est-m-card.active:active { transform: scale(0.97); }
+        .est-m-card.completed { opacity: 0.6; }
+        .est-m-card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+        .est-m-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 16px; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        .est-m-chakraname { font-size: 0.65rem; color: var(--text-secondary); }
+        .est-m-card-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
+        .est-m-card-desc { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.3; }
+        .est-m-lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1rem; opacity: 0.4; }
+        .est-m-check { position: absolute; top: 10px; right: 12px; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s; }
+        .est-m-card.completed .est-m-check { opacity: 1; }
+        .est-m-card.active .est-m-lock, .est-m-card.completed .est-m-lock { display: none; }
+
+        .est-all-done {
+            text-align: center; padding: 20px; background: linear-gradient(135deg,#1a1a35,#1e1e40);
+            border-radius: 18px; border: 2px solid #a855f7; margin-top: 16px; display: none;
+        }
+        .est-all-done.visible { display: block; animation: estPop 0.8s cubic-bezier(0.34,1.56,0.64,1); }
+        .est-all-done h3 { font-size: 1.1rem; margin-bottom: 4px; background: linear-gradient(135deg,#ef4444,#a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .est-all-done p { font-size: 0.78rem; color: var(--text-secondary); }
+
+        /* Execution View */
+        .est-exec-overlay {
+            position: fixed; inset: 0; z-index: 1200;
+            background: var(--bg-primary);
+            display: none; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+        .est-exec-overlay.visible { display: flex; }
+        .est-exec-top {
+            position: absolute; top: 0; left: 0; right: 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 16px;
+        }
+        .est-exec-top .est-exec-back { background: none; border: none; color: var(--text-primary); font-size: 1.3rem; cursor: pointer; padding: 4px; }
+        .est-exec-top .est-exec-level { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; }
+        .est-exec-center { text-align: center; position: relative; }
+        .est-exec-ring {
+            position: relative; width: 240px; height: 240px; margin: 0 auto;
+        }
+        .est-exec-ring svg { transform: rotate(-90deg); width: 240px; height: 240px; }
+        .est-exec-ring .est-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 4; }
+        .est-exec-ring .est-ring-progress {
+            fill: none; stroke-width: 4; stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+        .est-exec-orb {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 180px; height: 180px; border-radius: 50%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            transition: background 0.5s ease;
+        }
+        .est-exec-posture {
+            font-size: 3rem; margin-bottom: 8px;
+            filter: drop-shadow(0 0 12px currentColor);
+        }
+        .est-exec-count {
+            font-size: 2.8rem; font-weight: 800; color: #fff;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+        .est-exec-label {
+            font-size: 0.8rem; color: rgba(255,255,255,0.7);
+            margin-top: 2px;
+        }
+        .est-exec-instruction {
+            margin-top: 24px; padding: 0 24px;
+            text-align: center; font-size: 0.92rem;
+            line-height: 1.5; color: var(--text-secondary);
+            max-width: 360px;
+        }
+        .est-exec-chakraname {
+            margin-top: 12px; font-size: 0.75rem;
+            color: var(--text-dim); text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .est-exec-bottom {
+            position: absolute; bottom: 40px; left: 0; right: 0;
+            text-align: center;
+        }
+        .est-exec-skip {
+            background: none; border: 1px solid var(--border);
+            border-radius: 14px; padding: 10px 24px;
+            color: var(--text-secondary); font-size: 0.85rem;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .est-exec-skip:active { transform: scale(0.95); }
+
+        /* Celebration */
+        .est-celebration-overlay {
+            position: fixed; inset: 0; z-index: 2000;
+            display: none; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+        }
+        .est-celebration-overlay.visible { display: flex; }
+        .est-celebration-content { text-align: center; animation: estPop 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+        .est-celebration-emoji { font-size: 4rem; margin-bottom: 12px; }
+        .est-celebration-text {
+            font-size: 1.3rem; font-weight: 800; margin-bottom: 6px;
+            background: linear-gradient(90deg, var(--text-primary) 40%, #fff 50%, var(--text-primary) 60%);
+            background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: estShim 3s ease-in-out infinite;
+        }
+        .est-celebration-sub { font-size: 0.85rem; color: var(--text-secondary); }
+        @keyframes estPop { 0%{transform:scale(0.3);opacity:0;} 60%{transform:scale(1.1);} 100%{transform:scale(1);opacity:1;} }
+        @keyframes estShim { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
+
+        /* Particles */
+        .est-particle {
+            position: fixed; pointer-events: none; z-index: 2001;
+            border-radius: 50%; animation: estPFly 1.2s ease-out forwards;
+        }
+        @keyframes estPFly { 0%{transform:translate(0,0) scale(1);opacity:1;} 100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;} }
+
+        /* Config Panel */
+        .est-config-overlay {
+            position: fixed; inset: 0; z-index: 1300;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            display: none; align-items: flex-end; justify-content: center;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .est-config-overlay.visible { display: flex; opacity: 1; }
+        .est-config-panel {
+            width: 100%; max-width: 440px; max-height: 80vh;
+            background: #16162e; border-radius: 24px 24px 0 0;
+            padding: 20px 20px 32px 20px; overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            border: 1px solid var(--border); border-bottom: none;
+        }
+        .est-config-overlay.visible .est-config-panel { transform: translateY(0); }
+        .est-config-handle { width: 40px; height: 4px; background: var(--border); border-radius: 4px; margin: 0 auto 14px; }
+        .est-config-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .est-config-sub { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px; }
+        .est-config-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 12px 0; border-bottom: 1px solid var(--border);
+        }
+        .est-config-row:last-child { border-bottom: none; }
+        .est-config-row-label { font-size: 0.85rem; font-weight: 600; }
+        .est-config-row-chakra { font-size: 0.65rem; color: var(--text-secondary); margin-top: 2px; }
+        .est-config-input {
+            width: 80px; padding: 8px 10px;
+            background: var(--bg-input); border: 1.5px solid var(--border);
+            border-radius: 12px; color: var(--text-primary);
+            font-size: 0.9rem; text-align: center; font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .est-config-input:focus { outline: none; border-color: #6366f1; }
+        .est-config-reset {
+            width: 100%; margin-top: 16px; padding: 14px;
+            background: linear-gradient(135deg, #ef444433, #a855f733);
+            border: 1.5px solid var(--border); border-radius: 14px;
+            color: var(--text-primary); font-size: 0.88rem; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+        }
+        .est-config-reset:active { transform: scale(0.97); }
+        .est-config-close {
+            width: 100%; margin-top: 8px; padding: 12px;
+            background: none; border: none; border-radius: 12px;
+            color: var(--text-secondary); font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 360px) {
+            .est-m-item:nth-child(odd) { padding-left: 40px; }
+            .est-m-item:nth-child(even) { padding-right: 40px; }
+            .est-m-card { width: calc(100% - 50px); padding: 10px; }
+            .est-m-node { width: 30px; height: 30px; font-size: 0.8rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -4151,6 +4671,44 @@
                                 Reproduce cuenco + mensaje de voz para probar
                             </div>
                         </div>
+
+                        <!-- ========== BREATHING GUIDE 4-7-8 ========== -->
+                        <div class="breath-guide-toggle-row" id="breath-toggle-row" onclick="toggleBreathGuide()">
+                            <div>
+                                <div class="breath-guide-toggle-label">
+                                    <span class="breath-icon">🫁</span>
+                                    <span>Activar Guía de Respiración</span>
+                                </div>
+                                <div class="breath-guide-toggle-desc">Técnica 4-7-8: Inhalar 4s · Retener 7s · Exhalar 8s</div>
+                            </div>
+                            <div class="toggle" id="breath-toggle"></div>
+                        </div>
+
+                        <div class="breath-guide-panel" id="breath-guide-panel">
+                            <button class="breath-close-btn" onclick="closeBreathGuide()" title="Cerrar guía">✕</button>
+                            <div class="breath-title">Respiración 4-7-8</div>
+                            <div class="breath-subtitle">Relájate y sigue el ritmo del círculo</div>
+
+                            <div class="breath-circle-wrapper">
+                                <div class="breath-circle-bg" id="breath-circle-bg"></div>
+                                <div class="breath-circle" id="breath-circle"></div>
+                            </div>
+
+                            <div class="breath-phase-text" id="breath-phase-text">Preparado</div>
+                            <div class="breath-countdown" id="breath-countdown">—</div>
+
+                            <div class="breath-pattern-info">
+                                <span><span class="dot-inhale">●</span> Inhalar 4s</span>
+                                <span><span class="dot-hold">●</span> Retener 7s</span>
+                                <span><span class="dot-exhale">●</span> Exhalar 8s</span>
+                            </div>
+                            <div class="breath-rounds-info" id="breath-rounds-info">Ciclo: 19s · Ronda: 0</div>
+
+                            <button class="breath-voice-btn active" id="breath-voice-btn" onclick="toggleBreathVoice()">
+                                🔊 Voz activada
+                            </button>
+                        </div>
+                        <!-- ========== END BREATHING GUIDE 4-7-8 ========== -->
 
                         <!-- Master Test Button -->
                         <div class="input-group" style="margin-top: 10px;">
@@ -4897,6 +5455,18 @@ mientras fijas la vista en el centro."></textarea>
                 </div>
             </div>
 
+            <!-- ========== PANEL DE ESTIMULACION GAMIFICADO ========== -->
+            <div class="est-section" id="estimulacion">
+                <div class="section-title">Estimulación Corporal</div>
+                <button class="est-trigger-btn" onclick="estOpenPanel()">
+                    <span class="est-trigger-icon">🔥</span>
+                    <div>
+                        <div>Iniciar Estimulación</div>
+                        <div class="est-trigger-sub">7 centros de energía · estilo Duolingo</div>
+                    </div>
+                </button>
+            </div>
+
             <div class="footer">
                 Sueño Lúcido v1.1 — Inducción REM + WBTB<br>
                 Basado en técnicas de señales durante el sueño REM y Wake Back to Bed
@@ -4908,9 +5478,124 @@ mientras fijas la vista en el centro."></textarea>
                 <button class="btn btn-secondary" onclick="scrollToSection('timer')">
                     <span>⏰</span> Temporizador
                 </button>
+                <button class="btn btn-secondary" onclick="scrollToEstimulacion()">
+                    <span>🔥</span> Estimulación
+                </button>
                 <button class="btn btn-secondary" onclick="scrollToSection('customize')">
                     <span>🎨</span> Ajustes
                 </button>
+            </div>
+        </div>
+
+        <!-- ========== ESTIMULACION PANEL COMPLETO (fullscreen) ========== -->
+        <div class="est-fullmodal" id="est-fullmodal">
+            <div class="est-fullmodal-header">
+                <button class="est-back-btn" onclick="estClosePanel()">←</button>
+                <span class="est-header-title">Estimulación Corporal</span>
+                <button class="est-config-btn" onclick="estOpenConfig()">⚙</button>
+            </div>
+            <div class="est-fullmodal-body">
+                <div class="est-m-progress">
+                    <div class="est-m-progress-title">Tu Energía Interior</div>
+                    <div class="est-m-body-svg">
+                        <svg viewBox="0 0 240 420" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <ellipse cx="120" cy="52" rx="28" ry="32" fill="#1a1a35" stroke="#2a2a50" stroke-width="0.8"/>
+                                <rect x="112" y="82" width="16" height="18" rx="4" fill="#1a1a35" stroke="#2a2a50" stroke-width="0.8"/>
+                                <path d="M88 100 Q86 100 82 108 L76 160 Q74 175 78 195 L82 240 Q84 260 90 280 L95 310 Q97 325 100 340 L105 380 Q106 395 110 400 L112 405 Q116 410 120 410 Q124 410 128 405 L130 400 Q134 395 135 380 L140 340 Q143 325 145 310 L150 280 Q156 260 158 240 L162 195 Q166 175 164 160 L158 108 Q154 100 152 100 Z" fill="#1a1a35" stroke="#2a2a50" stroke-width="0.8"/>
+                                <path d="M82 108 Q70 112 58 130 L44 165 Q38 178 40 185 L42 190" fill="none" stroke="#2a2a50" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+                                <path d="M152 108 Q164 112 176 130 L190 165 Q196 178 194 185 L192 190" fill="none" stroke="#2a2a50" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+                                <path d="M100 380 L96 405 Q94 415 92 420" fill="none" stroke="#2a2a50" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
+                                <path d="M135 380 L139 405 Q141 415 143 420" fill="none" stroke="#2a2a50" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
+                            </g>
+                            <circle class="est-chakra-glow" id="est-glow-0" cx="118" cy="395" r="18" fill="url(#eg-red)"/>
+                            <circle class="est-chakra-glow" id="est-glow-1" cx="118" cy="340" r="16" fill="url(#eg-orange)"/>
+                            <circle class="est-chakra-glow" id="est-glow-2" cx="118" cy="280" r="16" fill="url(#eg-yellow)"/>
+                            <circle class="est-chakra-glow" id="est-glow-3" cx="120" cy="215" r="17" fill="url(#eg-green)"/>
+                            <circle class="est-chakra-glow" id="est-glow-4" cx="120" cy="150" r="14" fill="url(#eg-blue)"/>
+                            <circle class="est-chakra-glow" id="est-glow-5" cx="122" cy="95" r="13" fill="url(#eg-indigo)"/>
+                            <circle class="est-chakra-glow" id="est-glow-6" cx="122" cy="42" r="15" fill="url(#eg-violet)"/>
+                            <circle class="est-chakra-dot" id="est-chakra-0" cx="118" cy="395" r="7" fill="#ef4444"/>
+                            <circle class="est-chakra-dot" id="est-chakra-0-ring" cx="118" cy="395" r="11" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.3"/>
+                            <circle class="est-chakra-dot" id="est-chakra-1" cx="118" cy="340" r="6.5" fill="#f97316"/>
+                            <circle class="est-chakra-dot" id="est-chakra-1-ring" cx="118" cy="340" r="10" fill="none" stroke="#f97316" stroke-width="1.5" opacity="0.3"/>
+                            <circle class="est-chakra-dot" id="est-chakra-2" cx="118" cy="280" r="6.5" fill="#eab308"/>
+                            <circle class="est-chakra-dot" id="est-chakra-2-ring" cx="118" cy="280" r="10" fill="none" stroke="#eab308" stroke-width="1.5" opacity="0.3"/>
+                            <circle class="est-chakra-dot" id="est-chakra-3" cx="120" cy="215" r="7" fill="#22c55e"/>
+                            <circle class="est-chakra-dot" id="est-chakra-3-ring" cx="120" cy="215" r="11" fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.3"/>
+                            <circle class="est-chakra-dot" id="est-chakra-4" cx="120" cy="150" r="6" fill="#3b82f6"/>
+                            <circle class="est-chakra-dot" id="est-chakra-4-ring" cx="120" cy="150" r="9.5" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.3"/>
+                            <circle class="est-chakra-dot" id="est-chakra-5" cx="122" cy="95" r="5.5" fill="#6366f1"/>
+                            <circle class="est-chakra-dot" id="est-chakra-5-ring" cx="122" cy="95" r="9" fill="none" stroke="#6366f1" stroke-width="1.5" opacity="0.3"/>
+                            <circle class="est-chakra-dot" id="est-chakra-6" cx="122" cy="42" r="6.5" fill="#a855f7"/>
+                            <circle class="est-chakra-dot" id="est-chakra-6-ring" cx="122" cy="42" r="10.5" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.3"/>
+                            <defs>
+                                <radialGradient id="eg-red"><stop offset="0%" stop-color="#ef4444" stop-opacity="0.5"/><stop offset="100%" stop-color="#ef4444" stop-opacity="0"/></radialGradient>
+                                <radialGradient id="eg-orange"><stop offset="0%" stop-color="#f97316" stop-opacity="0.5"/><stop offset="100%" stop-color="#f97316" stop-opacity="0"/></radialGradient>
+                                <radialGradient id="eg-yellow"><stop offset="0%" stop-color="#eab308" stop-opacity="0.5"/><stop offset="100%" stop-color="#eab308" stop-opacity="0"/></radialGradient>
+                                <radialGradient id="eg-green"><stop offset="0%" stop-color="#22c55e" stop-opacity="0.5"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></radialGradient>
+                                <radialGradient id="eg-blue"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+                                <radialGradient id="eg-indigo"><stop offset="0%" stop-color="#6366f1" stop-opacity="0.5"/><stop offset="100%" stop-color="#6366f1" stop-opacity="0"/></radialGradient>
+                                <radialGradient id="eg-violet"><stop offset="0%" stop-color="#a855f7" stop-opacity="0.5"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="est-m-bar"><div class="est-m-bar-fill" id="est-m-bar"></div></div>
+                    <div class="est-m-bar-text" id="est-m-bar-text">0 de 7</div>
+                </div>
+                <div class="est-m-path" id="est-m-path"><div class="est-m-connector"></div></div>
+                <div class="est-all-done" id="est-all-done">
+                    <h3>✦ ¡Despertar Completo! ✦</h3>
+                    <p>Todos tus centros de energía están activados.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== EJECUCION VIEW ========== -->
+        <div class="est-exec-overlay" id="est-exec">
+            <div class="est-exec-top">
+                <button class="est-exec-back" onclick="estExecBack()">←</button>
+                <span class="est-exec-level" id="est-exec-level"></span>
+            </div>
+            <div class="est-exec-center">
+                <div class="est-exec-ring" id="est-exec-ring">
+                    <svg viewBox="0 0 240 240">
+                        <circle class="est-ring-bg" cx="120" cy="120" r="108"/>
+                        <circle class="est-ring-progress" id="est-ring-progress" cx="120" cy="120" r="108"
+                            stroke-dasharray="678.6" stroke-dashoffset="0"/>
+                    </svg>
+                    <div class="est-exec-orb" id="est-exec-orb">
+                        <div class="est-exec-posture" id="est-exec-posture"></div>
+                        <div class="est-exec-count" id="est-exec-count">00:00</div>
+                        <div class="est-exec-label" id="est-exec-label"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="est-exec-instruction" id="est-exec-instruction"></div>
+            <div class="est-exec-chakraname" id="est-exec-chakraname"></div>
+            <div class="est-exec-bottom">
+                <button class="est-exec-skip" onclick="estExecSkip()">Saltar →</button>
+            </div>
+        </div>
+
+        <!-- ========== CONFIG PANEL ========== -->
+        <div class="est-config-overlay" id="est-config-overlay">
+            <div class="est-config-panel">
+                <div class="est-config-handle"></div>
+                <div class="est-config-title">⚙ Configuración de Tiempos</div>
+                <div class="est-config-sub">Define cuántos segundos dura cada ejercicio</div>
+                <div id="est-config-rows"></div>
+                <button class="est-config-reset" onclick="estResetTimes()">Restaurar valores por defecto</button>
+                <button class="est-config-close" onclick="estCloseConfig()">Cerrar</button>
+            </div>
+        </div>
+
+        <!-- ========== CELEBRATION ========== -->
+        <div class="est-celebration-overlay" id="est-celebration-overlay">
+            <div class="est-celebration-content">
+                <div class="est-celebration-emoji" id="est-celebration-emoji"></div>
+                <div class="est-celebration-text" id="est-celebration-text"></div>
+                <div class="est-celebration-sub" id="est-celebration-sub"></div>
             </div>
         </div>
 
@@ -7551,6 +8236,204 @@ mientras fijas la vista en el centro."></textarea>
             } catch(e) {}
         }
 
+        // ========== BREATHING GUIDE 4-7-8 MODULE ==========
+        // Independent cycle: Inhale 4s → Hold 7s → Exhale 8s = 19s total
+        // Runs on its own setInterval, completely independent of meditation timer
+        // Includes voice guidance: speaks each phase + countdown
+
+        var _breathGuideActive = false;
+        var _breathCycleInterval = null;
+        var _breathRoundCount = 0;
+        var _breathPhase = 'idle'; // idle | inhale | hold | exhale
+        var _breathCountdown = 0;
+        var _breathVoiceEnabled = true; // voice guidance on by default
+
+        // --- Voice function for breathing (very calm, slow) ---
+        function breathSpeak(text) {
+            if (!_breathVoiceEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            var utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = 0.55;  // Very slow and calming
+            utterance.pitch = 0.85; // Slightly deeper
+            utterance.volume = 0.9;
+
+            var voices = window.speechSynthesis.getVoices();
+            var targetGender = state.meditationVoice || 'female';
+            var selectedVoice = null;
+
+            var spanishVoices = voices.filter(function(v) { return v.lang.startsWith('es'); });
+            if (spanishVoices.length > 0) {
+                var esEsVoices = spanishVoices.filter(function(v) { return v.lang === 'es-ES'; });
+                var pool = esEsVoices.length > 0 ? esEsVoices : spanishVoices;
+
+                var relaxingMale = ['diego','pablo','jorge','antonio','francisco','rafael','alvaro','hugo','daniel','miguel','alejandro'];
+                var relaxingFemale = ['elena','lucia','paula','carmen','rosa','laura','sofia','clara','ines','valeria','marina','alba'];
+                var primary = targetGender === 'male' ? relaxingMale : relaxingFemale;
+
+                selectedVoice = pool.find(function(v) {
+                    var nameLower = v.name.toLowerCase();
+                    return primary.some(function(kw) { return nameLower.includes(kw); });
+                });
+
+                if (!selectedVoice) {
+                    var maleKw = ['male','man','hombre','diego','carlos','pablo','pedro','jorge','luis','antonio'];
+                    var femaleKw = ['female','woman','mujer','maria','elena','lucia','paula','carmen','rosa','laura','sofia','clara'];
+                    var fallback = targetGender === 'male' ? maleKw : femaleKw;
+                    selectedVoice = pool.find(function(v) {
+                        var nameLower = v.name.toLowerCase();
+                        return fallback.some(function(kw) { return nameLower.includes(kw); });
+                    });
+                }
+
+                if (!selectedVoice) {
+                    selectedVoice = pool.find(function(v) {
+                        return v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('neural');
+                    });
+                }
+
+                if (!selectedVoice) selectedVoice = pool[0];
+            }
+
+            if (selectedVoice) utterance.voice = selectedVoice;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // --- Speak phase announcement with duration ---
+        function breathAnnouncePhase(phase) {
+            var messages = {
+                inhale: 'Inhala... cuatro segundos',
+                hold: 'Retén... siete segundos',
+                exhale: 'Exhala... ocho segundos'
+            };
+            breathSpeak(messages[phase] || '');
+        }
+
+        function toggleBreathGuide() {
+            _breathGuideActive = !_breathGuideActive;
+            var toggle = document.getElementById('breath-toggle');
+            var panel = document.getElementById('breath-guide-panel');
+
+            if (_breathGuideActive) {
+                toggle.classList.add('active');
+                panel.classList.add('active');
+                startBreathCycle();
+                showToast('🫁 Guía de respiración activada');
+            } else {
+                toggle.classList.remove('active');
+                panel.classList.remove('active');
+                stopBreathCycle();
+                showToast('⏹ Guía de respiración desactivada');
+            }
+        }
+
+        function closeBreathGuide() {
+            _breathGuideActive = false;
+            var toggle = document.getElementById('breath-toggle');
+            var panel = document.getElementById('breath-guide-panel');
+            toggle.classList.remove('active');
+            panel.classList.remove('active');
+            stopBreathCycle();
+        }
+
+        function toggleBreathVoice() {
+            _breathVoiceEnabled = !_breathVoiceEnabled;
+            var btn = document.getElementById('breath-voice-btn');
+            if (btn) {
+                btn.className = 'breath-voice-btn' + (_breathVoiceEnabled ? ' active' : '');
+                btn.innerHTML = _breathVoiceEnabled ? '🔊 Voz activada' : '🔇 Voz desactivada';
+            }
+            if (!_breathVoiceEnabled && 'speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+
+        function startBreathCycle() {
+            stopBreathCycle();
+            _breathRoundCount = 0;
+            _breathPhase = 'inhale';
+            _breathCountdown = 4;
+            updateBreathUI();
+            breathAnnouncePhase('inhale'); // First announcement
+            _breathCycleInterval = setInterval(function() {
+                advanceBreathPhase();
+            }, 1000);
+        }
+
+        function stopBreathCycle() {
+            if (_breathCycleInterval) {
+                clearInterval(_breathCycleInterval);
+                _breathCycleInterval = null;
+            }
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            _breathPhase = 'idle';
+            _breathCountdown = 0;
+            var phaseText = document.getElementById('breath-phase-text');
+            var countdown = document.getElementById('breath-countdown');
+            var circle = document.getElementById('breath-circle');
+            var circleBg = document.getElementById('breath-circle-bg');
+            var roundsInfo = document.getElementById('breath-rounds-info');
+            if (phaseText) { phaseText.textContent = 'Preparado'; phaseText.className = 'breath-phase-text'; }
+            if (countdown) { countdown.textContent = '—'; }
+            if (circle) { circle.className = 'breath-circle'; }
+            if (circleBg) { circleBg.className = 'breath-circle-bg'; }
+            if (roundsInfo) { roundsInfo.textContent = 'Ciclo: 19s · Ronda: 0'; }
+        }
+
+        function advanceBreathPhase() {
+            if (!_breathGuideActive) return;
+
+            if (_breathCountdown > 1) {
+                _breathCountdown--;
+                updateBreathUI();
+                return;
+            }
+
+            // Transition to next phase
+            if (_breathPhase === 'inhale') {
+                _breathPhase = 'hold';
+                _breathCountdown = 7;
+            } else if (_breathPhase === 'hold') {
+                _breathPhase = 'exhale';
+                _breathCountdown = 8;
+            } else if (_breathPhase === 'exhale') {
+                _breathPhase = 'inhale';
+                _breathCountdown = 4;
+                _breathRoundCount++;
+            }
+
+            updateBreathUI();
+            breathAnnouncePhase(_breathPhase); // Voice announcement on phase change
+        }
+
+        function updateBreathUI() {
+            var phaseText = document.getElementById('breath-phase-text');
+            var countdown = document.getElementById('breath-countdown');
+            var circle = document.getElementById('breath-circle');
+            var circleBg = document.getElementById('breath-circle-bg');
+            var roundsInfo = document.getElementById('breath-rounds-info');
+
+            if (!phaseText || !countdown || !circle || !circleBg) return;
+
+            var phaseLabels = {
+                inhale: 'Inhalar',
+                hold: 'Retener',
+                exhale: 'Exhalar'
+            };
+
+            phaseText.textContent = phaseLabels[_breathPhase] || 'Preparado';
+            phaseText.className = 'breath-phase-text ' + _breathPhase;
+            countdown.textContent = _breathCountdown;
+
+            circle.className = 'breath-circle ' + _breathPhase;
+            circleBg.className = 'breath-circle-bg ' + _breathPhase;
+
+            if (roundsInfo) {
+                roundsInfo.textContent = 'Ciclo: 19s · Ronda: ' + _breathRoundCount;
+            }
+        }
+
         // ========== ELECTROCHOQUE MODULE ==========
 
         // --- Sound Generators for ELECTROCHOQUE ---
@@ -8699,7 +9582,7 @@ mientras fijas la vista en el centro."></textarea>
                 return;
             }
             var typeLabels = {
-                'bueno': '😊 Bueno', 'regular': '😐 Regular', 'borroso': '🌫️ Borroso',
+                'bueno': '😊 Bueno', 'regular': '😐 Regular', 'borroso': '🌫️ Borroso','HD': '🎡 HD 4K',
                 'muy-bueno': '🌟 Muy bueno', 'alegre': '🎉 Alegre', 'pesadilla': '😈 Pesadilla'
             };
             container.innerHTML = dreams.map(function(d) {
@@ -9700,6 +10583,268 @@ mientras fijas la vista en el centro."></textarea>
             document.getElementById('rb-complete').classList.remove('active');
             showToast('✨ Sesion de respiracion completada');
         }
+
+        /* ============================================ */
+        /* === PANEL DE ESTIMULACION GAMIFICADO JS === */
+        /* ============================================ */
+
+        var EST_DEFAULT_TIMES = [15, 60, 20, 60, 30, 45, 120];
+        var EST_POSTURES = ['\uD83C\uDFD5\uFE0F', '\uD83E\uDD8B', '\uD83D\uDD25', '\uD83D\uDC0D', '\uD83E\uDDC9', '\uD83E\uDDCC', '\uD83E\uDDD8'];
+
+        var EST_LEVELS = [
+            { name: 'Postura de la Montaña', chakra: 'Muladhara \u2014 Ra\u00EDz', color: '#ef4444', badge: 'Ra\u00EDz', instructions: 'Tadasana / Balasana. Siente la base de tu cuerpo firmemente apoyada, visualizando ra\u00EDces ancl\u00E1ndote al suelo. Conexi\u00F3n a tierra.' },
+            { name: 'Postura de la Mariposa', chakra: 'Svadhisthana \u2014 Sacro', color: '#f97316', badge: 'Sacral', instructions: 'Baddha Konasana. Sentado, junta las plantas de los pies y deja caer las rodillas. Respira fluyendo hacia el abdomen bajo.' },
+            { name: 'Respiraci\u00F3n de Fuego', chakra: 'Manipura \u2014 Plexo Solar', color: '#eab308', badge: 'Solar', instructions: 'Respiraci\u00F3n r\u00E1pida, r\u00EDtmica y continua bombeando el ombligo hacia adentro en cada exhalaci\u00F3n por la nariz. Activa el calor interno.' },
+            { name: 'Postura de la Cobra', chakra: 'Anahata \u2014 Coraz\u00F3n', color: '#22c55e', badge: 'Coraz\u00F3n', instructions: 'Bhujangasana / Camello adaptada. Abre el pecho proyectando el estern\u00F3n hacia adelante y arriba, respirando directo al coraz\u00F3n.' },
+            { name: 'Postura del Le\u00F3n', chakra: 'Vishuddha \u2014 Garganta', color: '#3b82f6', badge: 'Garganta', instructions: 'Giros de cuello y Simhasana. Libera la tensi\u00F3n con giros lentos y exhala abriendo la boca para liberar la voz y la energ\u00EDa estancada.' },
+            { name: 'Ni\u00F1o con Enfoque', chakra: 'Ajna \u2014 Tercer Ojo', color: '#6366f1', badge: 'Tercer Ojo', instructions: 'Balasana con enfoque frontal. Frente apoyada en el suelo (o rodillas). Concentra toda la presi\u00F3n y atenci\u00F3n visual en el punto entre las cejas.' },
+            { name: 'Postura del Loto', chakra: 'Sahasrara \u2014 Corona', color: '#a855f7', badge: 'Corona', instructions: 'Padmasana o Savasana. Inmovilidad total. Palmas hacia arriba, conectando la cima de la cabeza con el espacio infinito.' }
+        ];
+
+        var estCompleted = new Set();
+        var estAudioCtx = null;
+
+        // Execution state
+        var estExecRunning = false;
+        var estExecTimer = null;
+        var estExecRemaining = 0;
+        var estExecTotal = 0;
+
+        function estGetAudioCtx() {
+            if (!estAudioCtx) { var AC = window.AudioContext || window.webkitAudioContext; if (AC) estAudioCtx = new AC(); }
+            return estAudioCtx;
+        }
+
+        function estPlaySound(type) {
+            try {
+                var ctx = estGetAudioCtx(); if (!ctx) return;
+                var now = ctx.currentTime;
+                if (type === 'levelup') {
+                    [523.25, 659.25, 783.99, 1046.5].forEach(function(f, i) {
+                        var o = ctx.createOscillator(), g = ctx.createGain(), fl = ctx.createBiquadFilter();
+                        o.type = 'sine'; o.frequency.setValueAtTime(f, now + i * 0.1);
+                        fl.type = 'lowpass'; fl.frequency.setValueAtTime(3000, now);
+                        g.gain.setValueAtTime(0, now + i * 0.1);
+                        g.gain.linearRampToValueAtTime(0.25, now + i * 0.1 + 0.05);
+                        g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.4);
+                        o.connect(fl); fl.connect(g); g.connect(ctx.destination);
+                        o.start(now + i * 0.1); o.stop(now + i * 0.1 + 0.5);
+                    });
+                    var sh = ctx.createOscillator(), sg = ctx.createGain();
+                    sh.type = 'triangle'; sh.frequency.setValueAtTime(1568, now + 0.4);
+                    sh.frequency.exponentialRampToValueAtTime(2093, now + 0.8);
+                    sg.gain.setValueAtTime(0.08, now + 0.4); sg.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+                    sh.connect(sg); sg.connect(ctx.destination); sh.start(now + 0.4); sh.stop(now + 1.3);
+                } else {
+                    var o = ctx.createOscillator(), g = ctx.createGain();
+                    o.type = 'sine'; o.frequency.setValueAtTime(800, now);
+                    o.frequency.exponentialRampToValueAtTime(400, now + 0.08);
+                    g.gain.setValueAtTime(0.15, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                    o.connect(g); g.connect(ctx.destination); o.start(now); o.stop(now + 0.12);
+                }
+            } catch(e) {}
+        }
+
+        function estSpawnParticles(color) {
+            for (var i = 0; i < 20; i++) {
+                var p = document.createElement('div'); p.className = 'est-particle';
+                var sz = Math.random() * 8 + 4;
+                var a = (Math.PI * 2 * i) / 20 + Math.random() * 0.5;
+                var d = Math.random() * 100 + 50;
+                p.style.cssText = 'left:50%;top:50%;width:'+sz+'px;height:'+sz+'px;background:'+color+';--tx:'+Math.cos(a)*d+'px;--ty:'+Math.sin(a)*d+'px;animation-delay:'+(Math.random()*0.15)+'s;';
+                document.body.appendChild(p);
+                (function(el){setTimeout(function(){el.remove();},1500);})(p);
+            }
+        }
+
+        // --- Load/save times from localStorage ---
+        function estGetTimes() {
+            try {
+                var saved = JSON.parse(localStorage.getItem('est_times'));
+                if (saved && saved.length === 7) return saved;
+            } catch(e) {}
+            return EST_DEFAULT_TIMES.slice();
+        }
+        function estSaveTimes(times) { localStorage.setItem('est_times', JSON.stringify(times)); }
+        function estResetTimes() { estSaveTimes(EST_DEFAULT_TIMES.slice()); estBuildConfig(); }
+
+        // --- Panel open/close ---
+        function estOpenPanel() {
+            estPlaySound('click');
+            var m = document.getElementById('est-fullmodal');
+            m.classList.add('visible');
+            estRenderPath();
+        }
+        function estClosePanel() {
+            document.getElementById('est-fullmodal').classList.remove('visible');
+        }
+
+        // --- Render level path inside modal ---
+        function estRenderPath() {
+            var path = document.getElementById('est-m-path');
+            var html = '<div class="est-m-connector"></div>';
+            EST_LEVELS.forEach(function(lv, i) {
+                var done = estCompleted.has(i);
+                var cls = 'est-m-card active'; var ncls = 'est-m-node active';
+                var cs = 'border-color:'+lv.color+';background:linear-gradient(135deg,'+lv.color+'15,'+lv.color+'08);';
+                var ns = 'background:'+lv.color+'22;border-color:'+lv.color+';color:'+lv.color+';';
+                if (done) { cs += 'border-style:dashed;'; }
+                html += '<div class="est-m-item">';
+                html += '<div class="'+ncls+'" style="'+ns+'">'+(done?'\u2713':(i+1))+'</div>';
+                html += '<div class="'+cls+'" style="'+cs+'" onclick="estStartExec('+i+')">';
+                html += '<div class="est-m-check" style="color:'+lv.color+'">\u2713</div>';
+                html += '<div class="est-m-card-top"><span class="est-m-badge" style="background:'+lv.color+';">'+lv.badge+'</span><span class="est-m-chakraname">'+lv.chakra+'</span></div>';
+                html += '<div class="est-m-card-title">'+lv.name+'</div>';
+                html += '<div class="est-m-card-desc">'+lv.instructions.substring(0,60)+'\u2026</div>';
+                html += '</div></div>';
+            });
+            path.innerHTML = html;
+            var pct = (estCompleted.size/7)*100;
+            document.getElementById('est-m-bar').style.width = pct+'%';
+            document.getElementById('est-m-bar-text').textContent = estCompleted.size+' de 7 activados';
+        }
+
+        // --- Execution View ---
+        function estStartExec(index) {
+            estPlaySound('click');
+            var lv = EST_LEVELS[index];
+            var times = estGetTimes();
+            var dur = times[index];
+
+            document.getElementById('est-fullmodal').classList.remove('visible');
+
+            var exec = document.getElementById('est-exec');
+            document.getElementById('est-exec-level').textContent = lv.badge + ' \u2014 ' + lv.chakra;
+            document.getElementById('est-exec-posture').textContent = EST_POSTURES[index];
+            document.getElementById('est-exec-posture').style.color = lv.color;
+            document.getElementById('est-exec-instruction').textContent = lv.instructions;
+            document.getElementById('est-exec-chakraname').textContent = lv.chakra;
+            document.getElementById('est-exec-label').textContent = 'restantes';
+
+            var orb = document.getElementById('est-exec-orb');
+            orb.style.background = 'radial-gradient(circle, '+lv.color+'33, '+lv.color+'11)';
+            orb.style.boxShadow = '0 0 60px '+lv.color+'44';
+
+            var ring = document.getElementById('est-ring-progress');
+            ring.style.stroke = lv.color;
+            ring.style.filter = 'drop-shadow(0 0 6px '+lv.color+'88)';
+
+            estExecRemaining = dur;
+            estExecTotal = dur;
+            estExecUpdateDisplay();
+            estExecUpdateRing();
+
+            exec.classList.add('visible');
+
+            estExecRunning = true;
+            estExecTimer = setInterval(function() {
+                estExecRemaining--;
+                estExecUpdateDisplay();
+                estExecUpdateRing();
+                if (estExecRemaining <= 0) {
+                    clearInterval(estExecTimer); estExecTimer = null; estExecRunning = false;
+                    estExecComplete(index);
+                }
+            }, 1000);
+        }
+
+        function estExecUpdateDisplay() {
+            var m = Math.floor(estExecRemaining / 60).toString().padStart(2, '0');
+            var s = (estExecRemaining % 60).toString().padStart(2, '0');
+            document.getElementById('est-exec-count').textContent = m + ':' + s;
+        }
+
+        function estExecUpdateRing() {
+            var circ = 678.6;
+            var offset = circ * (1 - estExecRemaining / estExecTotal);
+            document.getElementById('est-ring-progress').setAttribute('stroke-dashoffset', offset);
+        }
+
+        function estExecComplete(index) {
+            estPlaySound('levelup');
+            document.getElementById('est-exec').classList.remove('visible');
+
+            // Activate chakra dot
+            var dot = document.getElementById('est-chakra-' + index);
+            var ring = document.getElementById('est-chakra-' + index + '-ring');
+            var glow = document.getElementById('est-glow-' + index);
+            if (dot) { dot.classList.add('activating'); setTimeout(function(){dot.classList.add('active');dot.classList.remove('activating');},1500); }
+            if (ring) { ring.classList.add('activating'); setTimeout(function(){ring.classList.add('active');ring.classList.remove('activating');},1500); }
+            if (glow) setTimeout(function(){glow.classList.add('active');},300);
+
+            estSpawnParticles(EST_LEVELS[index].color);
+            estCompleted.add(index);
+
+            // Show celebration
+            var lv = EST_LEVELS[index];
+            document.getElementById('est-celebration-emoji').textContent = EST_POSTURES[index];
+            document.getElementById('est-celebration-text').textContent = '\u00A1' + lv.name + '!';
+            document.getElementById('est-celebration-sub').textContent = lv.chakra + ' activado';
+            var cov = document.getElementById('est-celebration-overlay');
+            cov.style.display = 'flex';
+            requestAnimationFrame(function(){cov.classList.add('visible');});
+
+            // Return to panel after celebration
+            setTimeout(function() {
+                cov.classList.remove('visible');
+                setTimeout(function(){cov.style.display='none';},400);
+                estRenderPath();
+                setTimeout(function(){ estOpenPanel(); }, 500);
+            }, 2200);
+        }
+
+        function estExecSkip() {
+            if (estExecTimer) { clearInterval(estExecTimer); estExecTimer = null; estExecRunning = false; }
+            document.getElementById('est-exec').classList.remove('visible');
+            estOpenPanel();
+        }
+
+        function estExecBack() {
+            if (estExecTimer) { clearInterval(estExecTimer); estExecTimer = null; estExecRunning = false; }
+            document.getElementById('est-exec').classList.remove('visible');
+            estOpenPanel();
+        }
+
+        // --- Config Panel ---
+        function estOpenConfig() {
+            estBuildConfig();
+            var ov = document.getElementById('est-config-overlay');
+            ov.style.display = 'flex';
+            requestAnimationFrame(function(){ov.classList.add('visible');});
+        }
+        function estCloseConfig() {
+            var ov = document.getElementById('est-config-overlay');
+            ov.classList.remove('visible');
+            setTimeout(function(){ov.style.display='none';},400);
+        }
+        function estBuildConfig() {
+            var times = estGetTimes();
+            var rows = '';
+            EST_LEVELS.forEach(function(lv, i) {
+                rows += '<div class="est-config-row">';
+                rows += '<div><div class="est-config-row-label" style="color:'+lv.color+'">'+EST_POSTURES[i]+' '+lv.name+'</div>';
+                rows += '<div class="est-config-row-chakra">'+lv.chakra+' · '+lv.badge+'</div></div>';
+                rows += '<input class="est-config-input" type="number" min="5" max="600" value="'+times[i]+'" onchange="estSetTime('+i+',this.value)" oninput="estSetTime('+i+',this.value)">';
+                rows += '</div>';
+            });
+            document.getElementById('est-config-rows').innerHTML = rows;
+        }
+        function estSetTime(i, val) {
+            var times = estGetTimes();
+            times[i] = Math.max(5, parseInt(val) || 15);
+            estSaveTimes(times);
+        }
+
+        document.getElementById('est-config-overlay').addEventListener('click', function(e) {
+            if (e.target === e.currentTarget) estCloseConfig();
+        });
+
+        function scrollToEstimulacion() {
+            var el = document.getElementById('estimulacion');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        estRenderPath();
 
         init();
     </script>
