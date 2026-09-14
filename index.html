@@ -3206,6 +3206,49 @@
             color: white;
             border-color: var(--wbtb-accent);
         }
+
+        /* Meditation Quick Preset Chips */
+        .med-preset-section {
+            margin-bottom: 14px;
+            padding: 12px 14px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 12px;
+            border: 1px solid #2a2a3e;
+        }
+        .med-preset-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+        .med-preset-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .med-preset-chip {
+            padding: 6px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .med-preset-chip:active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        .med-preset-chip.active-preset {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
         .vr-textarea {
             width: 100%;
             min-height: 120px;
@@ -3633,320 +3676,549 @@
         }
         .rb-complete-btn:active { transform: scale(0.96); }
 
-        /* ========== PANEL DE ESTIMULACIÓN GAMIFICADO ========== */
-        /* Trigger button */
-        .est-trigger-btn {
-            width: 100%;
-            padding: 18px;
-            border: 2px solid #6366f1;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #6366f122, #a855f722);
-            color: var(--text-primary);
-            font-size: 1.1rem;
+            padding: 20px;
+        }
+        .tratak-header {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+        .tratak-logo {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 12px;
+            background: radial-gradient(circle at 40% 40%, #e94560, #8b0020);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 30px var(--accent-glow), 0 0 60px #e9456022;
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        .tratak-title {
+            font-size: 1.3rem;
             font-weight: 700;
+            background: linear-gradient(135deg, #e8e8f0, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tratak-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* Timer Circle */
+        .tratak-timer-wrap {
+            display: flex;
+            justify-content: center;
+            padding: 20px 0;
+        }
+        .tratak-timer-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+        }
+        .tratak-timer-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .tratak-timer-bg {
+            fill: none;
+            stroke: #1a1a2e;
+            stroke-width: 5;
+        }
+        .tratak-timer-progress {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-dasharray: 628.3;
+            stroke-dashoffset: 628.3;
+            transition: stroke-dashoffset 1s linear, stroke 0.5s;
+            filter: drop-shadow(0 0 6px var(--accent-glow));
+        }
+        .tratak-timer-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .tratak-timer-icon {
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+        .tratak-timer-digits {
+            font-size: 3rem;
+            font-weight: 200;
+            letter-spacing: 3px;
+            font-variant-numeric: tabular-nums;
+            color: var(--accent);
+        }
+        .tratak-timer-status {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        /* Phase Indicator */
+        .tratak-phases {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 0;
+        }
+        .tratak-phase-dot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.35;
+            transition: opacity 0.5s;
+        }
+        .tratak-phase-dot.active {
+            opacity: 1;
+        }
+        .tratak-phase-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            background: #1a1a2e;
+            border: 2px solid #2a2a3e;
+            transition: all 0.5s;
+        }
+        .tratak-phase-dot.active .tratak-phase-icon {
+            box-shadow: 0 0 16px var(--phase-color, var(--accent-glow));
+        }
+        .tratak-phase-label {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            text-align: center;
+            max-width: 60px;
+            line-height: 1.2;
+            transition: color 0.5s;
+        }
+        .tratak-phase-dot.active .tratak-phase-label {
+            color: var(--text-primary);
+        }
+        .tratak-phase-line {
+            width: 14px;
+            height: 1px;
+            background: #2a2a3e;
+            margin-bottom: 18px;
+        }
+
+        /* Controls */
+        .tratak-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 14px 0;
+        }
+        .tratak-btn {
+            border: none;
+            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            transition: all 0.3s ease;
+            transition: transform 0.2s, box-shadow 0.3s;
         }
-        .est-trigger-btn:active { transform: scale(0.97); }
-        .est-trigger-btn .est-trigger-icon { font-size: 1.3rem; }
-        .est-trigger-btn .est-trigger-sub {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            font-weight: 400;
+        .tratak-btn:active { transform: scale(0.9); }
+        .tratak-btn-restart {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+        .tratak-btn-restart svg { width: 18px; height: 18px; color: var(--text-secondary); }
+        .tratak-btn-main {
+            width: 68px;
+            height: 68px;
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            box-shadow: 0 0 24px var(--accent-glow);
+        }
+        .tratak-btn-main svg { width: 28px; height: 28px; color: #fff; margin-left: 2px; }
+        .tratak-btn-main.paused {
+            background: linear-gradient(135deg, #e94560, #8b2035);
         }
 
-        /* Full screen modal */
-        .est-fullmodal {
-            position: fixed;
-            inset: 0;
-            z-index: 1100;
-            background: var(--bg-primary);
-            display: none;
-            flex-direction: column;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+        /* Session Info Bar */
+        .tratak-info-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 8px 0;
+            font-size: 0.7rem;
+            color: var(--text-dim);
         }
-        .est-fullmodal.visible { display: flex; }
-        .est-fullmodal-header {
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        .tratak-info-bar span { color: var(--text-secondary); font-weight: 500; }
+        .tratak-info-sep { width: 1px; height: 12px; background: #2a2a3e; }
+
+        /* Config Panel */
+        .tratak-config-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        .tratak-config-toggle .arrow {
+            transition: transform 0.3s;
+            font-size: 0.7rem;
+        }
+        .tratak-config-toggle .arrow.open { transform: rotate(180deg); }
+
+        .tratak-config-body {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 10px;
+            display: none;
+        }
+        .tratak-config-body.open { display: block; }
+
+        .tratak-config-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-dim);
+            margin-bottom: 14px;
+        }
+
+        .tratak-slider-group { margin-bottom: 14px; }
+        .tratak-slider-group:last-child { margin-bottom: 0; }
+        .tratak-slider-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .tratak-slider-header .label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .tratak-slider-header .value {
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .tratak-range {
+            width: 100%;
+            height: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--bg-input);
+            border-radius: 3px;
+            outline: none;
+        }
+        .tratak-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+        .tratak-range::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .tratak-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 12px;
+            margin-top: 12px;
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+        }
+        .tratak-summary .label { color: var(--text-dim); }
+        .tratak-summary .val { color: var(--text-secondary); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+        /* Announcement Config */
+        .tratak-announce-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+        }
+        .tratak-announce-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tratak-announce-icon { font-size: 1.2rem; }
+        .tratak-announce-text .title { font-size: 0.85rem; color: var(--text-secondary); }
+        .tratak-announce-text .desc { font-size: 0.7rem; color: var(--text-dim); margin-top: 2px; }
+
+        .tratak-toggle {
+            width: 44px;
+            height: 24px;
+            background: var(--bg-input);
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .tratak-toggle.active { background: var(--accent); border-color: var(--accent); }
+        .tratak-toggle::after {
+            content: '';
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        .tratak-toggle.active::after { transform: translateX(20px); }
+
+        .tratak-intervals {
+            display: none;
+            padding: 0 0 8px;
+        }
+        .tratak-intervals.open { display: block; }
+        .tratak-intervals-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+        .tratak-interval-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .tratak-interval-btn {
+            padding: 10px 6px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            transition: all 0.3s;
+        }
+        .tratak-interval-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+    /* ========== GUIDED SCRIPT PANEL (ANTI-SLEEP MODE) ========== */
+        .gs-toggle-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 14px 16px;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .est-fullmodal-header .est-back-btn {
-            background: none; border: none;
+        .gs-toggle-row:active { transform: scale(0.98); }
+        .gs-toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
             color: var(--text-primary);
-            font-size: 1.4rem; cursor: pointer;
-            padding: 4px;
         }
-        .est-fullmodal-header .est-header-title {
-            font-size: 1rem; font-weight: 700;
-            background: linear-gradient(135deg, #ef4444, #a855f7);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .est-fullmodal-header .est-config-btn {
-            background: none; border: 2px solid var(--border);
-            border-radius: 12px; padding: 6px 10px;
-            color: var(--text-secondary); font-size: 1rem;
-            cursor: pointer; transition: all 0.2s;
-        }
-        .est-fullmodal-header .est-config-btn:active { transform: scale(0.9); }
-        .est-fullmodal-body {
-            flex: 1;
-            padding: 16px;
-            padding-bottom: 40px;
-        }
-
-        /* Progress in modal */
-        .est-m-progress {
-            max-width: 360px;
-            margin: 0 auto 20px auto;
-            border-radius: 24px;
-            background: linear-gradient(180deg, #0d0d20, #12122a);
-            border: 1.5px solid var(--border);
-            padding: 16px;
-            overflow: hidden;
-        }
-        .est-m-progress-title {
-            text-align: center;
+        .gs-toggle-label .gs-icon { font-size: 1.2rem; }
+        .gs-toggle-desc {
             font-size: 0.7rem;
             color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        .est-m-body-svg { width: 100%; display: flex; justify-content: center; }
-        .est-m-body-svg svg { width: 100%; max-width: 280px; height: auto; }
-        .est-chakra-dot {
-            transition: all 0.6s cubic-bezier(0.34,1.56,0.64,1);
-            filter: grayscale(100%) brightness(0.3);
-            opacity: 0.35;
-        }
-        .est-chakra-dot.active { filter: grayscale(0%) brightness(1.2); opacity: 1; }
-        .est-chakra-dot.activating { animation: estChPulse 1.5s ease-out forwards; }
-        @keyframes estChPulse {
-            0% { filter: grayscale(100%) brightness(0.3); opacity:0.35; transform-origin:center; transform:scale(0.5); }
-            40% { filter: grayscale(0%) brightness(2); opacity:1; transform:scale(1.8); }
-            70% { filter: grayscale(0%) brightness(1.5); opacity:1; transform:scale(1.2); }
-            100% { filter: grayscale(0%) brightness(1.2); opacity:1; transform:scale(1); }
-        }
-        .est-chakra-glow { opacity: 0; transition: opacity 0.6s ease; }
-        .est-chakra-glow.active { opacity: 0.6; animation: estGlowB 3s ease-in-out infinite; }
-        @keyframes estGlowB { 0%,100%{opacity:0.4;} 50%{opacity:0.8;} }
-
-        .est-m-bar { margin-top: 10px; background: #1a1a35; border-radius: 10px; height: 8px; overflow: hidden; }
-        .est-m-bar-fill {
-            height: 100%; border-radius: 10px;
-            background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #6366f1, #a855f7);
-            transition: width 0.8s cubic-bezier(0.34,1.56,0.64,1); width: 0%;
-        }
-        .est-m-bar-text { text-align: center; font-size: 0.72rem; color: var(--text-secondary); margin-top: 5px; }
-
-        /* Level path in modal */
-        .est-m-path { position: relative; padding: 12px 0; max-width: 400px; margin: 0 auto; }
-        .est-m-connector { position: absolute; left: 50%; transform: translateX(-50%); width: 3px; top: 0; bottom: 0; background: var(--border); border-radius: 2px; z-index: 0; }
-        .est-m-item { position: relative; display: flex; align-items: center; margin-bottom: 16px; z-index: 1; }
-        .est-m-item:nth-child(odd) { justify-content: flex-start; padding-left: 50px; }
-        .est-m-item:nth-child(even) { justify-content: flex-end; padding-right: 50px; }
-        .est-m-node {
-            position: absolute; left: 50%; transform: translateX(-50%);
-            width: 36px; height: 36px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem; font-weight: 800;
-            color: var(--text-dim); background: var(--bg-card); border: 3px solid var(--border);
-            z-index: 2; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-        }
-        .est-m-node.active { transform: translateX(-50%) scale(1.15); color: #fff; }
-        .est-m-node.completed { transform: translateX(-50%) scale(1.1); }
-        .est-m-card {
-            width: calc(100% - 62px); background: var(--bg-card);
-            border: 2px solid var(--border); border-radius: 16px;
-            padding: 12px 14px; cursor: not-allowed;
-            opacity: 0.4; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-            position: relative;
-        }
-        .est-m-card.active { cursor: pointer; opacity: 1; border-color: #555; transform: scale(1.02); box-shadow: 0 6px 24px rgba(0,0,0,0.3); }
-        .est-m-card.active:active { transform: scale(0.97); }
-        .est-m-card.completed { opacity: 0.6; }
-        .est-m-card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-        .est-m-badge { font-size: 0.6rem; font-weight: 700; padding: 2px 8px; border-radius: 16px; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
-        .est-m-chakraname { font-size: 0.65rem; color: var(--text-secondary); }
-        .est-m-card-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
-        .est-m-card-desc { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.3; }
-        .est-m-lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1rem; opacity: 0.4; }
-        .est-m-check { position: absolute; top: 10px; right: 12px; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s; }
-        .est-m-card.completed .est-m-check { opacity: 1; }
-        .est-m-card.active .est-m-lock, .est-m-card.completed .est-m-lock { display: none; }
-
-        .est-all-done {
-            text-align: center; padding: 20px; background: linear-gradient(135deg,#1a1a35,#1e1e40);
-            border-radius: 18px; border: 2px solid #a855f7; margin-top: 16px; display: none;
-        }
-        .est-all-done.visible { display: block; animation: estPop 0.8s cubic-bezier(0.34,1.56,0.64,1); }
-        .est-all-done h3 { font-size: 1.1rem; margin-bottom: 4px; background: linear-gradient(135deg,#ef4444,#a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .est-all-done p { font-size: 0.78rem; color: var(--text-secondary); }
-
-        /* Execution View */
-        .est-exec-overlay {
-            position: fixed; inset: 0; z-index: 1200;
-            background: var(--bg-primary);
-            display: none; flex-direction: column;
-            align-items: center; justify-content: center;
-        }
-        .est-exec-overlay.visible { display: flex; }
-        .est-exec-top {
-            position: absolute; top: 0; left: 0; right: 0;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 16px;
-        }
-        .est-exec-top .est-exec-back { background: none; border: none; color: var(--text-primary); font-size: 1.3rem; cursor: pointer; padding: 4px; }
-        .est-exec-top .est-exec-level { font-size: 0.8rem; color: var(--text-secondary); font-weight: 600; }
-        .est-exec-center { text-align: center; position: relative; }
-        .est-exec-ring {
-            position: relative; width: 240px; height: 240px; margin: 0 auto;
-        }
-        .est-exec-ring svg { transform: rotate(-90deg); width: 240px; height: 240px; }
-        .est-exec-ring .est-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 4; }
-        .est-exec-ring .est-ring-progress {
-            fill: none; stroke-width: 4; stroke-linecap: round;
-            transition: stroke-dashoffset 1s linear;
-        }
-        .est-exec-orb {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            width: 180px; height: 180px; border-radius: 50%;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            transition: background 0.5s ease;
-        }
-        .est-exec-posture {
-            font-size: 3rem; margin-bottom: 8px;
-            filter: drop-shadow(0 0 12px currentColor);
-        }
-        .est-exec-count {
-            font-size: 2.8rem; font-weight: 800; color: #fff;
-            font-variant-numeric: tabular-nums;
-            text-shadow: 0 0 20px rgba(255,255,255,0.3);
-        }
-        .est-exec-label {
-            font-size: 0.8rem; color: rgba(255,255,255,0.7);
             margin-top: 2px;
         }
-        .est-exec-instruction {
-            margin-top: 24px; padding: 0 24px;
-            text-align: center; font-size: 0.92rem;
-            line-height: 1.5; color: var(--text-secondary);
-            max-width: 360px;
+
+        .gs-panel {
+            display: none;
+            flex-direction: column;
+            padding: 16px;
+            margin-top: 12px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            animation: gsSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .est-exec-chakraname {
-            margin-top: 12px; font-size: 0.75rem;
-            color: var(--text-dim); text-transform: uppercase;
-            letter-spacing: 1.5px;
+        .gs-panel.active { display: flex; }
+        @keyframes gsSlideIn {
+            from { opacity: 0; transform: translateY(-12px); max-height: 0; }
+            to { opacity: 1; transform: translateY(0); max-height: 800px; }
         }
-        .est-exec-bottom {
-            position: absolute; bottom: 40px; left: 0; right: 0;
+
+        .gs-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            user-select: text !important;
+            -webkit-user-select: text !important;
+        }
+        .gs-textarea:focus { border-color: var(--accent); }
+        .gs-textarea::placeholder { color: var(--text-dim); }
+
+        .gs-time-config {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .gs-time-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+        .gs-minute-input {
+            width: 60px;
+            padding: 8px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
             text-align: center;
+            outline: none;
+            font-variant-numeric: tabular-nums;
+            user-select: text !important;
+            -webkit-user-select: text !important;
         }
-        .est-exec-skip {
-            background: none; border: 1px solid var(--border);
-            border-radius: 14px; padding: 10px 24px;
-            color: var(--text-secondary); font-size: 0.85rem;
-            cursor: pointer; transition: all 0.2s;
+        .gs-minute-input:focus { border-color: var(--accent); }
+        .gs-time-unit {
+            font-size: 0.82rem;
+            color: var(--text-dim);
         }
-        .est-exec-skip:active { transform: scale(0.95); }
 
-        /* Celebration */
-        .est-celebration-overlay {
-            position: fixed; inset: 0; z-index: 2000;
-            display: none; align-items: center; justify-content: center;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+        .gs-voice-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: var(--bg-input);
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
-        .est-celebration-overlay.visible { display: flex; }
-        .est-celebration-content { text-align: center; animation: estPop 0.6s cubic-bezier(0.34,1.56,0.64,1); }
-        .est-celebration-emoji { font-size: 4rem; margin-bottom: 12px; }
-        .est-celebration-text {
-            font-size: 1.3rem; font-weight: 800; margin-bottom: 6px;
-            background: linear-gradient(90deg, var(--text-primary) 40%, #fff 50%, var(--text-primary) 60%);
-            background-size: 200% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: estShim 3s ease-in-out infinite;
+        .gs-voice-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
         }
-        .est-celebration-sub { font-size: 0.85rem; color: var(--text-secondary); }
-        @keyframes estPop { 0%{transform:scale(0.3);opacity:0;} 60%{transform:scale(1.1);} 100%{transform:scale(1);opacity:1;} }
-        @keyframes estShim { 0%{background-position:-200% center;} 100%{background-position:200% center;} }
-
-        /* Particles */
-        .est-particle {
-            position: fixed; pointer-events: none; z-index: 2001;
-            border-radius: 50%; animation: estPFly 1.2s ease-out forwards;
-        }
-        @keyframes estPFly { 0%{transform:translate(0,0) scale(1);opacity:1;} 100%{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;} }
-
-        /* Config Panel */
-        .est-config-overlay {
-            position: fixed; inset: 0; z-index: 1300;
-            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-            display: none; align-items: flex-end; justify-content: center;
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .est-config-overlay.visible { display: flex; opacity: 1; }
-        .est-config-panel {
-            width: 100%; max-width: 440px; max-height: 80vh;
-            background: #16162e; border-radius: 24px 24px 0 0;
-            padding: 20px 20px 32px 20px; overflow-y: auto;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-            border: 1px solid var(--border); border-bottom: none;
-        }
-        .est-config-overlay.visible .est-config-panel { transform: translateY(0); }
-        .est-config-handle { width: 40px; height: 4px; background: var(--border); border-radius: 4px; margin: 0 auto 14px; }
-        .est-config-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-        .est-config-sub { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px; }
-        .est-config-row {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 0; border-bottom: 1px solid var(--border);
-        }
-        .est-config-row:last-child { border-bottom: none; }
-        .est-config-row-label { font-size: 0.85rem; font-weight: 600; }
-        .est-config-row-chakra { font-size: 0.65rem; color: var(--text-secondary); margin-top: 2px; }
-        .est-config-input {
-            width: 80px; padding: 8px 10px;
-            background: var(--bg-input); border: 1.5px solid var(--border);
-            border-radius: 12px; color: var(--text-primary);
-            font-size: 0.9rem; text-align: center; font-weight: 600;
+        .gs-rate-display {
+            font-size: 0.82rem;
+            color: var(--accent);
+            font-weight: 600;
             font-variant-numeric: tabular-nums;
         }
-        .est-config-input:focus { outline: none; border-color: #6366f1; }
-        .est-config-reset {
-            width: 100%; margin-top: 16px; padding: 14px;
-            background: linear-gradient(135deg, #ef444433, #a855f733);
-            border: 1.5px solid var(--border); border-radius: 14px;
-            color: var(--text-primary); font-size: 0.88rem; font-weight: 600;
-            cursor: pointer; transition: all 0.2s;
+        .gs-rate-slider {
+            width: 120px;
+            margin-left: 12px;
         }
-        .est-config-reset:active { transform: scale(0.97); }
-        .est-config-close {
-            width: 100%; margin-top: 8px; padding: 12px;
-            background: none; border: none; border-radius: 12px;
-            color: var(--text-secondary); font-size: 0.85rem;
+
+        .gs-save-btn {
+            margin-top: 14px;
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
             cursor: pointer;
+            background: linear-gradient(135deg, var(--accent), #c41e3a);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+            transition: all 0.15s ease;
         }
+        .gs-save-btn:active { transform: scale(0.97); }
 
-        @media (max-width: 360px) {
-            .est-m-item:nth-child(odd) { padding-left: 40px; }
-            .est-m-item:nth-child(even) { padding-right: 40px; }
-            .est-m-card { width: calc(100% - 50px); padding: 10px; }
-            .est-m-node { width: 30px; height: 30px; font-size: 0.8rem; }
+        .gs-status {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .gs-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-dim);
+            flex-shrink: 0;
+        }
+        .gs-status-dot.active { background: var(--success); box-shadow: 0 0 8px rgba(0,200,83,0.4); }
 
+        .gs-test-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+        }
+        .gs-test-btn:active { transform: scale(0.97); background: var(--bg-input); }
+        /* ========== END GUIDED SCRIPT PANEL ========== */
     </style>
 </head>
 <body>
@@ -4443,6 +4715,14 @@
                         <div class="toggle" id="med-toggle" onclick="toggleMeditation()"></div>
                     </div>
                     <div class="card-body" id="med-settings">
+                        <!-- Quick Preset: DESPERTATO -->
+                        <div class="med-preset-section">
+                            <div class="med-preset-title">⚡ Configuración Rápida</div>
+                            <div class="med-preset-chips">
+                                <div class="med-preset-chip" id="med-preset-despertato" onclick="loadMedPreset('despertato')">🔥 DESPERTATO</div>
+                            </div>
+                        </div>
+
                         <!-- Timer Display -->
                         <div class="med-timer-display" id="med-timer-display">
                             <div class="med-timer-time" id="med-timer-time">00:00:00</div>
@@ -4505,7 +4785,7 @@
                                 <span>Umbral inicial (silencio antes de alertas)</span>
                                 <span class="input-value" id="med-threshold-value" style="color: var(--warning);">30 min</span>
                             </div>
-                            <input type="range" class="range-slider" id="med-threshold-slider" min="5" max="120" value="30" step="5" oninput="updateMedThreshold()">
+                            <input type="range" class="range-slider" id="med-threshold-slider" min="0" max="120" value="30" step="5" oninput="updateMedThreshold()">
                             <div class="helper-text">Tiempo que debe pasar en silencio antes de que comiencen las alertas anti-sueño</div>
                         </div>
 
@@ -4745,6 +5025,58 @@
                                 font-family: monospace;
                             "></div>
                         </div>
+
+                        <!-- ========== GUIDED SCRIPT — Script Personalizado por Temporizador ========== -->
+                        <div class="gs-toggle-row" id="gs-toggle-row" onclick="toggleGuideScript()">
+                            <div>
+                                <div class="gs-toggle-label">
+                                    <span class="gs-icon">🎭</span>
+                                    <span>Script Guía por Temporizador</span>
+                                </div>
+                                <div class="gs-toggle-desc">Escribe tu guía y el sistema la leerá en voz alta en el minuto que elijas</div>
+                            </div>
+                            <div class="toggle" id="gs-toggle"></div>
+                        </div>
+
+                        <div class="gs-panel" id="gs-panel">
+                            <div class="gs-textarea-wrap">
+                                <textarea class="gs-textarea" id="gs-text"
+                                    placeholder="Escribe aquí tu guía o escenario para que la voz te lo lea en un momento clave...&#10;&#10;Ejemplo: Imagina que estás caminando por un pasillo antiguo, las paredes de piedra están cubiertas de musgo verde, escuchas el eco de tus pasos..."
+                                    maxlength="1000"></textarea>
+                            </div>
+
+                            <div class="gs-time-config">
+                                <span class="gs-time-label">Leer en el minuto</span>
+                                <input type="number" class="gs-minute-input" id="gs-minute-input"
+                                    min="1" max="999" value="40"
+                                    oninput="updateGuideScriptMinute()">
+                                <span class="gs-time-unit">del cronómetro</span>
+                            </div>
+
+                            <div class="gs-voice-row">
+                                <span class="gs-voice-label">Velocidad de voz</span>
+                                <div style="display: flex; align-items: center;">
+                                    <span class="gs-rate-display" id="gs-rate-display">0.85x</span>
+                                    <input type="range" class="range-slider gs-rate-slider" id="gs-rate-slider"
+                                        min="0.5" max="1.2" value="0.85" step="0.05"
+                                        oninput="updateGuideScriptRate()">
+                                </div>
+                            </div>
+
+                            <div class="gs-status" id="gs-status">
+                                <div class="gs-status-dot" id="gs-status-dot"></div>
+                                <span id="gs-status-text">Guarda tu configuración para activar el script</span>
+                            </div>
+
+                            <button class="gs-save-btn" onclick="saveGuideScriptSettings()">
+                                💾 Guardar Script Guía
+                            </button>
+
+                            <button class="gs-test-btn" onclick="testGuideScript()">
+                                🔊 Probar lectura del script
+                            </button>
+                        </div>
+                        <!-- ========== END GUIDED SCRIPT ========== -->
                     </div>
                 </div>
             </div>
@@ -5455,16 +5787,156 @@ mientras fijas la vista en el centro."></textarea>
                 </div>
             </div>
 
-            <!-- ========== PANEL DE ESTIMULACION GAMIFICADO ========== -->
-            <div class="est-section" id="estimulacion">
-                <div class="section-title">Estimulación Corporal</div>
-                <button class="est-trigger-btn" onclick="estOpenPanel()">
-                    <span class="est-trigger-icon">🔥</span>
-                    <div>
-                        <div>Iniciar Estimulación</div>
-                        <div class="est-trigger-sub">7 centros de energía · estilo Duolingo</div>
+            <!-- ========== TRATAK AUDITIVO GUIADO ========== -->
+            <div class="tratak-section" id="tratak-section">
+                <div class="tratak-header">
+                    <div class="tratak-logo">🔥</div>
+                    <div class="tratak-title">Tratak Auditivo Guiado</div>
+                    <div class="tratak-subtitle">Meditación guiada por voz</div>
+                </div>
+
+                <!-- Timer -->
+                <div class="tratak-timer-wrap">
+                    <div class="tratak-timer-container">
+                        <svg class="tratak-timer-svg" viewBox="0 0 220 220">
+                            <circle class="tratak-timer-bg" cx="110" cy="110" r="100"/>
+                            <circle class="tratak-timer-progress" id="tratak-progress" cx="110" cy="110" r="100"/>
+                        </svg>
+                        <div class="tratak-timer-center">
+                            <div class="tratak-timer-icon" id="tratak-timer-icon">🕯️</div>
+                            <div class="tratak-timer-digits" id="tratak-digits">00:00</div>
+                            <div class="tratak-timer-status" id="tratak-status">Listo</div>
+                        </div>
                     </div>
-                </button>
+                </div>
+
+                <!-- Phase Name -->
+                <div style="text-align: center; margin-bottom: 8px;">
+                    <div id="tratak-phase-name" style="font-size: 0.9rem; font-weight: 600; color: var(--accent);">Concentración en la vela</div>
+                    <div id="tratak-phase-desc" style="font-size: 0.7rem; color: var(--text-dim); margin-top: 3px;">Mira fijamente la llama con los ojos abiertos</div>
+                </div>
+
+                <!-- Phase Indicator -->
+                <div class="tratak-phases" id="tratak-phases">
+                    <div class="tratak-phase-dot active" data-phase="candle">
+                        <div class="tratak-phase-icon" style="--phase-color: #e94560;">🕯️</div>
+                        <div class="tratak-phase-label">Concentración</div>
+                    </div>
+                    <div class="tratak-phase-line"></div>
+                    <div class="tratak-phase-dot" data-phase="inner">
+                        <div class="tratak-phase-icon" style="--phase-color: #7c4dff;">👁️</div>
+                        <div class="tratak-phase-label">Imagen interna</div>
+                    </div>
+                    <div class="tratak-phase-line"></div>
+                    <div class="tratak-phase-dot" data-phase="post">
+                        <div class="tratak-phase-icon" style="--phase-color: #00bcd4;">✨</div>
+                        <div class="tratak-phase-label">Visualización</div>
+                    </div>
+                    <div class="tratak-phase-line"></div>
+                    <div class="tratak-phase-dot" data-phase="rest">
+                        <div class="tratak-phase-icon" style="--phase-color: #4caf50;">🌙</div>
+                        <div class="tratak-phase-label">Descanso</div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="tratak-controls">
+                    <button class="tratak-btn tratak-btn-restart" id="tratak-restart" title="Reiniciar" onclick="tratakRestart()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </button>
+                    <button class="tratak-btn tratak-btn-main" id="tratak-play" onclick="tratakToggle()">
+                        <svg fill="currentColor" viewBox="0 0 24 24" id="tratak-play-icon">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
+                    <div style="width: 48px;"></div>
+                </div>
+
+                <!-- Session Info -->
+                <div class="tratak-info-bar" id="tratak-info-bar" style="display: none;">
+                    <div>Total: <span id="tratak-elapsed">00:00</span></div>
+                    <div class="tratak-info-sep"></div>
+                    <div>Ciclo: <span id="tratak-cycle">1</span></div>
+                    <div class="tratak-info-sep"></div>
+                    <div>Sesión: <span id="tratak-session">00:00</span></div>
+                </div>
+
+                <!-- Config Toggle -->
+                <div class="tratak-config-toggle" onclick="tratakToggleConfig()">
+                    <span>⚙️</span> Configuración de sesión
+                    <span class="arrow" id="tratak-config-arrow">▼</span>
+                </div>
+
+                <!-- Config Body -->
+                <div class="tratak-config-body" id="tratak-config-body">
+                    <div class="tratak-config-label">Duración de fases</div>
+
+                    <div class="tratak-slider-group">
+                        <div class="tratak-slider-header">
+                            <div class="label">🕯️ Concentración en la vela</div>
+                            <div class="value" id="tratak-candle-val" style="color: #e94560;">2m 0s</div>
+                        </div>
+                        <input type="range" class="tratak-range" id="tratak-candle-slider" min="30" max="600" step="5" value="120" oninput="tratakUpdateSlider('candle', this.value)">
+                    </div>
+
+                    <div class="tratak-slider-group">
+                        <div class="tratak-slider-header">
+                            <div class="label">👁️ Imagen interna</div>
+                            <div class="value" id="tratak-inner-val" style="color: #7c4dff;">2m 0s</div>
+                        </div>
+                        <input type="range" class="tratak-range" id="tratak-inner-slider" min="30" max="600" step="5" value="120" oninput="tratakUpdateSlider('inner', this.value)">
+                    </div>
+
+                    <div class="tratak-slider-group">
+                        <div class="tratak-slider-header">
+                            <div class="label">✨ Visualización sutil</div>
+                            <div class="value" id="tratak-post-val" style="color: #00bcd4;">1m 0s</div>
+                        </div>
+                        <input type="range" class="tratak-range" id="tratak-post-slider" min="10" max="600" step="5" value="60" oninput="tratakUpdateSlider('post', this.value)">
+                    </div>
+
+                    <div class="tratak-slider-group">
+                        <div class="tratak-slider-header">
+                            <div class="label">🌙 Descanso corto</div>
+                            <div class="value" id="tratak-rest-val" style="color: #4caf50;">30s</div>
+                        </div>
+                        <input type="range" class="tratak-range" id="tratak-rest-slider" min="10" max="120" step="5" value="30" oninput="tratakUpdateSlider('rest', this.value)">
+                    </div>
+
+                    <div class="tratak-summary">
+                        <div class="label">Duración total por ciclo</div>
+                        <div class="val" id="tratak-total-cycle">5m 30s</div>
+                    </div>
+
+                    <!-- Time Announcements -->
+                    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);">
+                        <div class="tratak-config-label">Avisos de tiempo por voz</div>
+
+                        <div class="tratak-announce-row">
+                            <div class="tratak-announce-left">
+                                <div class="tratak-announce-icon">📢</div>
+                                <div class="tratak-announce-text">
+                                    <div class="title">Activar avisos de tiempo</div>
+                                    <div class="desc">La voz anuncia el tiempo transcurrido</div>
+                                </div>
+                            </div>
+                            <div class="tratak-toggle" id="tratak-announce-toggle" onclick="tratakToggleAnnounce()"></div>
+                        </div>
+
+                        <div class="tratak-intervals" id="tratak-intervals">
+                            <div class="tratak-intervals-label">Intervalo de aviso</div>
+                            <div class="tratak-interval-grid">
+                                <div class="tratak-interval-btn" data-interval="30" onclick="tratakSetInterval(30)">30 segundos</div>
+                                <div class="tratak-interval-btn active" data-interval="60" onclick="tratakSetInterval(60)">1 minuto</div>
+                                <div class="tratak-interval-btn" data-interval="120" onclick="tratakSetInterval(120)">2 minutos</div>
+                                <div class="tratak-interval-btn" data-interval="180" onclick="tratakSetInterval(180)">3 minutos</div>
+                                <div class="tratak-interval-btn" data-interval="300" onclick="tratakSetInterval(300)">5 minutos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="footer">
@@ -5478,124 +5950,13 @@ mientras fijas la vista en el centro."></textarea>
                 <button class="btn btn-secondary" onclick="scrollToSection('timer')">
                     <span>⏰</span> Temporizador
                 </button>
-                <button class="btn btn-secondary" onclick="scrollToEstimulacion()">
-                    <span>🔥</span> Estimulación
+
+                <button class="btn btn-secondary" onclick="scrollToSection('tratak')">
+                    <span>🔥</span> Tratak
                 </button>
                 <button class="btn btn-secondary" onclick="scrollToSection('customize')">
                     <span>🎨</span> Ajustes
                 </button>
-            </div>
-        </div>
-
-        <!-- ========== ESTIMULACION PANEL COMPLETO (fullscreen) ========== -->
-        <div class="est-fullmodal" id="est-fullmodal">
-            <div class="est-fullmodal-header">
-                <button class="est-back-btn" onclick="estClosePanel()">←</button>
-                <span class="est-header-title">Estimulación Corporal</span>
-                <button class="est-config-btn" onclick="estOpenConfig()">⚙</button>
-            </div>
-            <div class="est-fullmodal-body">
-                <div class="est-m-progress">
-                    <div class="est-m-progress-title">Tu Energía Interior</div>
-                    <div class="est-m-body-svg">
-                        <svg viewBox="0 0 240 420" xmlns="http://www.w3.org/2000/svg">
-                            <g>
-                                <ellipse cx="120" cy="52" rx="28" ry="32" fill="#1a1a35" stroke="#2a2a50" stroke-width="0.8"/>
-                                <rect x="112" y="82" width="16" height="18" rx="4" fill="#1a1a35" stroke="#2a2a50" stroke-width="0.8"/>
-                                <path d="M88 100 Q86 100 82 108 L76 160 Q74 175 78 195 L82 240 Q84 260 90 280 L95 310 Q97 325 100 340 L105 380 Q106 395 110 400 L112 405 Q116 410 120 410 Q124 410 128 405 L130 400 Q134 395 135 380 L140 340 Q143 325 145 310 L150 280 Q156 260 158 240 L162 195 Q166 175 164 160 L158 108 Q154 100 152 100 Z" fill="#1a1a35" stroke="#2a2a50" stroke-width="0.8"/>
-                                <path d="M82 108 Q70 112 58 130 L44 165 Q38 178 40 185 L42 190" fill="none" stroke="#2a2a50" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
-                                <path d="M152 108 Q164 112 176 130 L190 165 Q196 178 194 185 L192 190" fill="none" stroke="#2a2a50" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
-                                <path d="M100 380 L96 405 Q94 415 92 420" fill="none" stroke="#2a2a50" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
-                                <path d="M135 380 L139 405 Q141 415 143 420" fill="none" stroke="#2a2a50" stroke-width="7" stroke-linecap="round" opacity="0.7"/>
-                            </g>
-                            <circle class="est-chakra-glow" id="est-glow-0" cx="118" cy="395" r="18" fill="url(#eg-red)"/>
-                            <circle class="est-chakra-glow" id="est-glow-1" cx="118" cy="340" r="16" fill="url(#eg-orange)"/>
-                            <circle class="est-chakra-glow" id="est-glow-2" cx="118" cy="280" r="16" fill="url(#eg-yellow)"/>
-                            <circle class="est-chakra-glow" id="est-glow-3" cx="120" cy="215" r="17" fill="url(#eg-green)"/>
-                            <circle class="est-chakra-glow" id="est-glow-4" cx="120" cy="150" r="14" fill="url(#eg-blue)"/>
-                            <circle class="est-chakra-glow" id="est-glow-5" cx="122" cy="95" r="13" fill="url(#eg-indigo)"/>
-                            <circle class="est-chakra-glow" id="est-glow-6" cx="122" cy="42" r="15" fill="url(#eg-violet)"/>
-                            <circle class="est-chakra-dot" id="est-chakra-0" cx="118" cy="395" r="7" fill="#ef4444"/>
-                            <circle class="est-chakra-dot" id="est-chakra-0-ring" cx="118" cy="395" r="11" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.3"/>
-                            <circle class="est-chakra-dot" id="est-chakra-1" cx="118" cy="340" r="6.5" fill="#f97316"/>
-                            <circle class="est-chakra-dot" id="est-chakra-1-ring" cx="118" cy="340" r="10" fill="none" stroke="#f97316" stroke-width="1.5" opacity="0.3"/>
-                            <circle class="est-chakra-dot" id="est-chakra-2" cx="118" cy="280" r="6.5" fill="#eab308"/>
-                            <circle class="est-chakra-dot" id="est-chakra-2-ring" cx="118" cy="280" r="10" fill="none" stroke="#eab308" stroke-width="1.5" opacity="0.3"/>
-                            <circle class="est-chakra-dot" id="est-chakra-3" cx="120" cy="215" r="7" fill="#22c55e"/>
-                            <circle class="est-chakra-dot" id="est-chakra-3-ring" cx="120" cy="215" r="11" fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.3"/>
-                            <circle class="est-chakra-dot" id="est-chakra-4" cx="120" cy="150" r="6" fill="#3b82f6"/>
-                            <circle class="est-chakra-dot" id="est-chakra-4-ring" cx="120" cy="150" r="9.5" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.3"/>
-                            <circle class="est-chakra-dot" id="est-chakra-5" cx="122" cy="95" r="5.5" fill="#6366f1"/>
-                            <circle class="est-chakra-dot" id="est-chakra-5-ring" cx="122" cy="95" r="9" fill="none" stroke="#6366f1" stroke-width="1.5" opacity="0.3"/>
-                            <circle class="est-chakra-dot" id="est-chakra-6" cx="122" cy="42" r="6.5" fill="#a855f7"/>
-                            <circle class="est-chakra-dot" id="est-chakra-6-ring" cx="122" cy="42" r="10.5" fill="none" stroke="#a855f7" stroke-width="1.5" opacity="0.3"/>
-                            <defs>
-                                <radialGradient id="eg-red"><stop offset="0%" stop-color="#ef4444" stop-opacity="0.5"/><stop offset="100%" stop-color="#ef4444" stop-opacity="0"/></radialGradient>
-                                <radialGradient id="eg-orange"><stop offset="0%" stop-color="#f97316" stop-opacity="0.5"/><stop offset="100%" stop-color="#f97316" stop-opacity="0"/></radialGradient>
-                                <radialGradient id="eg-yellow"><stop offset="0%" stop-color="#eab308" stop-opacity="0.5"/><stop offset="100%" stop-color="#eab308" stop-opacity="0"/></radialGradient>
-                                <radialGradient id="eg-green"><stop offset="0%" stop-color="#22c55e" stop-opacity="0.5"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></radialGradient>
-                                <radialGradient id="eg-blue"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.5"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
-                                <radialGradient id="eg-indigo"><stop offset="0%" stop-color="#6366f1" stop-opacity="0.5"/><stop offset="100%" stop-color="#6366f1" stop-opacity="0"/></radialGradient>
-                                <radialGradient id="eg-violet"><stop offset="0%" stop-color="#a855f7" stop-opacity="0.5"/><stop offset="100%" stop-color="#a855f7" stop-opacity="0"/></radialGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <div class="est-m-bar"><div class="est-m-bar-fill" id="est-m-bar"></div></div>
-                    <div class="est-m-bar-text" id="est-m-bar-text">0 de 7</div>
-                </div>
-                <div class="est-m-path" id="est-m-path"><div class="est-m-connector"></div></div>
-                <div class="est-all-done" id="est-all-done">
-                    <h3>✦ ¡Despertar Completo! ✦</h3>
-                    <p>Todos tus centros de energía están activados.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ========== EJECUCION VIEW ========== -->
-        <div class="est-exec-overlay" id="est-exec">
-            <div class="est-exec-top">
-                <button class="est-exec-back" onclick="estExecBack()">←</button>
-                <span class="est-exec-level" id="est-exec-level"></span>
-            </div>
-            <div class="est-exec-center">
-                <div class="est-exec-ring" id="est-exec-ring">
-                    <svg viewBox="0 0 240 240">
-                        <circle class="est-ring-bg" cx="120" cy="120" r="108"/>
-                        <circle class="est-ring-progress" id="est-ring-progress" cx="120" cy="120" r="108"
-                            stroke-dasharray="678.6" stroke-dashoffset="0"/>
-                    </svg>
-                    <div class="est-exec-orb" id="est-exec-orb">
-                        <div class="est-exec-posture" id="est-exec-posture"></div>
-                        <div class="est-exec-count" id="est-exec-count">00:00</div>
-                        <div class="est-exec-label" id="est-exec-label"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="est-exec-instruction" id="est-exec-instruction"></div>
-            <div class="est-exec-chakraname" id="est-exec-chakraname"></div>
-            <div class="est-exec-bottom">
-                <button class="est-exec-skip" onclick="estExecSkip()">Saltar →</button>
-            </div>
-        </div>
-
-        <!-- ========== CONFIG PANEL ========== -->
-        <div class="est-config-overlay" id="est-config-overlay">
-            <div class="est-config-panel">
-                <div class="est-config-handle"></div>
-                <div class="est-config-title">⚙ Configuración de Tiempos</div>
-                <div class="est-config-sub">Define cuántos segundos dura cada ejercicio</div>
-                <div id="est-config-rows"></div>
-                <button class="est-config-reset" onclick="estResetTimes()">Restaurar valores por defecto</button>
-                <button class="est-config-close" onclick="estCloseConfig()">Cerrar</button>
-            </div>
-        </div>
-
-        <!-- ========== CELEBRATION ========== -->
-        <div class="est-celebration-overlay" id="est-celebration-overlay">
-            <div class="est-celebration-content">
-                <div class="est-celebration-emoji" id="est-celebration-emoji"></div>
-                <div class="est-celebration-text" id="est-celebration-text"></div>
-                <div class="est-celebration-sub" id="est-celebration-sub"></div>
             </div>
         </div>
 
@@ -5647,7 +6008,7 @@ mientras fijas la vista en el centro."></textarea>
                             <button type="button" class="dream-pill" data-type="muy-bueno">🌟 Muy bueno</button>
                             <button type="button" class="dream-pill" data-type="alegre">🎉 Alegre</button>
                             <button type="button" class="dream-pill" data-type="pesadilla">😈 Pesadilla</button>
-                            <button type="button" class="dream-pill" data-type="pesadilla"> 🎡 HD 4K</button>
+                            <button type="button" class="dream-pill" data-type="HD"> 🎡 HD 4K</button>
                         </div>
                     </div>
 
@@ -5786,6 +6147,15 @@ mientras fijas la vista en el centro."></textarea>
             _medAudioCtx: null,
             _medAlertSource: null,
             _medMessageIndex: 0,
+            // Guided Script (Script Guia por Temporizador)
+            guideScriptEnabled: false,
+            guideScriptText: '',
+            guideScriptTriggerMinute: 40,
+            guideScriptHasTriggered: false,
+            guideScriptRate: 0.85,
+            // Audio Queue System (prevents collisions between alerts)
+            _audioQueue: [],
+            _audioPlaying: false,
             // Subliminal Affirmation Engine
             subliminalActive: false,
             subliminalVolume: 2,
@@ -5916,6 +6286,9 @@ mientras fijas la vista en el centro."></textarea>
             document.getElementById('ek-min-input').addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') addEkAlertTime();
             });
+
+            // Init Tratak Auditivo Guiado
+            tratakInit();
         }
 
         function applyWbtbSettings() {
@@ -7445,6 +7818,7 @@ mientras fijas la vista en el centro."></textarea>
                 updateMedTimerDisplay();
                 checkMedTimeAnnouncements();
                 checkMedAntiSleepAlerts();
+                checkGuideScript();
                 updateMedNextAlertBox();
             }, 1000);
         }
@@ -7456,6 +7830,8 @@ mientras fijas la vista en el centro."></textarea>
             state.meditationStartTime = null;
             state._medNextAnnounceMin = 0;
             state._medNextAlertMin = 0;
+            // Reset guided script trigger
+            state.guideScriptHasTriggered = false;
             document.getElementById('med-timer-time').textContent = '00:00:00';
             document.getElementById('med-next-announce-val').textContent = '--:--';
             document.getElementById('med-next-announce-val').className = 'med-status-value inactive';
@@ -7491,8 +7867,20 @@ mientras fijas la vista en el centro."></textarea>
         function announceElapsedTime(minutes) {
             var text = buildTimeAnnouncementText(minutes);
             var repeats = state.meditationAnnounceRepeats || 1;
-            speakTextLoop(text, repeats, 800);
+            enqueueAudio('time-announce', { text: text, repeats: repeats, currentRepeat: 1 });
             showToast('📢 ' + text + ' (×' + repeats + ')');
+        }
+
+        function _executeTimeAnnounce(data) {
+            speakText(data.text);
+            var estimatedDuration = Math.max(1500, Math.ceil(data.text.length * 80 / (state.meditationSpeechRate || 0.75)));
+            if (data.currentRepeat < data.repeats) {
+                setTimeout(function() {
+                    _executeTimeAnnounce({ text: data.text, repeats: data.repeats, currentRepeat: data.currentRepeat + 1 });
+                }, estimatedDuration + 800);
+            } else {
+                _onAudioComplete();
+            }
         }
 
         function speakTextLoop(text, times, pauseMs) {
@@ -7541,6 +7929,42 @@ mientras fijas la vista en el centro."></textarea>
             val.className = 'med-status-value';
         }
 
+        // --- Audio Queue System ---
+        // Prevents collisions when multiple alerts fire at the same time.
+        // First alert plays immediately, subsequent alerts are queued and
+        // play sequentially after each previous audio finishes.
+
+        function enqueueAudio(type, data) {
+            state._audioQueue.push({ type: type, data: data });
+            if (!state._audioPlaying) {
+                processAudioQueue();
+            }
+        }
+
+        function processAudioQueue() {
+            if (state._audioQueue.length === 0) {
+                state._audioPlaying = false;
+                return;
+            }
+            state._audioPlaying = true;
+            var item = state._audioQueue.shift();
+
+            if (item.type === 'anti-sleep-alert') {
+                _executeAntiSleepAlert(item.data);
+            } else if (item.type === 'time-announce') {
+                _executeTimeAnnounce(item.data);
+            } else if (item.type === 'electrochoke') {
+                _executeElectrochoke();
+            }
+        }
+
+        function _onAudioComplete() {
+            // Short pause between queued audios for smooth transition
+            setTimeout(function() {
+                processAudioQueue();
+            }, 400);
+        }
+
         // --- Anti-Sleep Alerts ---
         function checkMedAntiSleepAlerts() {
             updateMedNextAlertDisplay();
@@ -7549,14 +7973,12 @@ mientras fijas la vista en el centro."></textarea>
             // Dynamic interval reduction: switch to shorter interval at threshold
             if (state.meditationDynamicReductionEnabled && !state._dynamicApplied && elapsedMin >= state.meditationDynamicReductionMinute) {
                 state._dynamicApplied = true;
-                // Recalculate next alert from current time using the new interval
                 state._medNextAlertMin = elapsedMin + state.meditationDynamicReductionInterval;
                 showToast('⚡ Intervalo reducido a cada ' + state.meditationDynamicReductionInterval + ' min');
             }
 
             if (elapsedMin >= state._medNextAlertMin) {
                 triggerAntiSleepAlert();
-                // Use reduced interval if dynamic reduction is active
                 var currentInterval = (state.meditationDynamicReductionEnabled && state._dynamicApplied) ? state.meditationDynamicReductionInterval : state.meditationAlertIntervalMin;
                 state._medNextAlertMin += currentInterval;
                 updateMedNextAlertBox();
@@ -7573,19 +7995,21 @@ mientras fijas la vista en el centro."></textarea>
             }, 300);
 
             var totalMessages = state.meditationMessagesPerAlert || 1;
-            playMedAlertSequence(1, totalMessages);
+            enqueueAudio('anti-sleep-alert', { current: 1, total: totalMessages });
         }
 
-        function playMedAlertSequence(current, total) {
+        function _executeAntiSleepAlert(data) {
             playMedBowlSound(function() {
                 var msg = getMedNextMessage();
                 speakText(msg);
-                showToast('🔔 (' + current + '/' + total + ') ' + msg);
-                if (current < total) {
+                showToast('🔔 (' + data.current + '/' + data.total + ') ' + msg);
+                if (data.current < data.total) {
                     var speakDuration = Math.max(2000, Math.ceil(msg.length * 80 / (state.meditationSpeechRate || 0.75)));
                     setTimeout(function() {
-                        playMedAlertSequence(current + 1, total);
+                        _executeAntiSleepAlert({ current: data.current + 1, total: data.total });
                     }, speakDuration + 500);
+                } else {
+                    _onAudioComplete();
                 }
             });
         }
@@ -8021,6 +8445,65 @@ mientras fijas la vista en el centro."></textarea>
             }
         }
 
+        // --- DESPERTATO Preset ---
+        function loadMedPreset(name) {
+            if (name === 'despertato') {
+                // Set Anti-Sleep Alert Interval: 5 min
+                state.meditationAlertIntervalMin = 5;
+                document.getElementById('med-alert-interval-slider').value = 5;
+                document.getElementById('med-alert-interval-value').textContent = '5 min';
+
+                // Set Time Announcement Interval: 5 min
+                state.meditationTimeAnnounceMin = 5;
+                document.getElementById('med-time-announce-slider').value = 5;
+                document.getElementById('med-time-announce-value').textContent = '5 min';
+
+                // Set Threshold to 0 so alerts start immediately
+                state.meditationThresholdMin = 0;
+                document.getElementById('med-threshold-slider').value = 0;
+                document.getElementById('med-threshold-value').textContent = '0 min';
+
+                // Enable Electrochoque with every 10 minutes
+                state.ekActive = true;
+                document.getElementById('ek-toggle').classList.add('active');
+                document.getElementById('ek-indicator').classList.add('show');
+
+                // Generate electrochoke alert times: 10, 20, 30, 40, 50, 60, 70, 80, 90 min
+                state.ekAlertTimes = [];
+                for (var i = 10; i <= 90; i += 10) {
+                    state.ekAlertTimes.push(i);
+                }
+                renderEkAlertTimes();
+                saveEkSettings();
+
+                // Update preset chip visual state
+                document.querySelectorAll('.med-preset-chip').forEach(function(c) { c.classList.remove('active-preset'); });
+                document.getElementById('med-preset-despertato').classList.add('active-preset');
+
+                // Save meditation settings
+                saveMeditationSettings();
+
+                // Recalculate if meditation is active
+                if (state.meditationActive) {
+                    var elapsedMin = state.meditationElapsedSeconds / 60;
+                    state._medNextAlertMin = state.meditationThresholdMin;
+                    if (elapsedMin >= state._medNextAlertMin) {
+                        state._medNextAlertMin = Math.ceil(elapsedMin / state.meditationAlertIntervalMin) * state.meditationAlertIntervalMin;
+                        if (state._medNextAlertMin <= elapsedMin) state._medNextAlertMin += state.meditationAlertIntervalMin;
+                    }
+                    state._medNextAnnounceMin = Math.ceil(elapsedMin / state.meditationTimeAnnounceMin) * state.meditationTimeAnnounceMin;
+                    if (state._medNextAnnounceMin <= elapsedMin) state._medNextAnnounceMin += state.meditationTimeAnnounceMin;
+                    updateMedNextAnnounceDisplay();
+                    updateMedNextAlertDisplay();
+                    updateMedNextAlertBox();
+                    cancelEkAlerts();
+                    scheduleEkAlerts();
+                }
+
+                showToast('🔥 DESPERTATO activado — Alertas cada 5 min, Electrochoque cada 10 min');
+            }
+        }
+
         function testMedAlert() {
             showToast('🔔 Probando alerta anti-sueño...');
             triggerAntiSleepAlert();
@@ -8142,6 +8625,10 @@ mientras fijas la vista en el centro."></textarea>
                 subliminalVolume: state.subliminalVolume,
                 subliminalPause: state.subliminalPause,
                 subliminalEcho: state.subliminalEcho,
+                guideScriptEnabled: state.guideScriptEnabled,
+                guideScriptText: state.guideScriptText,
+                guideScriptTriggerMinute: state.guideScriptTriggerMinute,
+                guideScriptRate: state.guideScriptRate,
             })); } catch(e) {}
         }
 
@@ -8173,6 +8660,11 @@ mientras fijas la vista en el centro."></textarea>
                     state.meditationBowlSound = data.meditationBowlSound || 'tibetan-bowl';
                     state.meditationCustomBowlData = data.meditationCustomBowlData || null;
                     state.meditationCustomBowlName = data.meditationCustomBowlName || null;
+                    // Guided Script settings
+                    state.guideScriptEnabled = data.guideScriptEnabled === true;
+                    state.guideScriptText = data.guideScriptText || '';
+                    state.guideScriptTriggerMinute = data.guideScriptTriggerMinute || 40;
+                    state.guideScriptRate = data.guideScriptRate || 0.85;
 
                     // Apply to UI
                     document.getElementById('med-time-announce-slider').value = state.meditationTimeAnnounceMin;
@@ -8233,6 +8725,27 @@ mientras fijas la vista en el centro."></textarea>
                     document.getElementById('med-voice-female').classList.toggle('active', state.meditationVoice === 'female');
                     renderMedMessages();
                     updateMedBowlSoundUI();
+                    // Guided Script UI initialization
+                    var gsToggle = document.getElementById('gs-toggle');
+                    var gsPanel = document.getElementById('gs-panel');
+                    var gsText = document.getElementById('gs-text');
+                    var gsMinute = document.getElementById('gs-minute-input');
+                    var gsRate = document.getElementById('gs-rate-slider');
+                    var gsRateDisplay = document.getElementById('gs-rate-display');
+                    var gsStatusDot = document.getElementById('gs-status-dot');
+                    var gsStatusText = document.getElementById('gs-status-text');
+                    if (state.guideScriptEnabled) {
+                        gsToggle.classList.add('active');
+                        gsPanel.classList.add('active');
+                    }
+                    gsText.value = state.guideScriptText;
+                    gsMinute.value = state.guideScriptTriggerMinute;
+                    gsRate.value = state.guideScriptRate;
+                    gsRateDisplay.textContent = state.guideScriptRate.toFixed(2) + 'x';
+                    if (state.guideScriptEnabled && state.guideScriptText) {
+                        gsStatusDot.classList.add('active');
+                        gsStatusText.textContent = 'Script activo \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute;
+                    }
                 }
             } catch(e) {}
         }
@@ -8731,23 +9244,24 @@ mientras fijas la vista en el centro."></textarea>
                 setTimeout(function() { flash.classList.remove('active'); }, 200);
             }, 400);
 
+            enqueueAudio('electrochoke', {});
+            updateEkNextAlertDisplay();
+        }
+
+        function _executeElectrochoke() {
             // Duck meditation audio if enabled
             var medAudioReduced = false;
             if (state.ekDucking && state.meditationActive) {
                 medAudioReduced = true;
-                // Try to duck subliminal audio if playing
                 if (subliminalAudioEl && subliminalAudioPlaying) {
                     subliminalAudioEl.volume = Math.max(0.05, subliminalAudioEl.volume * 0.2);
                 }
-                // Try to duck trance audio if playing
                 if (trancePlaying && tranceNodes._masterGain) {
                     tranceNodes._masterGain.gain.value = Math.max(0.02, tranceVolume / 100 * 0.2);
                 }
             }
 
-            // Play the ELECTROCHOQUE sound
             playEkSound(state.ekSound, function() {
-                // Restore ducked audio
                 if (medAudioReduced) {
                     if (subliminalAudioEl && subliminalAudioPlaying) {
                         var savedVol = localStorage.getItem('subliminal_audio_volume');
@@ -8757,10 +9271,10 @@ mientras fijas la vista en el centro."></textarea>
                         tranceNodes._masterGain.gain.value = tranceVolume / 100;
                     }
                 }
+                _onAudioComplete();
             });
 
             showToast('⚡ ELECTROCHOQUE — Pulso de alerta activado');
-            updateEkNextAlertDisplay();
         }
 
         function updateEkNextAlertDisplay() {
@@ -9274,6 +9788,12 @@ mientras fijas la vista en el centro."></textarea>
                 el.scrollTo({ top: 550, behavior: 'smooth' });
             } else if (section === 'customize') {
                 el.scrollTo({ top: 1100, behavior: 'smooth' });
+            } else if (section === 'tratak') {
+                var tratakEl = document.getElementById('tratak-section');
+                if (tratakEl) {
+                    var offset = tratakEl.offsetTop - 20;
+                    el.scrollTo({ top: offset, behavior: 'smooth' });
+                }
             }
         }
 
@@ -10584,268 +11104,395 @@ mientras fijas la vista en el centro."></textarea>
             document.getElementById('rb-complete').classList.remove('active');
             showToast('✨ Sesion de respiracion completada');
         }
+        /* ========== TRATAK AUDITIVO GUIADO ========== */
+        var tratakState = {
+            config: { candle: 120, inner: 120, post: 60, rest: 30 },
+            announce: { enabled: false, interval: 60 },
+            currentPhase: 0, // 0=candle, 1=inner, 2=post, 3=rest
+            timeRemaining: 0,
+            totalElapsed: 0,
+            isRunning: false,
+            isPaused: false,
+            cycleCount: 0,
+            announceTimer: 0,
+            timerInterval: null,
+            announceInterval: null,
+        };
 
-        /* ============================================ */
-        /* === PANEL DE ESTIMULACION GAMIFICADO JS === */
-        /* ============================================ */
-
-        var EST_DEFAULT_TIMES = [15, 60, 20, 60, 30, 45, 120];
-        var EST_POSTURES = ['\uD83C\uDFD5\uFE0F', '\uD83E\uDD8B', '\uD83D\uDD25', '\uD83D\uDC0D', '\uD83E\uDDC9', '\uD83E\uDDCC', '\uD83E\uDDD8'];
-
-        var EST_LEVELS = [
-            { name: 'Postura de la Montaña', chakra: 'Muladhara \u2014 Ra\u00EDz', color: '#ef4444', badge: 'Ra\u00EDz', instructions: 'Tadasana / Balasana. Siente la base de tu cuerpo firmemente apoyada, visualizando ra\u00EDces ancl\u00E1ndote al suelo. Conexi\u00F3n a tierra.' },
-            { name: 'Postura de la Mariposa', chakra: 'Svadhisthana \u2014 Sacro', color: '#f97316', badge: 'Sacral', instructions: 'Baddha Konasana. Sentado, junta las plantas de los pies y deja caer las rodillas. Respira fluyendo hacia el abdomen bajo.' },
-            { name: 'Respiraci\u00F3n de Fuego', chakra: 'Manipura \u2014 Plexo Solar', color: '#eab308', badge: 'Solar', instructions: 'Respiraci\u00F3n r\u00E1pida, r\u00EDtmica y continua bombeando el ombligo hacia adentro en cada exhalaci\u00F3n por la nariz. Activa el calor interno.' },
-            { name: 'Postura de la Cobra', chakra: 'Anahata \u2014 Coraz\u00F3n', color: '#22c55e', badge: 'Coraz\u00F3n', instructions: 'Bhujangasana / Camello adaptada. Abre el pecho proyectando el estern\u00F3n hacia adelante y arriba, respirando directo al coraz\u00F3n.' },
-            { name: 'Postura del Le\u00F3n', chakra: 'Vishuddha \u2014 Garganta', color: '#3b82f6', badge: 'Garganta', instructions: 'Giros de cuello y Simhasana. Libera la tensi\u00F3n con giros lentos y exhala abriendo la boca para liberar la voz y la energ\u00EDa estancada.' },
-            { name: 'Ni\u00F1o con Enfoque', chakra: 'Ajna \u2014 Tercer Ojo', color: '#6366f1', badge: 'Tercer Ojo', instructions: 'Balasana con enfoque frontal. Frente apoyada en el suelo (o rodillas). Concentra toda la presi\u00F3n y atenci\u00F3n visual en el punto entre las cejas.' },
-            { name: 'Postura del Loto', chakra: 'Sahasrara \u2014 Corona', color: '#a855f7', badge: 'Corona', instructions: 'Padmasana o Savasana. Inmovilidad total. Palmas hacia arriba, conectando la cima de la cabeza con el espacio infinito.' }
+        var tratakPhases = [
+            { key: 'candle', icon: '🕯️', name: 'Concentración en la vela', desc: 'Mira fijamente la llama con los ojos abiertos', color: '#e94560' },
+            { key: 'inner', icon: '👁️', name: 'Imagen interna', desc: 'Cierra los ojos y observa la postimagen', color: '#7c4dff' },
+            { key: 'post', icon: '✨', name: 'Visualización sutil', desc: 'Mantén la contemplación serena', color: '#00bcd4' },
+            { key: 'rest', icon: '🌙', name: 'Descanso corto', desc: 'Relájate antes del siguiente ciclo', color: '#4caf50' },
         ];
 
-        var estCompleted = new Set();
-        var estAudioCtx = null;
-
-        // Execution state
-        var estExecRunning = false;
-        var estExecTimer = null;
-        var estExecRemaining = 0;
-        var estExecTotal = 0;
-
-        function estGetAudioCtx() {
-            if (!estAudioCtx) { var AC = window.AudioContext || window.webkitAudioContext; if (AC) estAudioCtx = new AC(); }
-            return estAudioCtx;
+        function tratakFormatTime(totalSeconds) {
+            var m = Math.floor(totalSeconds / 60);
+            var s = totalSeconds % 60;
+            return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
         }
 
-        function estPlaySound(type) {
-            try {
-                var ctx = estGetAudioCtx(); if (!ctx) return;
-                var now = ctx.currentTime;
-                if (type === 'levelup') {
-                    [523.25, 659.25, 783.99, 1046.5].forEach(function(f, i) {
-                        var o = ctx.createOscillator(), g = ctx.createGain(), fl = ctx.createBiquadFilter();
-                        o.type = 'sine'; o.frequency.setValueAtTime(f, now + i * 0.1);
-                        fl.type = 'lowpass'; fl.frequency.setValueAtTime(3000, now);
-                        g.gain.setValueAtTime(0, now + i * 0.1);
-                        g.gain.linearRampToValueAtTime(0.25, now + i * 0.1 + 0.05);
-                        g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.4);
-                        o.connect(fl); fl.connect(g); g.connect(ctx.destination);
-                        o.start(now + i * 0.1); o.stop(now + i * 0.1 + 0.5);
-                    });
-                    var sh = ctx.createOscillator(), sg = ctx.createGain();
-                    sh.type = 'triangle'; sh.frequency.setValueAtTime(1568, now + 0.4);
-                    sh.frequency.exponentialRampToValueAtTime(2093, now + 0.8);
-                    sg.gain.setValueAtTime(0.08, now + 0.4); sg.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
-                    sh.connect(sg); sg.connect(ctx.destination); sh.start(now + 0.4); sh.stop(now + 1.3);
-                } else {
-                    var o = ctx.createOscillator(), g = ctx.createGain();
-                    o.type = 'sine'; o.frequency.setValueAtTime(800, now);
-                    o.frequency.exponentialRampToValueAtTime(400, now + 0.08);
-                    g.gain.setValueAtTime(0.15, now); g.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-                    o.connect(g); g.connect(ctx.destination); o.start(now); o.stop(now + 0.12);
+        function tratakFormatDisplay(totalSeconds) {
+            var m = Math.floor(totalSeconds / 60);
+            var s = totalSeconds % 60;
+            if (m > 0 && s > 0) return m + 'm ' + s + 's';
+            if (m > 0) return m + 'm 0s';
+            return s + 's';
+        }
+
+        function tratakSpeak(text, priority) {
+            if (!window.speechSynthesis) return;
+            if (priority) {
+                window.speechSynthesis.cancel();
+            }
+            var utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'es-ES';
+            utter.rate = 0.9;
+            utter.pitch = 1.0;
+            utter.volume = 1.0;
+            var voices = window.speechSynthesis.getVoices();
+            var esVoice = voices.find(function(v) { return v.lang.startsWith('es'); });
+            if (esVoice) utter.voice = esVoice;
+            window.speechSynthesis.speak(utter);
+        }
+
+        function tratakSpeakPhase(phaseIndex) {
+            var phase = tratakPhases[phaseIndex];
+            var text = '';
+            switch (phase.key) {
+                case 'candle': text = 'Inicia la concentración en la vela. Mira fijamente la llama.'; break;
+                case 'inner': text = 'Cierra los ojos y observa la imagen interna de la llama.'; break;
+                case 'post': text = 'Mantén la visualización sutil. Contempla con serenidad.'; break;
+                case 'rest': text = 'Descanso corto. Relájate antes del siguiente ciclo.'; break;
+            }
+            tratakSpeak(text, true);
+        }
+
+        function tratakSpeakTime(elapsed) {
+            var mins = Math.floor(elapsed / 60);
+            var secs = elapsed % 60;
+            var timeStr = '';
+            if (mins > 0 && secs > 0) timeStr = mins + ' minutos y ' + secs + ' segundos';
+            else if (mins > 0) timeStr = (mins === 1 ? '1 minuto' : mins + ' minutos');
+            else timeStr = (secs === 1 ? '1 segundo' : secs + ' segundos');
+            tratakSpeak('Llevas ' + timeStr + ' de Tratak.', false);
+        }
+
+        function tratakUpdateUI() {
+            var s = tratakState;
+            var phase = tratakPhases[s.currentPhase];
+            var duration = s.config[phase.key];
+
+            // Timer digits
+            document.getElementById('tratak-digits').textContent = tratakFormatTime(s.timeRemaining);
+            document.getElementById('tratak-digits').style.color = s.isRunning && !s.isPaused ? phase.color : '#555';
+
+            // Timer icon
+            document.getElementById('tratak-timer-icon').textContent = phase.icon;
+
+            // Status
+            document.getElementById('tratak-status').textContent = s.isRunning ? (s.isPaused ? 'Pausado' : 'En sesión') : 'Listo';
+
+            // Progress circle
+            var progress = duration > 0 ? ((duration - s.timeRemaining) / duration) : 0;
+            var circumference = 2 * Math.PI * 100;
+            var offset = circumference - (progress * circumference);
+            var progressEl = document.getElementById('tratak-progress');
+            progressEl.style.strokeDashoffset = offset;
+            progressEl.style.stroke = phase.color;
+
+            // Phase name & desc
+            document.getElementById('tratak-phase-name').textContent = phase.name;
+            document.getElementById('tratak-phase-name').style.color = phase.color;
+            document.getElementById('tratak-phase-desc').textContent = phase.desc;
+
+            // Phase indicators
+            var dots = document.querySelectorAll('.tratak-phase-dot');
+            dots.forEach(function(dot, i) {
+                var isActive = i === s.currentPhase && s.isRunning;
+                dot.classList.toggle('active', isActive);
+                var icon = dot.querySelector('.tratak-phase-icon');
+                icon.style.borderColor = isActive ? phase.color : '#2a2a3e';
+                icon.style.background = isActive ? phase.color + '30' : '#1a1a2e';
+            });
+
+            // Play/Pause button
+            var playBtn = document.getElementById('tratak-play');
+            var playIcon = document.getElementById('tratak-play-icon');
+            if (s.isRunning && !s.isPaused) {
+                playIcon.innerHTML = '<path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>';
+                playBtn.classList.add('paused');
+            } else {
+                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+                playBtn.classList.remove('paused');
+            }
+
+            // Session info
+            document.getElementById('tratak-info-bar').style.display = s.isRunning ? 'flex' : 'none';
+            document.getElementById('tratak-elapsed').textContent = tratakFormatTime(s.totalElapsed);
+            document.getElementById('tratak-cycle').textContent = s.cycleCount + 1;
+            var totalCycle = s.config.candle + s.config.inner + s.config.post + s.config.rest;
+            document.getElementById('tratak-session').textContent = tratakFormatDisplay(totalCycle);
+        }
+
+        function tratakNextPhase() {
+            var s = tratakState;
+            s.currentPhase = (s.currentPhase + 1) % 4;
+            if (s.currentPhase === 0) {
+                s.cycleCount++;
+            }
+            var phase = tratakPhases[s.currentPhase];
+            s.timeRemaining = s.config[phase.key];
+            setTimeout(function() { tratakSpeakPhase(s.currentPhase); }, 100);
+        }
+
+        function tratakTick() {
+            var s = tratakState;
+            if (!s.isRunning || s.isPaused) return;
+
+            if (s.timeRemaining <= 1) {
+                tratakNextPhase();
+            } else {
+                s.timeRemaining--;
+            }
+            s.totalElapsed++;
+
+            // Time announcement
+            if (s.announce.enabled) {
+                s.announceTimer++;
+                if (s.announceTimer >= s.announce.interval) {
+                    tratakSpeakTime(s.totalElapsed);
+                    s.announceTimer = 0;
                 }
-            } catch(e) {}
+            }
+
+            tratakUpdateUI();
         }
 
-        function estSpawnParticles(color) {
-            for (var i = 0; i < 20; i++) {
-                var p = document.createElement('div'); p.className = 'est-particle';
-                var sz = Math.random() * 8 + 4;
-                var a = (Math.PI * 2 * i) / 20 + Math.random() * 0.5;
-                var d = Math.random() * 100 + 50;
-                p.style.cssText = 'left:50%;top:50%;width:'+sz+'px;height:'+sz+'px;background:'+color+';--tx:'+Math.cos(a)*d+'px;--ty:'+Math.sin(a)*d+'px;animation-delay:'+(Math.random()*0.15)+'s;';
-                document.body.appendChild(p);
-                (function(el){setTimeout(function(){el.remove();},1500);})(p);
+        function tratakToggle() {
+            var s = tratakState;
+            if (!s.isRunning) {
+                // Start fresh
+                s.currentPhase = 0;
+                s.totalElapsed = 0;
+                s.cycleCount = 0;
+                s.announceTimer = 0;
+                s.timeRemaining = s.config.candle;
+                tratakSpeakPhase(0);
+                s.isRunning = true;
+                s.isPaused = false;
+                s.timerInterval = setInterval(tratakTick, 1000);
+            } else if (s.isPaused) {
+                // Resume
+                s.isPaused = false;
+                s.timerInterval = setInterval(tratakTick, 1000);
+            } else {
+                // Pause
+                s.isPaused = true;
+                clearInterval(s.timerInterval);
+                s.timerInterval = null;
+                window.speechSynthesis.cancel();
+            }
+            tratakUpdateUI();
+        }
+
+        function tratakRestart() {
+            var s = tratakState;
+            clearInterval(s.timerInterval);
+            s.timerInterval = null;
+            window.speechSynthesis.cancel();
+            s.isRunning = false;
+            s.isPaused = false;
+            s.currentPhase = 0;
+            s.timeRemaining = 0;
+            s.totalElapsed = 0;
+            s.cycleCount = 0;
+            s.announceTimer = 0;
+            tratakUpdateUI();
+        }
+
+        function tratakToggleConfig() {
+            var body = document.getElementById('tratak-config-body');
+            var arrow = document.getElementById('tratak-config-arrow');
+            var isOpen = body.classList.toggle('open');
+            arrow.classList.toggle('open', isOpen);
+        }
+
+        function tratakUpdateSlider(phase, value) {
+            value = parseInt(value);
+            tratakState.config[phase] = value;
+
+            var valEl = document.getElementById('tratak-' + phase + '-val');
+            valEl.textContent = tratakFormatDisplay(value);
+
+            // Update total cycle
+            var total = tratakState.config.candle + tratakState.config.inner + tratakState.config.post + tratakState.config.rest;
+            document.getElementById('tratak-total-cycle').textContent = tratakFormatDisplay(total);
+
+            // If not running, update the current timer display
+            if (!tratakState.isRunning) {
+                var currentPhase = tratakPhases[tratakState.currentPhase];
+                if (currentPhase.key === phase) {
+                    tratakState.timeRemaining = value;
+                }
+                tratakUpdateUI();
             }
         }
 
-        // --- Load/save times from localStorage ---
-        function estGetTimes() {
-            try {
-                var saved = JSON.parse(localStorage.getItem('est_times'));
-                if (saved && saved.length === 7) return saved;
-            } catch(e) {}
-            return EST_DEFAULT_TIMES.slice();
-        }
-        function estSaveTimes(times) { localStorage.setItem('est_times', JSON.stringify(times)); }
-        function estResetTimes() { estSaveTimes(EST_DEFAULT_TIMES.slice()); estBuildConfig(); }
-
-        // --- Panel open/close ---
-        function estOpenPanel() {
-            estPlaySound('click');
-            var m = document.getElementById('est-fullmodal');
-            m.classList.add('visible');
-            estRenderPath();
-        }
-        function estClosePanel() {
-            document.getElementById('est-fullmodal').classList.remove('visible');
+        function tratakToggleAnnounce() {
+            tratakState.announce.enabled = !tratakState.announce.enabled;
+            var toggle = document.getElementById('tratak-announce-toggle');
+            toggle.classList.toggle('active', tratakState.announce.enabled);
+            document.getElementById('tratak-intervals').classList.toggle('open', tratakState.announce.enabled);
         }
 
-        // --- Render level path inside modal ---
-        function estRenderPath() {
-            var path = document.getElementById('est-m-path');
-            var html = '<div class="est-m-connector"></div>';
-            EST_LEVELS.forEach(function(lv, i) {
-                var done = estCompleted.has(i);
-                var cls = 'est-m-card active'; var ncls = 'est-m-node active';
-                var cs = 'border-color:'+lv.color+';background:linear-gradient(135deg,'+lv.color+'15,'+lv.color+'08);';
-                var ns = 'background:'+lv.color+'22;border-color:'+lv.color+';color:'+lv.color+';';
-                if (done) { cs += 'border-style:dashed;'; }
-                html += '<div class="est-m-item">';
-                html += '<div class="'+ncls+'" style="'+ns+'">'+(done?'\u2713':(i+1))+'</div>';
-                html += '<div class="'+cls+'" style="'+cs+'" onclick="estStartExec('+i+')">';
-                html += '<div class="est-m-check" style="color:'+lv.color+'">\u2713</div>';
-                html += '<div class="est-m-card-top"><span class="est-m-badge" style="background:'+lv.color+';">'+lv.badge+'</span><span class="est-m-chakraname">'+lv.chakra+'</span></div>';
-                html += '<div class="est-m-card-title">'+lv.name+'</div>';
-                html += '<div class="est-m-card-desc">'+lv.instructions.substring(0,60)+'\u2026</div>';
-                html += '</div></div>';
+        function tratakSetInterval(value) {
+            tratakState.announce.interval = value;
+            document.querySelectorAll('.tratak-interval-btn').forEach(function(btn) {
+                btn.classList.toggle('active', parseInt(btn.getAttribute('data-interval')) === value);
             });
-            path.innerHTML = html;
-            var pct = (estCompleted.size/7)*100;
-            document.getElementById('est-m-bar').style.width = pct+'%';
-            document.getElementById('est-m-bar-text').textContent = estCompleted.size+' de 7 activados';
         }
 
-        // --- Execution View ---
-        function estStartExec(index) {
-            estPlaySound('click');
-            var lv = EST_LEVELS[index];
-            var times = estGetTimes();
-            var dur = times[index];
+        // Initialize Tratak UI
+        function tratakInit() {
+            // Set initial slider displays
+            tratakUpdateSlider('candle', 120);
+            tratakUpdateSlider('inner', 120);
+            tratakUpdateSlider('post', 60);
+            tratakUpdateSlider('rest', 30);
+            tratakUpdateUI();
+        }
 
-            document.getElementById('est-fullmodal').classList.remove('visible');
+        // ========== GUIDED SCRIPT — Script Guia por Temporizador ==========
 
-            var exec = document.getElementById('est-exec');
-            document.getElementById('est-exec-level').textContent = lv.badge + ' \u2014 ' + lv.chakra;
-            document.getElementById('est-exec-posture').textContent = EST_POSTURES[index];
-            document.getElementById('est-exec-posture').style.color = lv.color;
-            document.getElementById('est-exec-instruction').textContent = lv.instructions;
-            document.getElementById('est-exec-chakraname').textContent = lv.chakra;
-            document.getElementById('est-exec-label').textContent = 'restantes';
+        function toggleGuideScript() {
+            state.guideScriptEnabled = !state.guideScriptEnabled;
+            var toggle = document.getElementById('gs-toggle');
+            var panel = document.getElementById('gs-panel');
+            toggle.classList.toggle('active', state.guideScriptEnabled);
+            panel.classList.toggle('active', state.guideScriptEnabled);
+            saveGuideScriptSettings();
+        }
 
-            var orb = document.getElementById('est-exec-orb');
-            orb.style.background = 'radial-gradient(circle, '+lv.color+'33, '+lv.color+'11)';
-            orb.style.boxShadow = '0 0 60px '+lv.color+'44';
+        function updateGuideScriptMinute() {
+            var val = parseInt(document.getElementById('gs-minute-input').value) || 1;
+            if (val < 1) val = 1;
+            if (val > 999) val = 999;
+            state.guideScriptTriggerMinute = val;
+            updateGuideScriptStatus();
+        }
 
-            var ring = document.getElementById('est-ring-progress');
-            ring.style.stroke = lv.color;
-            ring.style.filter = 'drop-shadow(0 0 6px '+lv.color+'88)';
+        function updateGuideScriptRate() {
+            var val = parseFloat(document.getElementById('gs-rate-slider').value);
+            state.guideScriptRate = val;
+            document.getElementById('gs-rate-display').textContent = val.toFixed(2) + 'x';
+        }
 
-            estExecRemaining = dur;
-            estExecTotal = dur;
-            estExecUpdateDisplay();
-            estExecUpdateRing();
+        function updateGuideScriptStatus() {
+            var dot = document.getElementById('gs-status-dot');
+            var text = document.getElementById('gs-status-text');
+            if (state.guideScriptEnabled && document.getElementById('gs-text').value.trim()) {
+                dot.classList.add('active');
+                text.textContent = 'Script activo \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute;
+            } else if (state.guideScriptEnabled) {
+                dot.classList.remove('active');
+                text.textContent = 'Escribe un texto para activar el script';
+            } else {
+                dot.classList.remove('active');
+                text.textContent = 'Guarda tu configuraci\u00f3n para activar el script';
+            }
+        }
 
-            exec.classList.add('visible');
+        function saveGuideScriptSettings() {
+            state.guideScriptText = document.getElementById('gs-text').value.trim();
+            state.guideScriptTriggerMinute = parseInt(document.getElementById('gs-minute-input').value) || 40;
+            state.guideScriptRate = parseFloat(document.getElementById('gs-rate-slider').value) || 0.85;
 
-            estExecRunning = true;
-            estExecTimer = setInterval(function() {
-                estExecRemaining--;
-                estExecUpdateDisplay();
-                estExecUpdateRing();
-                if (estExecRemaining <= 0) {
-                    clearInterval(estExecTimer); estExecTimer = null; estExecRunning = false;
-                    estExecComplete(index);
+            updateGuideScriptStatus();
+            saveMeditationSettings();
+
+            if (state.guideScriptEnabled && state.guideScriptText) {
+                showToast('\u{1F3AF} Script guardado \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute);
+            } else if (state.guideScriptEnabled && !state.guideScriptText) {
+                showToast('\u26A0\uFE0F Escribe un texto antes de guardar');
+            } else {
+                showToast('\u23F8\uFE0F Script desactivado');
+            }
+        }
+
+        function checkGuideScript() {
+            if (!state.guideScriptEnabled) return;
+            if (state.guideScriptHasTriggered) return;
+            if (!state.guideScriptText) return;
+
+            var currentMinute = Math.floor(state.meditationElapsedSeconds / 60);
+            if (currentMinute >= state.guideScriptTriggerMinute) {
+                state.guideScriptHasTriggered = true;
+                playGuideScript(state.guideScriptText);
+                showToast('\u{1F3AD} Script gu\u00eda activado en el minuto ' + state.guideScriptTriggerMinute);
+            }
+        }
+
+        function playGuideScript(text) {
+            if (!('speechSynthesis' in window)) {
+                showToast('\u26A0\uFE0F Text-to-speech no soportado en este navegador');
+                return;
+            }
+            window.speechSynthesis.cancel();
+
+            var utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = state.guideScriptRate || 0.85;
+            utterance.pitch = 0.9;
+            utterance.volume = 1.0;
+
+            // Select best Spanish voice (same logic as speakText)
+            var voices = window.speechSynthesis.getVoices();
+            var targetVoice = state.meditationVoice || 'female';
+            var selectedVoice = null;
+            var spanishVoices = voices.filter(function(v) { return v.lang.startsWith('es'); });
+            if (spanishVoices.length > 0) {
+                var esEsVoices = spanishVoices.filter(function(v) { return v.lang === 'es-ES'; });
+                var pool = esEsVoices.length > 0 ? esEsVoices : spanishVoices;
+                var relaxingMale = ['diego','pablo','jorge','antonio','francisco','rafael','alvaro','hugo','daniel','miguel','alejandro'];
+                var relaxingFemale = ['elena','lucia','paula','carmen','rosa','laura','sofia','clara','ines','valeria','marina','alba'];
+                var primary = targetVoice === 'male' ? relaxingMale : relaxingFemale;
+                selectedVoice = pool.find(function(v) {
+                    var nameLower = v.name.toLowerCase();
+                    return primary.some(function(kw) { return nameLower.includes(kw); });
+                });
+                if (!selectedVoice) {
+                    var maleKw = ['male','man','hombre','diego','carlos','pablo','pedro','jorge','luis','antonio'];
+                    var femaleKw = ['female','woman','mujer','maria','elena','lucia','paula','carmen','rosa','laura','sofia','clara'];
+                    var fallback = targetVoice === 'male' ? maleKw : femaleKw;
+                    selectedVoice = pool.find(function(v) {
+                        var nameLower = v.name.toLowerCase();
+                        return fallback.some(function(kw) { return nameLower.includes(kw); });
+                    });
                 }
-            }, 1000);
+                if (!selectedVoice) {
+                    selectedVoice = pool.find(function(v) {
+                        return v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('neural');
+                    });
+                }
+                if (!selectedVoice) selectedVoice = pool[0];
+            }
+            if (selectedVoice) utterance.voice = selectedVoice;
+
+            window.speechSynthesis.speak(utterance);
         }
 
-        function estExecUpdateDisplay() {
-            var m = Math.floor(estExecRemaining / 60).toString().padStart(2, '0');
-            var s = (estExecRemaining % 60).toString().padStart(2, '0');
-            document.getElementById('est-exec-count').textContent = m + ':' + s;
+        function testGuideScript() {
+            var text = document.getElementById('gs-text').value.trim();
+            if (!text) {
+                showToast('\u26A0\uFE0F Escribe un texto primero para probar');
+                return;
+            }
+            playGuideScript(text);
+            showToast('\u{1F50A} Reproduciendo prueba del script...');
         }
 
-        function estExecUpdateRing() {
-            var circ = 678.6;
-            var offset = circ * (1 - estExecRemaining / estExecTotal);
-            document.getElementById('est-ring-progress').setAttribute('stroke-dashoffset', offset);
-        }
-
-        function estExecComplete(index) {
-            estPlaySound('levelup');
-            document.getElementById('est-exec').classList.remove('visible');
-
-            // Activate chakra dot
-            var dot = document.getElementById('est-chakra-' + index);
-            var ring = document.getElementById('est-chakra-' + index + '-ring');
-            var glow = document.getElementById('est-glow-' + index);
-            if (dot) { dot.classList.add('activating'); setTimeout(function(){dot.classList.add('active');dot.classList.remove('activating');},1500); }
-            if (ring) { ring.classList.add('activating'); setTimeout(function(){ring.classList.add('active');ring.classList.remove('activating');},1500); }
-            if (glow) setTimeout(function(){glow.classList.add('active');},300);
-
-            estSpawnParticles(EST_LEVELS[index].color);
-            estCompleted.add(index);
-
-            // Show celebration
-            var lv = EST_LEVELS[index];
-            document.getElementById('est-celebration-emoji').textContent = EST_POSTURES[index];
-            document.getElementById('est-celebration-text').textContent = '\u00A1' + lv.name + '!';
-            document.getElementById('est-celebration-sub').textContent = lv.chakra + ' activado';
-            var cov = document.getElementById('est-celebration-overlay');
-            cov.style.display = 'flex';
-            requestAnimationFrame(function(){cov.classList.add('visible');});
-
-            // Return to panel after celebration
-            setTimeout(function() {
-                cov.classList.remove('visible');
-                setTimeout(function(){cov.style.display='none';},400);
-                estRenderPath();
-                setTimeout(function(){ estOpenPanel(); }, 500);
-            }, 2200);
-        }
-
-        function estExecSkip() {
-            if (estExecTimer) { clearInterval(estExecTimer); estExecTimer = null; estExecRunning = false; }
-            document.getElementById('est-exec').classList.remove('visible');
-            estOpenPanel();
-        }
-
-        function estExecBack() {
-            if (estExecTimer) { clearInterval(estExecTimer); estExecTimer = null; estExecRunning = false; }
-            document.getElementById('est-exec').classList.remove('visible');
-            estOpenPanel();
-        }
-
-        // --- Config Panel ---
-        function estOpenConfig() {
-            estBuildConfig();
-            var ov = document.getElementById('est-config-overlay');
-            ov.style.display = 'flex';
-            requestAnimationFrame(function(){ov.classList.add('visible');});
-        }
-        function estCloseConfig() {
-            var ov = document.getElementById('est-config-overlay');
-            ov.classList.remove('visible');
-            setTimeout(function(){ov.style.display='none';},400);
-        }
-        function estBuildConfig() {
-            var times = estGetTimes();
-            var rows = '';
-            EST_LEVELS.forEach(function(lv, i) {
-                rows += '<div class="est-config-row">';
-                rows += '<div><div class="est-config-row-label" style="color:'+lv.color+'">'+EST_POSTURES[i]+' '+lv.name+'</div>';
-                rows += '<div class="est-config-row-chakra">'+lv.chakra+' · '+lv.badge+'</div></div>';
-                rows += '<input class="est-config-input" type="number" min="5" max="600" value="'+times[i]+'" onchange="estSetTime('+i+',this.value)" oninput="estSetTime('+i+',this.value)">';
-                rows += '</div>';
-            });
-            document.getElementById('est-config-rows').innerHTML = rows;
-        }
-        function estSetTime(i, val) {
-            var times = estGetTimes();
-            times[i] = Math.max(5, parseInt(val) || 15);
-            estSaveTimes(times);
-        }
-
-        document.getElementById('est-config-overlay').addEventListener('click', function(e) {
-            if (e.target === e.currentTarget) estCloseConfig();
-        });
-
-        function scrollToEstimulacion() {
-            var el = document.getElementById('estimulacion');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        estRenderPath();
+        // ========== END GUIDED SCRIPT ==========
 
         init();
     </script>
