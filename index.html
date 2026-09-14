@@ -7832,6 +7832,8 @@ mientras fijas la vista en el centro."></textarea>
             state._medNextAlertMin = 0;
             // Reset guided script trigger
             state.guideScriptHasTriggered = false;
+            // Reset audio queue to prevent stuck state
+            resetAudioQueueSafety();
             document.getElementById('med-timer-time').textContent = '00:00:00';
             document.getElementById('med-next-announce-val').textContent = '--:--';
             document.getElementById('med-next-announce-val').className = 'med-status-value inactive';
@@ -7872,15 +7874,15 @@ mientras fijas la vista en el centro."></textarea>
         }
 
         function _executeTimeAnnounce(data) {
-            speakText(data.text);
-            var estimatedDuration = Math.max(1500, Math.ceil(data.text.length * 80 / (state.meditationSpeechRate || 0.75)));
-            if (data.currentRepeat < data.repeats) {
-                setTimeout(function() {
-                    _executeTimeAnnounce({ text: data.text, repeats: data.repeats, currentRepeat: data.currentRepeat + 1 });
-                }, estimatedDuration + 800);
-            } else {
-                _onAudioComplete();
-            }
+            speakTextWithCallback(data.text, function() {
+                if (data.currentRepeat < data.repeats) {
+                    setTimeout(function() {
+                        _executeTimeAnnounce({ text: data.text, repeats: data.repeats, currentRepeat: data.currentRepeat + 1 });
+                    }, 800);
+                } else {
+                    _onAudioComplete();
+                }
+            });
         }
 
         function speakTextLoop(text, times, pauseMs) {
@@ -7965,6 +7967,25 @@ mientras fijas la vista en el centro."></textarea>
             }, 400);
         }
 
+        // Safety: reset audio queue if stuck for 30s (fallback if speech fails silently)
+        var _audioQueueSafetyTimer = null;
+        function resetAudioQueueSafety() {
+            if (_audioQueueSafetyTimer) clearTimeout(_audioQueueSafetyTimer);
+            _audioQueueSafetyTimer = null;
+            state._audioQueue = [];
+            state._audioPlaying = false;
+        }
+        function startAudioQueueSafety() {
+            if (_audioQueueSafetyTimer) clearTimeout(_audioQueueSafetyTimer);
+            _audioQueueSafetyTimer = setTimeout(function() {
+                if (state._audioPlaying) {
+                    state._audioPlaying = false;
+                    state._audioQueue = [];
+                    _audioQueueSafetyTimer = null;
+                }
+            }, 30000);
+        }
+
         // --- Anti-Sleep Alerts ---
         function checkMedAntiSleepAlerts() {
             updateMedNextAlertDisplay();
@@ -8001,16 +8022,16 @@ mientras fijas la vista en el centro."></textarea>
         function _executeAntiSleepAlert(data) {
             playMedBowlSound(function() {
                 var msg = getMedNextMessage();
-                speakText(msg);
-                showToast('🔔 (' + data.current + '/' + data.total + ') ' + msg);
-                if (data.current < data.total) {
-                    var speakDuration = Math.max(2000, Math.ceil(msg.length * 80 / (state.meditationSpeechRate || 0.75)));
-                    setTimeout(function() {
-                        _executeAntiSleepAlert({ current: data.current + 1, total: data.total });
-                    }, speakDuration + 500);
-                } else {
-                    _onAudioComplete();
-                }
+                speakTextWithCallback(msg, function() {
+                    showToast('🔔 (' + data.current + '/' + data.total + ') ' + msg);
+                    if (data.current < data.total) {
+                        setTimeout(function() {
+                            _executeAntiSleepAlert({ current: data.current + 1, total: data.total });
+                        }, 500);
+                    } else {
+                        _onAudioComplete();
+                    }
+                });
             });
         }
 
@@ -8053,16 +8074,7 @@ mientras fijas la vista en el centro."></textarea>
         }
 
         // --- Voice / Text-to-Speech (Relaxing Profile) ---
-        function speakText(text) {
-            if (!('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-
-            var utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.rate = state.meditationSpeechRate || 0.75;
-            utterance.pitch = 0.9;
-            utterance.volume = 1.0;
-
+        function selectSpanishVoice(utterance) {
             var voices = window.speechSynthesis.getVoices();
             var targetGender = state.meditationVoice;
             var selectedVoice = null;
@@ -8103,9 +8115,35 @@ mientras fijas la vista en el centro."></textarea>
                 // Pass 4: Any Spanish voice
                 if (!selectedVoice) selectedVoice = pool[0];
             }
-
             if (selectedVoice) utterance.voice = selectedVoice;
+        }
+
+        // speakText with callback — fires when speech ends or after safety timeout
+        function speakTextWithCallback(text, onComplete) {
+            if (!('speechSynthesis' in window)) { if (onComplete) onComplete(); return; }
+            window.speechSynthesis.cancel();
+            var completed = false;
+            function done() {
+                if (completed) return;
+                completed = true;
+                if (onComplete) onComplete();
+            }
+            var utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = state.meditationSpeechRate || 0.75;
+            utterance.pitch = 0.9;
+            utterance.volume = 1.0;
+            utterance.onend = done;
+            utterance.onerror = done;
+            selectSpanishVoice(utterance);
+            // Safety timeout: if onend never fires, call done after 15s
+            setTimeout(done, 15000);
             window.speechSynthesis.speak(utterance);
+            startAudioQueueSafety();
+        }
+
+        function speakText(text) {
+            speakTextWithCallback(text, null);
         }
 
         if ('speechSynthesis' in window) {
