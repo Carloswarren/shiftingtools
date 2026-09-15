@@ -4166,6 +4166,73 @@
         .gs-rate-slider {
             width: 120px;
             margin-left: 12px;
+
+        }
+
+        /* ========== GUIDED SCRIPT AUDIO FILE UPLOAD ========== */
+        .gs-audio-upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .gs-audio-upload-zone:hover,
+        .gs-audio-upload-zone.dragover {
+            border-color: var(--accent);
+            background: rgba(233, 69, 96, 0.04);
+        }
+        .gs-audio-upload-zone.dragover { background: rgba(233, 69, 96, 0.08); }
+        .gs-audio-upload-zone input[type="file"] {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0; cursor: pointer;
+        }
+        .gs-audio-upload-icon { font-size: 1.8rem; margin-bottom: 6px; }
+        .gs-audio-upload-text { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .gs-audio-upload-hint { font-size: 0.68rem; color: var(--text-dim); }
+
+        .gs-audio-info {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px;
+            margin-top: 4px;
+        }
+        .gs-audio-info.active { display: block; }
+        .gs-audio-info-row {
+            display: flex; align-items: center; gap: 12px;
+        }
+        .gs-audio-info-icon { font-size: 1.6rem; flex-shrink: 0; }
+        .gs-audio-info-details { flex: 1; min-width: 0; }
+        .gs-audio-info-name {
+            font-size: 0.82rem; font-weight: 600; color: var(--text-primary);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .gs-audio-info-size { font-size: 0.7rem; color: var(--text-dim); }
+        .gs-audio-remove-btn {
+            background: none; border: 1px solid var(--danger); color: var(--danger);
+            border-radius: 8px; padding: 6px 12px; font-size: 0.75rem;
+            cursor: pointer; transition: all 0.2s; white-space: nowrap;
+        }
+        .gs-audio-remove-btn:hover { background: rgba(255, 23, 68, 0.15); }
+
+        .gs-audio-mode-row {
+            display: flex; align-items: center; gap: 8px; margin-top: 10px;
+            padding: 10px 14px; background: var(--bg-input); border-radius: 10px;
+        }
+        .gs-audio-mode-label { font-size: 0.78rem; color: var(--text-secondary); white-space: nowrap; }
+        .gs-audio-mode-select {
+            flex: 1; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 8px 10px; color: var(--text-primary);
+            font-size: 0.78rem; cursor: pointer;
+        }
+        .gs-audio-mode-select:focus { outline: none; border-color: var(--accent); }
         }
 
         .gs-save-btn {
@@ -5042,7 +5109,7 @@
                             <div class="gs-textarea-wrap">
                                 <textarea class="gs-textarea" id="gs-text"
                                     placeholder="Escribe aquí tu guía o escenario para que la voz te lo lea en un momento clave...&#10;&#10;Ejemplo: Imagina que estás caminando por un pasillo antiguo, las paredes de piedra están cubiertas de musgo verde, escuchas el eco de tus pasos..."
-></textarea>
+                                    maxlength="1000"></textarea>
                             </div>
 
                             <div class="gs-time-config">
@@ -5060,6 +5127,34 @@
                                     <input type="range" class="range-slider gs-rate-slider" id="gs-rate-slider"
                                         min="0.5" max="1.2" value="0.85" step="0.05"
                                         oninput="updateGuideScriptRate()">
+                                </div>
+                            </div>
+
+                            <!-- ========== AUDIO FILE UPLOAD for Guide Script ========== -->
+                            <div style="margin-top: 12px;">
+                                <div class="gs-audio-upload-zone" id="gs-audio-upload-zone">
+                                    <div class="gs-audio-upload-icon">🎙️</div>
+                                    <div class="gs-audio-upload-text">Adjuntar archivo de audio (opcional)</div>
+                                    <div class="gs-audio-upload-hint">MP3, WAV, OGG, M4A — Máx. 5MB</div>
+                                    <input type="file" accept="audio/*" id="gs-audio-file-input" onchange="handleGuideScriptAudioUpload(event)">
+                                </div>
+                                <div class="gs-audio-info" id="gs-audio-info">
+                                    <div class="gs-audio-info-row">
+                                        <div class="gs-audio-info-icon">🎵</div>
+                                        <div class="gs-audio-info-details">
+                                            <div class="gs-audio-info-name" id="gs-audio-name"></div>
+                                            <div class="gs-audio-info-size" id="gs-audio-size"></div>
+                                        </div>
+                                        <button class="gs-audio-remove-btn" onclick="removeGuideScriptAudio()">✕ Quitar</button>
+                                    </div>
+                                </div>
+                                <div class="gs-audio-mode-row" id="gs-audio-mode-row" style="display: none;">
+                                    <span class="gs-audio-mode-label">Reproducir:</span>
+                                    <select class="gs-audio-mode-select" id="gs-audio-mode-select" onchange="updateGuideScriptAudioMode()">
+                                        <option value="audio">Solo archivo de audio</option>
+                                        <option value="both">Archivo + voz sintetizada</option>
+                                        <option value="voice">Solo voz sintetizada (ignorar archivo)</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -6153,6 +6248,11 @@ mientras fijas la vista en el centro."></textarea>
             guideScriptTriggerMinute: 40,
             guideScriptHasTriggered: false,
             guideScriptRate: 0.85,
+            // Guide Script audio file support
+            guideScriptAudioFile: null,      // Blob/Uint8Array of uploaded audio
+            guideScriptAudioName: null,      // Original filename
+            guideScriptAudioType: null,      // MIME type (audio/mpeg, audio/wav, etc.)
+            guideScriptAudioMode: 'voice',   // 'voice' = use TTS, 'audio' = play file, 'both' = audio then voice
             // Audio Queue System (prevents collisions between alerts)
             _audioQueue: [],
             _audioPlaying: false,
@@ -7832,8 +7932,6 @@ mientras fijas la vista en el centro."></textarea>
             state._medNextAlertMin = 0;
             // Reset guided script trigger
             state.guideScriptHasTriggered = false;
-            // Reset audio queue to prevent stuck state
-            resetAudioQueueSafety();
             document.getElementById('med-timer-time').textContent = '00:00:00';
             document.getElementById('med-next-announce-val').textContent = '--:--';
             document.getElementById('med-next-announce-val').className = 'med-status-value inactive';
@@ -7874,7 +7972,8 @@ mientras fijas la vista en el centro."></textarea>
         }
 
         function _executeTimeAnnounce(data) {
-            speakTextWithCallback(data.text, function() {
+            speakText(data.text, function() {
+                // Speech finished — schedule next repeat or complete
                 if (data.currentRepeat < data.repeats) {
                     setTimeout(function() {
                         _executeTimeAnnounce({ text: data.text, repeats: data.repeats, currentRepeat: data.currentRepeat + 1 });
@@ -7967,25 +8066,6 @@ mientras fijas la vista en el centro."></textarea>
             }, 400);
         }
 
-        // Safety: reset audio queue if stuck for 30s (fallback if speech fails silently)
-        var _audioQueueSafetyTimer = null;
-        function resetAudioQueueSafety() {
-            if (_audioQueueSafetyTimer) clearTimeout(_audioQueueSafetyTimer);
-            _audioQueueSafetyTimer = null;
-            state._audioQueue = [];
-            state._audioPlaying = false;
-        }
-        function startAudioQueueSafety() {
-            if (_audioQueueSafetyTimer) clearTimeout(_audioQueueSafetyTimer);
-            _audioQueueSafetyTimer = setTimeout(function() {
-                if (state._audioPlaying) {
-                    state._audioPlaying = false;
-                    state._audioQueue = [];
-                    _audioQueueSafetyTimer = null;
-                }
-            }, 30000);
-        }
-
         // --- Anti-Sleep Alerts ---
         function checkMedAntiSleepAlerts() {
             updateMedNextAlertDisplay();
@@ -8022,8 +8102,8 @@ mientras fijas la vista en el centro."></textarea>
         function _executeAntiSleepAlert(data) {
             playMedBowlSound(function() {
                 var msg = getMedNextMessage();
-                speakTextWithCallback(msg, function() {
-                    showToast('🔔 (' + data.current + '/' + data.total + ') ' + msg);
+                speakText(msg, function() {
+                    // Speech finished — schedule next message or complete
                     if (data.current < data.total) {
                         setTimeout(function() {
                             _executeAntiSleepAlert({ current: data.current + 1, total: data.total });
@@ -8032,6 +8112,8 @@ mientras fijas la vista en el centro."></textarea>
                         _onAudioComplete();
                     }
                 });
+                showToast('🔔 (' + data.current + '/' + data.total + ') ' + msg);
+            });
             });
         }
 
@@ -8074,7 +8156,21 @@ mientras fijas la vista en el centro."></textarea>
         }
 
         // --- Voice / Text-to-Speech (Relaxing Profile) ---
-        function selectSpanishVoice(utterance) {
+        // speakText now accepts an optional onDone callback.
+        // When provided, it is called after the utterance finishes (or after a safety timeout).
+        function speakText(text, onDone) {
+            if (!('speechSynthesis' in window)) { if (onDone) onDone(); return; }
+            window.speechSynthesis.cancel();
+
+            var _doneCalled = false;
+            function _safeDone() { if (!_doneCalled) { _doneCalled = true; if (onDone) onDone(); } }
+
+            var utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'es-ES';
+            utterance.rate = state.meditationSpeechRate || 0.75;
+            utterance.pitch = 0.9;
+            utterance.volume = 1.0;
+
             var voices = window.speechSynthesis.getVoices();
             var targetGender = state.meditationVoice;
             var selectedVoice = null;
@@ -8115,35 +8211,17 @@ mientras fijas la vista en el centro."></textarea>
                 // Pass 4: Any Spanish voice
                 if (!selectedVoice) selectedVoice = pool[0];
             }
+
             if (selectedVoice) utterance.voice = selectedVoice;
-        }
 
-        // speakText with callback — fires when speech ends or after safety timeout
-        function speakTextWithCallback(text, onComplete) {
-            if (!('speechSynthesis' in window)) { if (onComplete) onComplete(); return; }
-            window.speechSynthesis.cancel();
-            var completed = false;
-            function done() {
-                if (completed) return;
-                completed = true;
-                if (onComplete) onComplete();
+            // Attach onend callback so the audio queue can proceed
+            if (onDone) {
+                utterance.onend = function() { _safeDone(); };
+                // Safety timeout: if speech engine doesn't fire onend (known browser issue)
+                var safetyMs = Math.max(3000, Math.ceil(text.length * 120 / (state.meditationSpeechRate || 0.75)));
+                setTimeout(_safeDone, safetyMs);
             }
-            var utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'es-ES';
-            utterance.rate = state.meditationSpeechRate || 0.75;
-            utterance.pitch = 0.9;
-            utterance.volume = 1.0;
-            utterance.onend = done;
-            utterance.onerror = done;
-            selectSpanishVoice(utterance);
-            // Safety timeout: if onend never fires, call done after 15s
-            setTimeout(done, 15000);
             window.speechSynthesis.speak(utterance);
-            startAudioQueueSafety();
-        }
-
-        function speakText(text) {
-            speakTextWithCallback(text, null);
         }
 
         if ('speechSynthesis' in window) {
@@ -8667,6 +8745,11 @@ mientras fijas la vista en el centro."></textarea>
                 guideScriptText: state.guideScriptText,
                 guideScriptTriggerMinute: state.guideScriptTriggerMinute,
                 guideScriptRate: state.guideScriptRate,
+                guideScriptAudioMode: state.guideScriptAudioMode || 'voice',
+                guideScriptAudioName: state.guideScriptAudioName || null,
+                guideScriptAudioType: state.guideScriptAudioType || null,
+                // Convert Uint8Array to plain array for JSON serialization
+                guideScriptAudioFile: state.guideScriptAudioFile ? Array.from(state.guideScriptAudioFile) : null,
             })); } catch(e) {}
         }
 
@@ -8703,6 +8786,12 @@ mientras fijas la vista en el centro."></textarea>
                     state.guideScriptText = data.guideScriptText || '';
                     state.guideScriptTriggerMinute = data.guideScriptTriggerMinute || 40;
                     state.guideScriptRate = data.guideScriptRate || 0.85;
+                    state.guideScriptAudioMode = data.guideScriptAudioMode || 'voice';
+                    state.guideScriptAudioName = data.guideScriptAudioName || null;
+                    state.guideScriptAudioType = data.guideScriptAudioType || null;
+                    if (data.guideScriptAudioFile && Array.isArray(data.guideScriptAudioFile)) {
+                        state.guideScriptAudioFile = new Uint8Array(data.guideScriptAudioFile);
+                    }
 
                     // Apply to UI
                     document.getElementById('med-time-announce-slider').value = state.meditationTimeAnnounceMin;
@@ -8784,6 +8873,7 @@ mientras fijas la vista en el centro."></textarea>
                         gsStatusDot.classList.add('active');
                         gsStatusText.textContent = 'Script activo \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute;
                     }
+                    restoreGuideScriptAudioUI();
                 }
             } catch(e) {}
         }
@@ -11403,6 +11493,104 @@ mientras fijas la vista en el centro."></textarea>
 
         // ========== GUIDED SCRIPT — Script Guia por Temporizador ==========
 
+        // --- Guide Script Audio File Handlers ---
+        function handleGuideScriptAudioUpload(event) {
+            var file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('⚠️ El archivo excede 5MB. Usa un archivo más pequeño.');
+                return;
+            }
+            if (!file.type.startsWith('audio/')) {
+                showToast('⚠️ Solo se permiten archivos de audio.');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                state.guideScriptAudioFile = new Uint8Array(e.target.result);
+                state.guideScriptAudioName = file.name;
+                state.guideScriptAudioType = file.type;
+                state.guideScriptAudioMode = 'audio';
+
+                if (state._guideScriptAudioUrl) URL.revokeObjectURL(state._guideScriptAudioUrl);
+                var blob = new Blob([state.guideScriptAudioFile], { type: file.type });
+                state._guideScriptAudioUrl = URL.createObjectURL(blob);
+
+                document.getElementById('gs-audio-name').textContent = file.name;
+                document.getElementById('gs-audio-size').textContent = Math.round(file.size / 1024) + ' KB — ' + (file.type.split('/')[1] || file.type).toUpperCase();
+                document.getElementById('gs-audio-info').classList.add('active');
+                document.getElementById('gs-audio-upload-zone').style.display = 'none';
+                document.getElementById('gs-audio-mode-row').style.display = 'flex';
+                document.getElementById('gs-audio-mode-select').value = state.guideScriptAudioMode;
+
+                updateGuideScriptStatus();
+                saveGuideScriptSettings();
+                showToast('🎵 Audio cargado: ' + file.name);
+            };
+            reader.readAsArrayBuffer(file);
+            event.target.value = '';
+        }
+
+        function removeGuideScriptAudio() {
+            state.guideScriptAudioFile = null;
+            state.guideScriptAudioName = null;
+            state.guideScriptAudioType = null;
+            state.guideScriptAudioMode = 'voice';
+            if (state._guideScriptAudioUrl) { URL.revokeObjectURL(state._guideScriptAudioUrl); state._guideScriptAudioUrl = null; }
+
+            document.getElementById('gs-audio-info').classList.remove('active');
+            document.getElementById('gs-audio-upload-zone').style.display = '';
+            document.getElementById('gs-audio-mode-row').style.display = 'none';
+
+            updateGuideScriptStatus();
+            saveGuideScriptSettings();
+            showToast('🗑️ Audio del script eliminado');
+        }
+
+        function updateGuideScriptAudioMode() {
+            state.guideScriptAudioMode = document.getElementById('gs-audio-mode-select').value;
+            saveGuideScriptSettings();
+        }
+
+        function restoreGuideScriptAudioUI() {
+            if (state.guideScriptAudioFile) {
+                if (state._guideScriptAudioUrl) URL.revokeObjectURL(state._guideScriptAudioUrl);
+                var blob = new Blob([state.guideScriptAudioFile], { type: state.guideScriptAudioType || 'audio/mpeg' });
+                state._guideScriptAudioUrl = URL.createObjectURL(blob);
+
+                document.getElementById('gs-audio-name').textContent = state.guideScriptAudioName || 'audio.mp3';
+                var sizeKB = state.guideScriptAudioFile.length ? Math.round(state.guideScriptAudioFile.length / 1024) : '---';
+                document.getElementById('gs-audio-size').textContent = sizeKB + ' KB';
+                document.getElementById('gs-audio-info').classList.add('active');
+                document.getElementById('gs-audio-upload-zone').style.display = 'none';
+                document.getElementById('gs-audio-mode-row').style.display = 'flex';
+                document.getElementById('gs-audio-mode-select').value = state.guideScriptAudioMode || 'audio';
+            }
+        }
+
+        function playGuideScriptAudioFile(onComplete) {
+            if (!state._guideScriptAudioUrl) { if (onComplete) onComplete(); return; }
+            var audio = new Audio(state._guideScriptAudioUrl);
+            audio.volume = 1.0;
+            audio.onended = function() { if (onComplete) onComplete(); };
+            audio.onerror = function() {
+                showToast('⚠️ Error al reproducir el audio del script');
+                if (onComplete) onComplete();
+            };
+            audio.play().catch(function(err) {
+                console.warn('Guide script audio play() blocked:', err);
+                var retryPlay = function() {
+                    audio.play().then(function(){}).catch(function(){});
+                    document.removeEventListener('click', retryPlay);
+                    document.removeEventListener('touchstart', retryPlay);
+                };
+                document.addEventListener('click', retryPlay, { once: true });
+                document.addEventListener('touchstart', retryPlay, { once: true });
+                setTimeout(function() { if (onComplete) onComplete(); }, 500);
+            });
+        }
+
+
         function toggleGuideScript() {
             state.guideScriptEnabled = !state.guideScriptEnabled;
             var toggle = document.getElementById('gs-toggle');
@@ -11429,12 +11617,17 @@ mientras fijas la vista en el centro."></textarea>
         function updateGuideScriptStatus() {
             var dot = document.getElementById('gs-status-dot');
             var text = document.getElementById('gs-status-text');
-            if (state.guideScriptEnabled && document.getElementById('gs-text').value.trim()) {
+            var hasText = state.guideScriptEnabled && document.getElementById('gs-text').value.trim();
+            var hasAudio = state.guideScriptEnabled && state.guideScriptAudioFile;
+            if (hasText || hasAudio) {
                 dot.classList.add('active');
-                text.textContent = 'Script activo \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute;
+                var parts = [];
+                if (hasText) parts.push('voz sintetizada');
+                if (hasAudio) parts.push('audio: ' + (state.guideScriptAudioName || 'archivo'));
+                text.textContent = 'Script activo \u2014 ' + parts.join(' + ') + ' en el minuto ' + state.guideScriptTriggerMinute;
             } else if (state.guideScriptEnabled) {
                 dot.classList.remove('active');
-                text.textContent = 'Escribe un texto para activar el script';
+                text.textContent = 'Escribe un texto o adjunta un audio para activar el script';
             } else {
                 dot.classList.remove('active');
                 text.textContent = 'Guarda tu configuraci\u00f3n para activar el script';
@@ -11445,14 +11638,16 @@ mientras fijas la vista en el centro."></textarea>
             state.guideScriptText = document.getElementById('gs-text').value.trim();
             state.guideScriptTriggerMinute = parseInt(document.getElementById('gs-minute-input').value) || 40;
             state.guideScriptRate = parseFloat(document.getElementById('gs-rate-slider').value) || 0.85;
+            var modeEl = document.getElementById('gs-audio-mode-select');
+            if (modeEl) state.guideScriptAudioMode = modeEl.value || 'voice';
 
             updateGuideScriptStatus();
             saveMeditationSettings();
 
-            if (state.guideScriptEnabled && state.guideScriptText) {
-                showToast('\u{1F3AF} Script guardado \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute);
-            } else if (state.guideScriptEnabled && !state.guideScriptText) {
-                showToast('\u26A0\uFE0F Escribe un texto antes de guardar');
+            if (state.guideScriptEnabled && (state.guideScriptText || state.guideScriptAudioFile)) {
+                showToast('\u{1F3AF} Script guardado \u2014 se activar\u00e1 en el minuto ' + state.guideScriptTriggerMinute);
+            } else if (state.guideScriptEnabled && !state.guideScriptText && !state.guideScriptAudioFile) {
+                showToast('\u26A0\uFE0F Escribe un texto o adjunta un audio antes de guardar');
             } else {
                 showToast('\u23F8\uFE0F Script desactivado');
             }
@@ -11461,13 +11656,35 @@ mientras fijas la vista en el centro."></textarea>
         function checkGuideScript() {
             if (!state.guideScriptEnabled) return;
             if (state.guideScriptHasTriggered) return;
-            if (!state.guideScriptText) return;
+
+            var hasText = state.guideScriptText && state.guideScriptText.trim();
+            var hasAudio = state.guideScriptAudioFile && state._guideScriptAudioUrl;
+            if (!hasText && !hasAudio) return;
 
             var currentMinute = Math.floor(state.meditationElapsedSeconds / 60);
             if (currentMinute >= state.guideScriptTriggerMinute) {
                 state.guideScriptHasTriggered = true;
-                playGuideScript(state.guideScriptText);
-                showToast('\u{1F3AD} Script gu\u00eda activado en el minuto ' + state.guideScriptTriggerMinute);
+                var mode = state.guideScriptAudioMode || 'voice';
+
+                if (mode === 'audio' && hasAudio) {
+                    // Play audio file only
+                    showToast('\u{1F3AD} Script gu\u00eda (audio) activado en el minuto ' + state.guideScriptTriggerMinute);
+                    playGuideScriptAudioFile(null);
+                } else if (mode === 'both' && hasAudio && hasText) {
+                    // Play audio file first, then voice
+                    showToast('\u{1F3AD} Script gu\u00eda (audio + voz) activado en el minuto ' + state.guideScriptTriggerMinute);
+                    playGuideScriptAudioFile(function() {
+                        playGuideScript(state.guideScriptText);
+                    });
+                } else if (hasText) {
+                    // Voice only
+                    playGuideScript(hasText);
+                    showToast('\u{1F3AD} Script gu\u00eda activado en el minuto ' + state.guideScriptTriggerMinute);
+                } else if (hasAudio) {
+                    // Fallback: has audio but mode set to voice
+                    playGuideScriptAudioFile(null);
+                    showToast('\u{1F3AD} Script gu\u00eda (audio) activado en el minuto ' + state.guideScriptTriggerMinute);
+                }
             }
         }
 
@@ -11522,11 +11739,21 @@ mientras fijas la vista en el centro."></textarea>
 
         function testGuideScript() {
             var text = document.getElementById('gs-text').value.trim();
-            if (!text) {
-                showToast('\u26A0\uFE0F Escribe un texto primero para probar');
+            var hasAudio = state.guideScriptAudioFile && state._guideScriptAudioUrl;
+            if (!text && !hasAudio) {
+                showToast('\u26A0\uFE0F Escribe un texto o adjunta un audio primero para probar');
                 return;
             }
-            playGuideScript(text);
+            var mode = state.guideScriptAudioMode || 'voice';
+            if (mode === 'audio' && hasAudio) {
+                playGuideScriptAudioFile(null);
+            } else if (mode === 'both' && hasAudio && text) {
+                playGuideScriptAudioFile(function() { playGuideScript(text); });
+            } else if (text) {
+                playGuideScript(text);
+            } else if (hasAudio) {
+                playGuideScriptAudioFile(null);
+            }
             showToast('\u{1F50A} Reproduciendo prueba del script...');
         }
 
