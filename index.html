@@ -4166,73 +4166,6 @@
         .gs-rate-slider {
             width: 120px;
             margin-left: 12px;
-
-        }
-
-        /* ========== GUIDED SCRIPT AUDIO FILE UPLOAD ========== */
-        .gs-audio-upload-zone {
-            border: 2px dashed var(--border);
-            border-radius: 14px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            position: relative;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-        .gs-audio-upload-zone:hover,
-        .gs-audio-upload-zone.dragover {
-            border-color: var(--accent);
-            background: rgba(233, 69, 96, 0.04);
-        }
-        .gs-audio-upload-zone.dragover { background: rgba(233, 69, 96, 0.08); }
-        .gs-audio-upload-zone input[type="file"] {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0; cursor: pointer;
-        }
-        .gs-audio-upload-icon { font-size: 1.8rem; margin-bottom: 6px; }
-        .gs-audio-upload-text { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
-        .gs-audio-upload-hint { font-size: 0.68rem; color: var(--text-dim); }
-
-        .gs-audio-info {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 14px;
-            margin-top: 4px;
-        }
-        .gs-audio-info.active { display: block; }
-        .gs-audio-info-row {
-            display: flex; align-items: center; gap: 12px;
-        }
-        .gs-audio-info-icon { font-size: 1.6rem; flex-shrink: 0; }
-        .gs-audio-info-details { flex: 1; min-width: 0; }
-        .gs-audio-info-name {
-            font-size: 0.82rem; font-weight: 600; color: var(--text-primary);
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .gs-audio-info-size { font-size: 0.7rem; color: var(--text-dim); }
-        .gs-audio-remove-btn {
-            background: none; border: 1px solid var(--danger); color: var(--danger);
-            border-radius: 8px; padding: 6px 12px; font-size: 0.75rem;
-            cursor: pointer; transition: all 0.2s; white-space: nowrap;
-        }
-        .gs-audio-remove-btn:hover { background: rgba(255, 23, 68, 0.15); }
-
-        .gs-audio-mode-row {
-            display: flex; align-items: center; gap: 8px; margin-top: 10px;
-            padding: 10px 14px; background: var(--bg-input); border-radius: 10px;
-        }
-        .gs-audio-mode-label { font-size: 0.78rem; color: var(--text-secondary); white-space: nowrap; }
-        .gs-audio-mode-select {
-            flex: 1; background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 8px; padding: 8px 10px; color: var(--text-primary);
-            font-size: 0.78rem; cursor: pointer;
-        }
-        .gs-audio-mode-select:focus { outline: none; border-color: var(--accent); }
         }
 
         .gs-save-btn {
@@ -4787,6 +4720,7 @@
                             <div class="med-preset-title">⚡ Configuración Rápida</div>
                             <div class="med-preset-chips">
                                 <div class="med-preset-chip" id="med-preset-despertato" onclick="loadMedPreset('despertato')">🔥 DESPERTATO</div>
+                                <div class="med-preset-chip" id="med-preset-somnium" onclick="loadMedPreset('somnium')">🌙 SOMNIUM</div>
                             </div>
                         </div>
 
@@ -5108,7 +5042,8 @@
                         <div class="gs-panel" id="gs-panel">
                             <div class="gs-textarea-wrap">
                                 <textarea class="gs-textarea" id="gs-text"
-                                    placeholder="Escribe aquí tu guía o escenario para que la voz te lo lea en un momento clave...&#10;&#10;Ejemplo: Imagina que estás caminando por un pasillo antiguo, las paredes de piedra están cubiertas de musgo verde, escuchas el eco de tus pasos..."></textarea>
+                                    placeholder="Escribe aquí tu guía o escenario para que la voz te lo lea en un momento clave...&#10;&#10;Ejemplo: Imagina que estás caminando por un pasillo antiguo, las paredes de piedra están cubiertas de musgo verde, escuchas el eco de tus pasos..."
+                                    maxlength="1000"></textarea>
                             </div>
 
                             <div class="gs-time-config">
@@ -5126,34 +5061,6 @@
                                     <input type="range" class="range-slider gs-rate-slider" id="gs-rate-slider"
                                         min="0.5" max="1.2" value="0.85" step="0.05"
                                         oninput="updateGuideScriptRate()">
-                                </div>
-                            </div>
-
-                            <!-- ========== AUDIO FILE UPLOAD for Guide Script ========== -->
-                            <div style="margin-top: 12px;">
-                                <div class="gs-audio-upload-zone" id="gs-audio-upload-zone">
-                                    <div class="gs-audio-upload-icon">🎙️</div>
-                                    <div class="gs-audio-upload-text">Adjuntar archivo de audio (opcional)</div>
-                                    <div class="gs-audio-upload-hint">MP3, WAV, OGG, M4A — Máx. 5MB</div>
-                                    <input type="file" accept="audio/*" id="gs-audio-file-input" onchange="handleGuideScriptAudioUpload(event)">
-                                </div>
-                                <div class="gs-audio-info" id="gs-audio-info">
-                                    <div class="gs-audio-info-row">
-                                        <div class="gs-audio-info-icon">🎵</div>
-                                        <div class="gs-audio-info-details">
-                                            <div class="gs-audio-info-name" id="gs-audio-name"></div>
-                                            <div class="gs-audio-info-size" id="gs-audio-size"></div>
-                                        </div>
-                                        <button class="gs-audio-remove-btn" onclick="removeGuideScriptAudio()">✕ Quitar</button>
-                                    </div>
-                                </div>
-                                <div class="gs-audio-mode-row" id="gs-audio-mode-row" style="display: none;">
-                                    <span class="gs-audio-mode-label">Reproducir:</span>
-                                    <select class="gs-audio-mode-select" id="gs-audio-mode-select" onchange="updateGuideScriptAudioMode()">
-                                        <option value="audio">Solo archivo de audio</option>
-                                        <option value="both">Archivo + voz sintetizada</option>
-                                        <option value="voice">Solo voz sintetizada (ignorar archivo)</option>
-                                    </select>
                                 </div>
                             </div>
 
@@ -6247,11 +6154,6 @@ mientras fijas la vista en el centro."></textarea>
             guideScriptTriggerMinute: 40,
             guideScriptHasTriggered: false,
             guideScriptRate: 0.85,
-            // Guide Script audio file support
-            guideScriptAudioFile: null,      // Blob/Uint8Array of uploaded audio
-            guideScriptAudioName: null,      // Original filename
-            guideScriptAudioType: null,      // MIME type (audio/mpeg, audio/wav, etc.)
-            guideScriptAudioMode: 'voice',   // 'voice' = use TTS, 'audio' = play file, 'both' = audio then voice
             // Audio Queue System (prevents collisions between alerts)
             _audioQueue: [],
             _audioPlaying: false,
@@ -6275,6 +6177,12 @@ mientras fijas la vista en el centro."></textarea>
             _ekNextAlertTimer: null,
             _ekCountdownInterval: null,
             _ekAlertTimeouts: [],
+
+            // SOMNIUM loop state
+            somniumActive: false,
+            somniumIntervals: [120000, 300000], // [2min, 5min] in ms
+            somniumIndex: 0,
+            _somniumTimeout: null,
 
             // Respiracion Guiada state
             rbSettings: {
@@ -7912,6 +7820,12 @@ mientras fijas la vista en el centro."></textarea>
                 scheduleEkAlerts();
             }
 
+            // Start SOMNIUM loop if active
+            if (state.somniumActive) {
+                state.somniumIndex = 0;
+                startSomniumLoop();
+            }
+
             state.meditationTimerInterval = setInterval(function() {
                 state.meditationElapsedSeconds = Math.floor((Date.now() - state.meditationStartTime) / 1000);
                 updateMedTimerDisplay();
@@ -7925,6 +7839,9 @@ mientras fijas la vista en el centro."></textarea>
         function stopMeditationTimer() {
             if (state.meditationTimerInterval) { clearInterval(state.meditationTimerInterval); state.meditationTimerInterval = null; }
             cancelEkAlerts();
+            cancelSomniumLoop();
+            state.somniumActive = false;
+            state.somniumIndex = 0;
             state.meditationElapsedSeconds = 0;
             state.meditationStartTime = null;
             state._medNextAnnounceMin = 0;
@@ -7971,16 +7888,15 @@ mientras fijas la vista en el centro."></textarea>
         }
 
         function _executeTimeAnnounce(data) {
-            speakText(data.text, function() {
-                // Speech finished — schedule next repeat or complete
-                if (data.currentRepeat < data.repeats) {
-                    setTimeout(function() {
-                        _executeTimeAnnounce({ text: data.text, repeats: data.repeats, currentRepeat: data.currentRepeat + 1 });
-                    }, 800);
-                } else {
-                    _onAudioComplete();
-                }
-            });
+            speakText(data.text);
+            var estimatedDuration = Math.max(1500, Math.ceil(data.text.length * 80 / (state.meditationSpeechRate || 0.75)));
+            if (data.currentRepeat < data.repeats) {
+                setTimeout(function() {
+                    _executeTimeAnnounce({ text: data.text, repeats: data.repeats, currentRepeat: data.currentRepeat + 1 });
+                }, estimatedDuration + 800);
+            } else {
+                _onAudioComplete();
+            }
         }
 
         function speakTextLoop(text, times, pauseMs) {
@@ -8101,17 +8017,16 @@ mientras fijas la vista en el centro."></textarea>
         function _executeAntiSleepAlert(data) {
             playMedBowlSound(function() {
                 var msg = getMedNextMessage();
-                speakText(msg, function() {
-                    // Speech finished — schedule next message or complete
-                    if (data.current < data.total) {
-                        setTimeout(function() {
-                            _executeAntiSleepAlert({ current: data.current + 1, total: data.total });
-                        }, 500);
-                    } else {
-                        _onAudioComplete();
-                    }
-                });
+                speakText(msg);
                 showToast('🔔 (' + data.current + '/' + data.total + ') ' + msg);
+                if (data.current < data.total) {
+                    var speakDuration = Math.max(2000, Math.ceil(msg.length * 80 / (state.meditationSpeechRate || 0.75)));
+                    setTimeout(function() {
+                        _executeAntiSleepAlert({ current: data.current + 1, total: data.total });
+                    }, speakDuration + 500);
+                } else {
+                    _onAudioComplete();
+                }
             });
         }
 
@@ -8154,14 +8069,9 @@ mientras fijas la vista en el centro."></textarea>
         }
 
         // --- Voice / Text-to-Speech (Relaxing Profile) ---
-        // speakText now accepts an optional onDone callback.
-        // When provided, it is called after the utterance finishes (or after a safety timeout).
-        function speakText(text, onDone) {
-            if (!('speechSynthesis' in window)) { if (onDone) onDone(); return; }
+        function speakText(text) {
+            if (!('speechSynthesis' in window)) return;
             window.speechSynthesis.cancel();
-
-            var _doneCalled = false;
-            function _safeDone() { if (!_doneCalled) { _doneCalled = true; if (onDone) onDone(); } }
 
             var utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'es-ES';
@@ -8211,14 +8121,6 @@ mientras fijas la vista en el centro."></textarea>
             }
 
             if (selectedVoice) utterance.voice = selectedVoice;
-
-            // Attach onend callback so the audio queue can proceed
-            if (onDone) {
-                utterance.onend = function() { _safeDone(); };
-                // Safety timeout: if speech engine doesn't fire onend (known browser issue)
-                var safetyMs = Math.max(3000, Math.ceil(text.length * 120 / (state.meditationSpeechRate || 0.75)));
-                setTimeout(_safeDone, safetyMs);
-            }
             window.speechSynthesis.speak(utterance);
         }
 
@@ -8616,6 +8518,52 @@ mientras fijas la vista en el centro."></textarea>
 
                 showToast('🔥 DESPERTATO activado — Alertas cada 5 min, Electrochoque cada 10 min');
             }
+
+            if (name === 'somnium') {
+                // Activate SOMNIUM alternating loop
+                state.somniumActive = true;
+                state.somniumIndex = 0;
+
+                // Enable Electrochoque
+                state.ekActive = true;
+                document.getElementById('ek-toggle').classList.add('active');
+                document.getElementById('ek-indicator').classList.add('show');
+
+                // Disable fixed ek alert times (SOMNIUM uses its own loop)
+                state.ekAlertTimes = [];
+                renderEkAlertTimes();
+                saveEkSettings();
+
+                // Cancel any existing ek alerts
+                cancelEkAlerts();
+
+                // Start the SOMNIUM alternating loop
+                startSomniumLoop();
+
+                // Update preset chip visual state
+                document.querySelectorAll('.med-preset-chip').forEach(function(c) { c.classList.remove('active-preset'); });
+                document.getElementById('med-preset-somnium').classList.add('active-preset');
+
+                // Save meditation settings
+                saveMeditationSettings();
+
+                // Recalculate if meditation is active
+                if (state.meditationActive) {
+                    var elapsedMin = state.meditationElapsedSeconds / 60;
+                    state._medNextAlertMin = state.meditationThresholdMin;
+                    if (elapsedMin >= state._medNextAlertMin) {
+                        state._medNextAlertMin = Math.ceil(elapsedMin / state.meditationAlertIntervalMin) * state.meditationAlertIntervalMin;
+                        if (state._medNextAlertMin <= elapsedMin) state._medNextAlertMin += state.meditationAlertIntervalMin;
+                    }
+                    state._medNextAnnounceMin = Math.ceil(elapsedMin / state.meditationTimeAnnounceMin) * state.meditationTimeAnnounceMin;
+                    if (state._medNextAnnounceMin <= elapsedMin) state._medNextAnnounceMin += state.meditationTimeAnnounceMin;
+                    updateMedNextAnnounceDisplay();
+                    updateMedNextAlertDisplay();
+                    updateMedNextAlertBox();
+                }
+
+                showToast('🌙 SOMNIUM activado — Loop infinito: 2 min → 5 min → 2 min → 5 min...');
+            }
         }
 
         function testMedAlert() {
@@ -8743,11 +8691,6 @@ mientras fijas la vista en el centro."></textarea>
                 guideScriptText: state.guideScriptText,
                 guideScriptTriggerMinute: state.guideScriptTriggerMinute,
                 guideScriptRate: state.guideScriptRate,
-                guideScriptAudioMode: state.guideScriptAudioMode || 'voice',
-                guideScriptAudioName: state.guideScriptAudioName || null,
-                guideScriptAudioType: state.guideScriptAudioType || null,
-                // Convert Uint8Array to plain array for JSON serialization
-                guideScriptAudioFile: state.guideScriptAudioFile ? Array.from(state.guideScriptAudioFile) : null,
             })); } catch(e) {}
         }
 
@@ -8784,12 +8727,6 @@ mientras fijas la vista en el centro."></textarea>
                     state.guideScriptText = data.guideScriptText || '';
                     state.guideScriptTriggerMinute = data.guideScriptTriggerMinute || 40;
                     state.guideScriptRate = data.guideScriptRate || 0.85;
-                    state.guideScriptAudioMode = data.guideScriptAudioMode || 'voice';
-                    state.guideScriptAudioName = data.guideScriptAudioName || null;
-                    state.guideScriptAudioType = data.guideScriptAudioType || null;
-                    if (data.guideScriptAudioFile && Array.isArray(data.guideScriptAudioFile)) {
-                        state.guideScriptAudioFile = new Uint8Array(data.guideScriptAudioFile);
-                    }
 
                     // Apply to UI
                     document.getElementById('med-time-announce-slider').value = state.meditationTimeAnnounceMin;
@@ -8871,7 +8808,6 @@ mientras fijas la vista en el centro."></textarea>
                         gsStatusDot.classList.add('active');
                         gsStatusText.textContent = 'Script activo \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute;
                     }
-                    restoreGuideScriptAudioUI();
                 }
             } catch(e) {}
         }
@@ -9358,6 +9294,53 @@ mientras fijas la vista en el centro."></textarea>
             state._ekAlertTimeouts = [];
             if (state._ekCountdownInterval) { clearInterval(state._ekCountdownInterval); state._ekCountdownInterval = null; }
             document.getElementById('ek-next-box').style.display = 'none';
+        }
+
+        // --- SOMNIUM Loop (alternating 2min / 5min infinite cycle) ---
+        function startSomniumLoop() {
+            cancelSomniumLoop();
+            if (!state.somniumActive || !state.meditationActive) return;
+            _scheduleSomniumNext();
+        }
+
+        function _scheduleSomniumNext() {
+            if (!state.somniumActive || !state.meditationActive) return;
+            var intervalMs = state.somniumIntervals[state.somniumIndex % state.somniumIntervals.length];
+            var intervalLabel = (intervalMs / 60000) + ' min';
+
+            // Log current cycle position
+            state._somniumTimeout = setTimeout(function() {
+                if (!state.somniumActive || !state.meditationActive) return;
+                triggerSomniumAlert();
+                // Advance index for next cycle
+                state.somniumIndex = (state.somniumIndex + 1) % state.somniumIntervals.length;
+                // Schedule the next alert
+                _scheduleSomniumNext();
+            }, intervalMs);
+        }
+
+        function triggerSomniumAlert() {
+            // Flash overlay (SOMNIUM purple)
+            var flash = document.getElementById('ek-alert-flash');
+            flash.classList.add('active');
+            setTimeout(function() { flash.classList.add('visible'); }, 10);
+            setTimeout(function() {
+                flash.classList.remove('visible');
+                setTimeout(function() { flash.classList.remove('active'); }, 200);
+            }, 400);
+
+            enqueueAudio('electrochoke', {});
+
+            var currentInterval = state.somniumIntervals[state.somniumIndex % state.somniumIntervals.length];
+            var nextInterval = state.somniumIntervals[(state.somniumIndex + 1) % state.somniumIntervals.length];
+            showToast('🌙 SOMNIUM — Alerta activada | Próximo: ' + (nextInterval / 60000) + ' min');
+        }
+
+        function cancelSomniumLoop() {
+            if (state._somniumTimeout) {
+                clearTimeout(state._somniumTimeout);
+                state._somniumTimeout = null;
+            }
         }
 
         function triggerEkPulse() {
@@ -11491,104 +11474,6 @@ mientras fijas la vista en el centro."></textarea>
 
         // ========== GUIDED SCRIPT — Script Guia por Temporizador ==========
 
-        // --- Guide Script Audio File Handlers ---
-        function handleGuideScriptAudioUpload(event) {
-            var file = event.target.files[0];
-            if (!file) return;
-            if (file.size > 5 * 1024 * 1024) {
-                showToast('⚠️ El archivo excede 5MB. Usa un archivo más pequeño.');
-                return;
-            }
-            if (!file.type.startsWith('audio/')) {
-                showToast('⚠️ Solo se permiten archivos de audio.');
-                return;
-            }
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                state.guideScriptAudioFile = new Uint8Array(e.target.result);
-                state.guideScriptAudioName = file.name;
-                state.guideScriptAudioType = file.type;
-                state.guideScriptAudioMode = 'audio';
-
-                if (state._guideScriptAudioUrl) URL.revokeObjectURL(state._guideScriptAudioUrl);
-                var blob = new Blob([state.guideScriptAudioFile], { type: file.type });
-                state._guideScriptAudioUrl = URL.createObjectURL(blob);
-
-                document.getElementById('gs-audio-name').textContent = file.name;
-                document.getElementById('gs-audio-size').textContent = Math.round(file.size / 1024) + ' KB — ' + (file.type.split('/')[1] || file.type).toUpperCase();
-                document.getElementById('gs-audio-info').classList.add('active');
-                document.getElementById('gs-audio-upload-zone').style.display = 'none';
-                document.getElementById('gs-audio-mode-row').style.display = 'flex';
-                document.getElementById('gs-audio-mode-select').value = state.guideScriptAudioMode;
-
-                updateGuideScriptStatus();
-                saveGuideScriptSettings();
-                showToast('🎵 Audio cargado: ' + file.name);
-            };
-            reader.readAsArrayBuffer(file);
-            event.target.value = '';
-        }
-
-        function removeGuideScriptAudio() {
-            state.guideScriptAudioFile = null;
-            state.guideScriptAudioName = null;
-            state.guideScriptAudioType = null;
-            state.guideScriptAudioMode = 'voice';
-            if (state._guideScriptAudioUrl) { URL.revokeObjectURL(state._guideScriptAudioUrl); state._guideScriptAudioUrl = null; }
-
-            document.getElementById('gs-audio-info').classList.remove('active');
-            document.getElementById('gs-audio-upload-zone').style.display = '';
-            document.getElementById('gs-audio-mode-row').style.display = 'none';
-
-            updateGuideScriptStatus();
-            saveGuideScriptSettings();
-            showToast('🗑️ Audio del script eliminado');
-        }
-
-        function updateGuideScriptAudioMode() {
-            state.guideScriptAudioMode = document.getElementById('gs-audio-mode-select').value;
-            saveGuideScriptSettings();
-        }
-
-        function restoreGuideScriptAudioUI() {
-            if (state.guideScriptAudioFile) {
-                if (state._guideScriptAudioUrl) URL.revokeObjectURL(state._guideScriptAudioUrl);
-                var blob = new Blob([state.guideScriptAudioFile], { type: state.guideScriptAudioType || 'audio/mpeg' });
-                state._guideScriptAudioUrl = URL.createObjectURL(blob);
-
-                document.getElementById('gs-audio-name').textContent = state.guideScriptAudioName || 'audio.mp3';
-                var sizeKB = state.guideScriptAudioFile.length ? Math.round(state.guideScriptAudioFile.length / 1024) : '---';
-                document.getElementById('gs-audio-size').textContent = sizeKB + ' KB';
-                document.getElementById('gs-audio-info').classList.add('active');
-                document.getElementById('gs-audio-upload-zone').style.display = 'none';
-                document.getElementById('gs-audio-mode-row').style.display = 'flex';
-                document.getElementById('gs-audio-mode-select').value = state.guideScriptAudioMode || 'audio';
-            }
-        }
-
-        function playGuideScriptAudioFile(onComplete) {
-            if (!state._guideScriptAudioUrl) { if (onComplete) onComplete(); return; }
-            var audio = new Audio(state._guideScriptAudioUrl);
-            audio.volume = 1.0;
-            audio.onended = function() { if (onComplete) onComplete(); };
-            audio.onerror = function() {
-                showToast('⚠️ Error al reproducir el audio del script');
-                if (onComplete) onComplete();
-            };
-            audio.play().catch(function(err) {
-                console.warn('Guide script audio play() blocked:', err);
-                var retryPlay = function() {
-                    audio.play().then(function(){}).catch(function(){});
-                    document.removeEventListener('click', retryPlay);
-                    document.removeEventListener('touchstart', retryPlay);
-                };
-                document.addEventListener('click', retryPlay, { once: true });
-                document.addEventListener('touchstart', retryPlay, { once: true });
-                setTimeout(function() { if (onComplete) onComplete(); }, 500);
-            });
-        }
-
-
         function toggleGuideScript() {
             state.guideScriptEnabled = !state.guideScriptEnabled;
             var toggle = document.getElementById('gs-toggle');
@@ -11615,17 +11500,12 @@ mientras fijas la vista en el centro."></textarea>
         function updateGuideScriptStatus() {
             var dot = document.getElementById('gs-status-dot');
             var text = document.getElementById('gs-status-text');
-            var hasText = state.guideScriptEnabled && document.getElementById('gs-text').value.trim();
-            var hasAudio = state.guideScriptEnabled && state.guideScriptAudioFile;
-            if (hasText || hasAudio) {
+            if (state.guideScriptEnabled && document.getElementById('gs-text').value.trim()) {
                 dot.classList.add('active');
-                var parts = [];
-                if (hasText) parts.push('voz sintetizada');
-                if (hasAudio) parts.push('audio: ' + (state.guideScriptAudioName || 'archivo'));
-                text.textContent = 'Script activo \u2014 ' + parts.join(' + ') + ' en el minuto ' + state.guideScriptTriggerMinute;
+                text.textContent = 'Script activo \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute;
             } else if (state.guideScriptEnabled) {
                 dot.classList.remove('active');
-                text.textContent = 'Escribe un texto o adjunta un audio para activar el script';
+                text.textContent = 'Escribe un texto para activar el script';
             } else {
                 dot.classList.remove('active');
                 text.textContent = 'Guarda tu configuraci\u00f3n para activar el script';
@@ -11636,16 +11516,14 @@ mientras fijas la vista en el centro."></textarea>
             state.guideScriptText = document.getElementById('gs-text').value.trim();
             state.guideScriptTriggerMinute = parseInt(document.getElementById('gs-minute-input').value) || 40;
             state.guideScriptRate = parseFloat(document.getElementById('gs-rate-slider').value) || 0.85;
-            var modeEl = document.getElementById('gs-audio-mode-select');
-            if (modeEl) state.guideScriptAudioMode = modeEl.value || 'voice';
 
             updateGuideScriptStatus();
             saveMeditationSettings();
 
-            if (state.guideScriptEnabled && (state.guideScriptText || state.guideScriptAudioFile)) {
-                showToast('\u{1F3AF} Script guardado \u2014 se activar\u00e1 en el minuto ' + state.guideScriptTriggerMinute);
-            } else if (state.guideScriptEnabled && !state.guideScriptText && !state.guideScriptAudioFile) {
-                showToast('\u26A0\uFE0F Escribe un texto o adjunta un audio antes de guardar');
+            if (state.guideScriptEnabled && state.guideScriptText) {
+                showToast('\u{1F3AF} Script guardado \u2014 se leer\u00e1 en el minuto ' + state.guideScriptTriggerMinute);
+            } else if (state.guideScriptEnabled && !state.guideScriptText) {
+                showToast('\u26A0\uFE0F Escribe un texto antes de guardar');
             } else {
                 showToast('\u23F8\uFE0F Script desactivado');
             }
@@ -11654,35 +11532,13 @@ mientras fijas la vista en el centro."></textarea>
         function checkGuideScript() {
             if (!state.guideScriptEnabled) return;
             if (state.guideScriptHasTriggered) return;
-
-            var hasText = state.guideScriptText && state.guideScriptText.trim();
-            var hasAudio = state.guideScriptAudioFile && state._guideScriptAudioUrl;
-            if (!hasText && !hasAudio) return;
+            if (!state.guideScriptText) return;
 
             var currentMinute = Math.floor(state.meditationElapsedSeconds / 60);
             if (currentMinute >= state.guideScriptTriggerMinute) {
                 state.guideScriptHasTriggered = true;
-                var mode = state.guideScriptAudioMode || 'voice';
-
-                if (mode === 'audio' && hasAudio) {
-                    // Play audio file only
-                    showToast('\u{1F3AD} Script gu\u00eda (audio) activado en el minuto ' + state.guideScriptTriggerMinute);
-                    playGuideScriptAudioFile(null);
-                } else if (mode === 'both' && hasAudio && hasText) {
-                    // Play audio file first, then voice
-                    showToast('\u{1F3AD} Script gu\u00eda (audio + voz) activado en el minuto ' + state.guideScriptTriggerMinute);
-                    playGuideScriptAudioFile(function() {
-                        playGuideScript(state.guideScriptText);
-                    });
-                } else if (hasText) {
-                    // Voice only
-                    playGuideScript(hasText);
-                    showToast('\u{1F3AD} Script gu\u00eda activado en el minuto ' + state.guideScriptTriggerMinute);
-                } else if (hasAudio) {
-                    // Fallback: has audio but mode set to voice
-                    playGuideScriptAudioFile(null);
-                    showToast('\u{1F3AD} Script gu\u00eda (audio) activado en el minuto ' + state.guideScriptTriggerMinute);
-                }
+                playGuideScript(state.guideScriptText);
+                showToast('\u{1F3AD} Script gu\u00eda activado en el minuto ' + state.guideScriptTriggerMinute);
             }
         }
 
@@ -11737,21 +11593,11 @@ mientras fijas la vista en el centro."></textarea>
 
         function testGuideScript() {
             var text = document.getElementById('gs-text').value.trim();
-            var hasAudio = state.guideScriptAudioFile && state._guideScriptAudioUrl;
-            if (!text && !hasAudio) {
-                showToast('\u26A0\uFE0F Escribe un texto o adjunta un audio primero para probar');
+            if (!text) {
+                showToast('\u26A0\uFE0F Escribe un texto primero para probar');
                 return;
             }
-            var mode = state.guideScriptAudioMode || 'voice';
-            if (mode === 'audio' && hasAudio) {
-                playGuideScriptAudioFile(null);
-            } else if (mode === 'both' && hasAudio && text) {
-                playGuideScriptAudioFile(function() { playGuideScript(text); });
-            } else if (text) {
-                playGuideScript(text);
-            } else if (hasAudio) {
-                playGuideScriptAudioFile(null);
-            }
+            playGuideScript(text);
             showToast('\u{1F50A} Reproduciendo prueba del script...');
         }
 
