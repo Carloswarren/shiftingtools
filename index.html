@@ -3249,6 +3249,16 @@
             border-color: var(--accent);
             box-shadow: 0 0 12px var(--accent-glow);
         }
+        #med-preset-somnium-extreme.active-preset {
+            background: #ff1744;
+            border-color: #ff1744;
+            box-shadow: 0 0 16px #ff174466;
+            animation: extreme-pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes extreme-pulse {
+            0%, 100% { box-shadow: 0 0 12px #ff174444; }
+            50% { box-shadow: 0 0 24px #ff174488; }
+        }
         .vr-textarea {
             width: 100%;
             min-height: 120px;
@@ -4721,6 +4731,7 @@
                             <div class="med-preset-chips">
                                 <div class="med-preset-chip" id="med-preset-despertato" onclick="loadMedPreset('despertato')">🔥 DESPERTATO</div>
                                 <div class="med-preset-chip" id="med-preset-somnium" onclick="loadMedPreset('somnium')">🌙 SOMNIUM</div>
+                                <div class="med-preset-chip" id="med-preset-somnium-extreme" onclick="loadMedPreset('somnium-extreme')">🔴 SOMNIUM EXTREME</div>
                             </div>
                         </div>
 
@@ -6183,6 +6194,12 @@ mientras fijas la vista en el centro."></textarea>
             somniumIntervals: [120000, 300000], // [2min, 5min] in ms
             somniumIndex: 0,
             _somniumTimeout: null,
+
+            // SOMNIUM EXTREME state (3 alerts x 2 min, then stops)
+            somniumExtremeActive: false,
+            somniumExtremeCycles: 3,
+            somniumExtremeIndex: 0,
+            _somniumExtremeTimeout: null,
 
             // Respiracion Guiada state
             rbSettings: {
@@ -7826,6 +7843,12 @@ mientras fijas la vista en el centro."></textarea>
                 startSomniumLoop();
             }
 
+            // Start SOMNIUM EXTREME loop if active
+            if (state.somniumExtremeActive) {
+                state.somniumExtremeIndex = 0;
+                startSomniumExtremeLoop();
+            }
+
             state.meditationTimerInterval = setInterval(function() {
                 state.meditationElapsedSeconds = Math.floor((Date.now() - state.meditationStartTime) / 1000);
                 updateMedTimerDisplay();
@@ -7840,8 +7863,11 @@ mientras fijas la vista en el centro."></textarea>
             if (state.meditationTimerInterval) { clearInterval(state.meditationTimerInterval); state.meditationTimerInterval = null; }
             cancelEkAlerts();
             cancelSomniumLoop();
+            cancelSomniumExtremeLoop();
             state.somniumActive = false;
             state.somniumIndex = 0;
+            state.somniumExtremeActive = false;
+            state.somniumExtremeIndex = 0;
             state.meditationElapsedSeconds = 0;
             state.meditationStartTime = null;
             state._medNextAnnounceMin = 0;
@@ -8563,6 +8589,54 @@ mientras fijas la vista en el centro."></textarea>
                 }
 
                 showToast('🌙 SOMNIUM activado — Loop infinito: 2 min → 5 min → 2 min → 5 min...');
+            }
+
+            if (name === 'somnium-extreme') {
+                // Activate SOMNIUM EXTREME: 3 alerts x 2 min, then stops
+                state.somniumExtremeActive = true;
+                state.somniumExtremeIndex = 0;
+
+                // Enable Electrochoque
+                state.ekActive = true;
+                document.getElementById('ek-toggle').classList.add('active');
+                document.getElementById('ek-indicator').classList.add('show');
+
+                // Disable fixed ek alert times (SOMNIUM EXTREME uses its own loop)
+                state.ekAlertTimes = [];
+                renderEkAlertTimes();
+                saveEkSettings();
+
+                // Cancel any existing ek alerts or other somnium loops
+                cancelEkAlerts();
+                cancelSomniumLoop();
+                state.somniumActive = false;
+
+                // Start the SOMNIUM EXTREME loop
+                startSomniumExtremeLoop();
+
+                // Update preset chip visual state
+                document.querySelectorAll('.med-preset-chip').forEach(function(c) { c.classList.remove('active-preset'); });
+                document.getElementById('med-preset-somnium-extreme').classList.add('active-preset');
+
+                // Save meditation settings
+                saveMeditationSettings();
+
+                // Recalculate if meditation is active
+                if (state.meditationActive) {
+                    var elapsedMin = state.meditationElapsedSeconds / 60;
+                    state._medNextAlertMin = state.meditationThresholdMin;
+                    if (elapsedMin >= state._medNextAlertMin) {
+                        state._medNextAlertMin = Math.ceil(elapsedMin / state.meditationAlertIntervalMin) * state.meditationAlertIntervalMin;
+                        if (state._medNextAlertMin <= elapsedMin) state._medNextAlertMin += state.meditationAlertIntervalMin;
+                    }
+                    state._medNextAnnounceMin = Math.ceil(elapsedMin / state.meditationTimeAnnounceMin) * state.meditationTimeAnnounceMin;
+                    if (state._medNextAnnounceMin <= elapsedMin) state._medNextAnnounceMin += state.meditationTimeAnnounceMin;
+                    updateMedNextAnnounceDisplay();
+                    updateMedNextAlertDisplay();
+                    updateMedNextAlertBox();
+                }
+
+                showToast('🔴 SOMNIUM EXTREME activado — 3 alertas × 2 min = 6 min total, luego se desactiva');
             }
         }
 
@@ -9340,6 +9414,67 @@ mientras fijas la vista en el centro."></textarea>
             if (state._somniumTimeout) {
                 clearTimeout(state._somniumTimeout);
                 state._somniumTimeout = null;
+            }
+        }
+
+        // --- SOMNIUM EXTREME Loop (3 alerts x 2 min, then stops) ---
+        function startSomniumExtremeLoop() {
+            cancelSomniumExtremeLoop();
+            if (!state.somniumExtremeActive || !state.meditationActive) return;
+            state.somniumExtremeIndex = 0;
+            _scheduleSomniumExtremeNext();
+        }
+
+        function _scheduleSomniumExtremeNext() {
+            if (!state.somniumExtremeActive || !state.meditationActive) return;
+            if (state.somniumExtremeIndex >= state.somniumExtremeCycles) {
+                // All 3 alerts done — stop the extreme mode
+                cancelSomniumExtremeLoop();
+                state.somniumExtremeActive = false;
+                state.ekActive = false;
+                document.getElementById('ek-toggle').classList.remove('active');
+                document.getElementById('ek-indicator').classList.remove('show');
+                saveEkSettings();
+                showToast('🔴 SOMNIUM EXTREME completado — 3 alertas ejecutadas, modo desactivado');
+                return;
+            }
+            var intervalMs = 120000; // Always 2 minutes
+            state._somniumExtremeTimeout = setTimeout(function() {
+                if (!state.somniumExtremeActive || !state.meditationActive) return;
+                triggerSomniumExtremeAlert();
+                state.somniumExtremeIndex++;
+                _scheduleSomniumExtremeNext();
+            }, intervalMs);
+        }
+
+        function triggerSomniumExtremeAlert() {
+            // Flash overlay (RED for EXTREME)
+            var flash = document.getElementById('ek-alert-flash');
+            flash.style.background = '#ff0000';
+            flash.classList.add('active');
+            setTimeout(function() { flash.classList.add('visible'); }, 10);
+            setTimeout(function() {
+                flash.classList.remove('visible');
+                setTimeout(function() {
+                    flash.classList.remove('active');
+                    flash.style.background = '#ff6d00'; // Reset to default orange
+                }, 200);
+            }, 500);
+
+            enqueueAudio('electrochoke', {});
+
+            var remaining = state.somniumExtremeCycles - state.somniumExtremeIndex - 1;
+            if (remaining > 0) {
+                showToast('🔴 SOMNIUM EXTREME — Alerta ' + (state.somniumExtremeIndex + 1) + '/' + state.somniumExtremeCycles + ' | Quedan ' + remaining + ' alertas');
+            } else {
+                showToast('🔴 SOMNIUM EXTREME — Alerta ' + state.somniumExtremeCycles + '/' + state.somniumExtremeCycles + ' | Última alerta, modo terminando...');
+            }
+        }
+
+        function cancelSomniumExtremeLoop() {
+            if (state._somniumExtremeTimeout) {
+                clearTimeout(state._somniumExtremeTimeout);
+                state._somniumExtremeTimeout = null;
             }
         }
 
