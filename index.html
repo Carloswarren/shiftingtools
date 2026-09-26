@@ -857,6 +857,98 @@
             flex-shrink: 0;
         }
         .ek-add-time-row .ek-add-btn:active { transform: scale(0.95); }
+
+        /* Interval mode */
+        .ek-interval-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: var(--bg-input);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .ek-interval-toggle-row .ek-interval-label {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ek-interval-toggle-row .ek-interval-label span.icon {
+            font-size: 1.1rem;
+        }
+        .ek-interval-controls {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 14px;
+            background: var(--bg-input);
+            border-radius: 10px;
+            border: 1px solid #ff6d0033;
+        }
+        .ek-interval-controls.visible { display: flex; }
+        .ek-interval-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ek-interval-input-row .ek-interval-number {
+            width: 72px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+        .ek-interval-input-row .ek-interval-number:focus {
+            border-color: #ff6d00;
+            outline: none;
+        }
+        .ek-interval-input-row .ek-interval-number::-webkit-inner-spin-button,
+        .ek-interval-input-row .ek-interval-number::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .ek-interval-input-row .ek-interval-number { -moz-appearance: textfield; }
+        .ek-interval-input-row .ek-interval-unit {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .ek-interval-summary {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: #ff6d0010;
+            border-radius: 8px;
+            border: 1px solid #ff6d0022;
+            font-size: 0.8rem;
+            color: #ff6d00;
+        }
+        .ek-interval-summary .summary-icon {
+            font-size: 1rem;
+        }
+        .ek-interval-apply-btn {
+            padding: 10px 16px;
+            background: #ff6d00;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 4px;
+        }
+        .ek-interval-apply-btn:active { background: #e65100; transform: scale(0.97); }
         .ek-range-row {
             display: flex;
             align-items: center;
@@ -5230,15 +5322,40 @@
                             <div class="ek-helper-text">Reduce momentáneamente el volumen del audio de meditación cuando suena el pulso</div>
                         </div>
 
-                        <!-- Scheduled Alert Times -->
+                        <!-- Interval Mode -->
                         <div class="input-group">
-                            <div class="input-label"><span>Marcas de tiempo (minutos de sesión)</span></div>
+                            <div class="input-label"><span>Intervalo de alertas</span></div>
+                            <div class="ek-interval-toggle-row" onclick="toggleEkInterval()">
+                                <div class="ek-interval-label">
+                                    <span class="icon">🔄</span>
+                                    <span>Repetir cada X minutos</span>
+                                </div>
+                                <div class="toggle" id="ek-interval-toggle"></div>
+                            </div>
+                            <div class="ek-interval-controls" id="ek-interval-controls">
+                                <div class="ek-interval-input-row">
+                                    <span class="ek-interval-unit">Cada</span>
+                                    <input type="number" class="ek-interval-number" id="ek-interval-number" min="1" max="120" value="10" onchange="updateEkIntervalValue()" oninput="updateEkIntervalValue()">
+                                    <span class="ek-interval-unit">minutos</span>
+                                </div>
+                                <div class="ek-interval-summary" id="ek-interval-summary">
+                                    <span class="summary-icon">⚡</span>
+                                    <span>Las alertas se repetirán cada 10 min durante toda la sesión</span>
+                                </div>
+                                <button class="ek-interval-apply-btn" onclick="applyEkInterval()">⚡ Aplicar Intervalo</button>
+                                <div class="ek-helper-text">Configura el intervalo y presiona Aplicar. Las alertas se activarán automáticamente cada X minutos.</div>
+                            </div>
+                        </div>
+
+                        <!-- Scheduled Alert Times (manual fallback) -->
+                        <div class="input-group">
+                            <div class="input-label"><span>Marcas de tiempo individuales (opcional)</span></div>
                             <div class="ek-scheduled-list" id="ek-scheduled-list"></div>
                             <div class="ek-add-time-row">
                                 <input type="number" class="ek-min-input" id="ek-min-input" min="1" max="480" placeholder="Minutos (ej: 45)">
                                 <button class="ek-add-btn" onclick="addEkAlertTime()">+ Agregar</button>
                             </div>
-                            <div class="ek-helper-text">Agrega múltiples alertas. El tiempo es en minutos desde el inicio de la meditación (ej: 45 = minuto 45, 70 = 1h 10min)</div>
+                            <div class="ek-helper-text">Agrega tiempos específicos. El tiempo es en minutos desde el inicio de la meditación (ej: 45 = minuto 45)</div>
                         </div>
 
                         <!-- Next Alert Preview -->
@@ -6181,6 +6298,8 @@ mientras fijas la vista en el centro."></textarea>
             ekVolume: 70,
             ekDucking: true,
             ekAlertTimes: [],
+            ekIntervalEnabled: false,
+            ekIntervalMinutes: 10,
             ekCustomSoundData: null,
             ekCustomSoundName: null,
             _ekAudioCtx: null,
@@ -6188,6 +6307,7 @@ mientras fijas la vista en el centro."></textarea>
             _ekNextAlertTimer: null,
             _ekCountdownInterval: null,
             _ekAlertTimeouts: [],
+            _ekIntervalTimeout: null,
 
             // SOMNIUM loop state
             somniumActive: false,
@@ -8505,16 +8625,21 @@ mientras fijas la vista en el centro."></textarea>
                 document.getElementById('med-threshold-slider').value = 0;
                 document.getElementById('med-threshold-value').textContent = '0 min';
 
-                // Enable Electrochoque with every 10 minutes
+                // Enable Electrochoque with every 10 minutes (interval mode)
                 state.ekActive = true;
+                state.ekIntervalEnabled = true;
+                state.ekIntervalMinutes = 10;
                 document.getElementById('ek-toggle').classList.add('active');
                 document.getElementById('ek-indicator').classList.add('show');
+                var ekIntToggle = document.getElementById('ek-interval-toggle');
+                var ekIntControls = document.getElementById('ek-interval-controls');
+                ekIntToggle.classList.add('active');
+                ekIntControls.classList.add('visible');
+                document.getElementById('ek-interval-number').value = 10;
+                document.getElementById('ek-interval-summary').innerHTML = '<span class="summary-icon">⚡</span><span>Las alertas se repetirán cada 10 min durante toda la sesión</span>';
 
-                // Generate electrochoke alert times: 10, 20, 30, 40, 50, 60, 70, 80, 90 min
+                // Keep legacy ekAlertTimes empty when interval mode is on
                 state.ekAlertTimes = [];
-                for (var i = 10; i <= 90; i += 10) {
-                    state.ekAlertTimes.push(i);
-                }
                 renderEkAlertTimes();
                 saveEkSettings();
 
@@ -8542,7 +8667,7 @@ mientras fijas la vista en el centro."></textarea>
                     scheduleEkAlerts();
                 }
 
-                showToast('🔥 DESPERTATO activado — Alertas cada 5 min, Electrochoque cada 10 min');
+                showToast('🔥 DESPERTATO activado — Alertas cada 5 min, Electrochoque cada 10 min (intervalo)');
             }
 
             if (name === 'somnium') {
@@ -9322,6 +9447,50 @@ mientras fijas la vista en el centro."></textarea>
             saveEkSettings();
         }
 
+        // --- Interval Mode Functions ---
+        function toggleEkInterval() {
+            state.ekIntervalEnabled = !state.ekIntervalEnabled;
+            var toggle = document.getElementById('ek-interval-toggle');
+            var controls = document.getElementById('ek-interval-controls');
+            toggle.classList.toggle('active', state.ekIntervalEnabled);
+            controls.classList.toggle('visible', state.ekIntervalEnabled);
+            if (state.ekIntervalEnabled) {
+                updateEkIntervalValue();
+            } else {
+                cancelEkInterval();
+            }
+            if (state.ekActive && state.meditationActive) { cancelEkAlerts(); scheduleEkAlerts(); }
+            saveEkSettings();
+        }
+
+        function updateEkIntervalValue() {
+            var input = document.getElementById('ek-interval-number');
+            var val = parseInt(input.value, 10);
+            if (isNaN(val) || val < 1) val = 1;
+            if (val > 120) val = 120;
+            state.ekIntervalMinutes = val;
+            var summary = document.getElementById('ek-interval-summary');
+            summary.innerHTML = '<span class="summary-icon">⚡</span><span>Las alertas se repetirán cada ' + val + ' min durante toda la sesión</span>';
+            saveEkSettings();
+        }
+
+        function applyEkInterval() {
+            var val = state.ekIntervalMinutes;
+            showToast('⚡ Intervalo ELECTROCHOQUE: cada ' + val + ' minutos');
+            if (state.ekActive && state.meditationActive) {
+                cancelEkAlerts();
+                scheduleEkAlerts();
+            }
+            saveEkSettings();
+        }
+
+        function cancelEkInterval() {
+            if (state._ekIntervalTimeout) {
+                clearTimeout(state._ekIntervalTimeout);
+                state._ekIntervalTimeout = null;
+            }
+        }
+
         function renderEkAlertTimes() {
             var container = document.getElementById('ek-scheduled-list');
             container.innerHTML = state.ekAlertTimes.map(function(minutes, i) {
@@ -9340,10 +9509,27 @@ mientras fijas la vista en el centro."></textarea>
         // --- Alert Scheduling (relative to meditation start) ---
         function scheduleEkAlerts() {
             cancelEkAlerts();
-            if (!state.ekActive || !state.meditationActive || state.ekAlertTimes.length === 0) return;
+            if (!state.ekActive || !state.meditationActive) return;
 
             var elapsedSec = state.meditationElapsedSeconds || 0;
-            var elapsedMin = elapsedSec / 60;
+
+            // Interval Mode: schedule recurring alerts every X minutes
+            if (state.ekIntervalEnabled && state.ekIntervalMinutes > 0) {
+                var intervalSec = state.ekIntervalMinutes * 60;
+                var nextSec = intervalSec - (elapsedSec % intervalSec);
+                if (nextSec <= 0) nextSec = intervalSec;
+                _scheduleEkIntervalNext(nextSec);
+                updateEkNextAlertDisplay();
+                updateEkCountdown();
+                if (state._ekCountdownInterval) clearInterval(state._ekCountdownInterval);
+                state._ekCountdownInterval = setInterval(function() {
+                    updateEkCountdown();
+                }, 1000);
+                return;
+            }
+
+            // Manual Mode: schedule individual alert times
+            if (state.ekAlertTimes.length === 0) return;
 
             state.ekAlertTimes.forEach(function(alertMin) {
                 var secUntil = (alertMin * 60) - elapsedSec;
@@ -9363,9 +9549,20 @@ mientras fijas la vista en el centro."></textarea>
             }, 1000);
         }
 
+        function _scheduleEkIntervalNext(delaySec) {
+            cancelEkInterval();
+            state._ekIntervalTimeout = setTimeout(function() {
+                if (!state.ekActive || !state.meditationActive || !state.ekIntervalEnabled) return;
+                triggerEkPulse();
+                // Schedule the next interval alert
+                _scheduleEkIntervalNext(state.ekIntervalMinutes * 60);
+            }, delaySec * 1000);
+        }
+
         function cancelEkAlerts() {
             state._ekAlertTimeouts.forEach(function(t) { clearTimeout(t); });
             state._ekAlertTimeouts = [];
+            cancelEkInterval();
             if (state._ekCountdownInterval) { clearInterval(state._ekCountdownInterval); state._ekCountdownInterval = null; }
             document.getElementById('ek-next-box').style.display = 'none';
         }
@@ -9523,7 +9720,24 @@ mientras fijas la vista en el centro."></textarea>
 
         function updateEkNextAlertDisplay() {
             var val = document.getElementById('ek-next-alert-val');
-            if (!state.ekActive || !state.meditationActive || state.ekAlertTimes.length === 0) {
+            if (!state.ekActive || !state.meditationActive) {
+                val.textContent = '--:--'; val.className = 'ek-status-value inactive'; return;
+            }
+
+            // Interval Mode
+            if (state.ekIntervalEnabled && state.ekIntervalMinutes > 0) {
+                var elapsedSec = state.meditationElapsedSeconds || 0;
+                var intervalSec = state.ekIntervalMinutes * 60;
+                var secUntil = intervalSec - (elapsedSec % intervalSec);
+                if (secUntil <= 0) secUntil = intervalSec;
+                var m = Math.floor(secUntil / 60), s = Math.floor(secUntil % 60);
+                val.textContent = String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+                val.className = 'ek-status-value';
+                return;
+            }
+
+            // Manual Mode
+            if (state.ekAlertTimes.length === 0) {
                 val.textContent = '--:--'; val.className = 'ek-status-value inactive'; return;
             }
             var elapsedMin = (state.meditationElapsedSeconds || 0) / 60;
@@ -9545,7 +9759,28 @@ mientras fijas la vista en el centro."></textarea>
 
         function updateEkCountdown() {
             var box = document.getElementById('ek-next-box');
-            if (!state.ekActive || !state.meditationActive || state.ekAlertTimes.length === 0) {
+            if (!state.ekActive || !state.meditationActive) {
+                box.style.display = 'none'; return;
+            }
+
+            // Interval Mode
+            if (state.ekIntervalEnabled && state.ekIntervalMinutes > 0) {
+                var elapsedSec = state.meditationElapsedSeconds || 0;
+                var intervalSec = state.ekIntervalMinutes * 60;
+                var secUntil = intervalSec - (elapsedSec % intervalSec);
+                if (secUntil <= 0) secUntil = intervalSec;
+                box.style.display = 'flex';
+                var m = Math.floor(secUntil / 60), s = Math.floor(secUntil % 60);
+                document.getElementById('ek-next-countdown').textContent = String(m).padStart(2, '0') + 'm ' + String(s).padStart(2, '0') + 's';
+                var nextSec = elapsedSec + secUntil;
+                var futureTime = new Date(state.meditationStartTime + nextSec * 1000);
+                document.getElementById('ek-next-time').textContent =
+                    String(futureTime.getHours()).padStart(2, '0') + ':' + String(futureTime.getMinutes()).padStart(2, '0');
+                return;
+            }
+
+            // Manual Mode
+            if (state.ekAlertTimes.length === 0) {
                 box.style.display = 'none'; return;
             }
             var elapsedMin = (state.meditationElapsedSeconds || 0) / 60;
@@ -9596,6 +9831,8 @@ mientras fijas la vista en el centro."></textarea>
                     ekVolume: state.ekVolume,
                     ekDucking: state.ekDucking,
                     ekAlertTimes: state.ekAlertTimes,
+                    ekIntervalEnabled: state.ekIntervalEnabled,
+                    ekIntervalMinutes: state.ekIntervalMinutes,
                     ekCustomSoundName: state.ekCustomSoundName,
                     ekCustomSoundData: state.ekCustomSoundData,
                 }));
@@ -9611,6 +9848,8 @@ mientras fijas la vista en el centro."></textarea>
                     state.ekVolume = data.ekVolume || 70;
                     state.ekDucking = data.ekDucking !== false;
                     state.ekAlertTimes = data.ekAlertTimes || [];
+                    state.ekIntervalEnabled = data.ekIntervalEnabled || false;
+                    state.ekIntervalMinutes = data.ekIntervalMinutes || 10;
                     state.ekCustomSoundData = data.ekCustomSoundData || null;
                     state.ekCustomSoundName = data.ekCustomSoundName || null;
 
@@ -9620,6 +9859,15 @@ mientras fijas la vista en el centro."></textarea>
                     document.getElementById('ek-volume-pct').textContent = state.ekVolume + '%';
                     var duckingToggle = document.getElementById('ek-ducking-toggle');
                     duckingToggle.classList.toggle('active', state.ekDucking);
+
+                    // Interval mode UI
+                    var intervalToggle = document.getElementById('ek-interval-toggle');
+                    var intervalControls = document.getElementById('ek-interval-controls');
+                    intervalToggle.classList.toggle('active', state.ekIntervalEnabled);
+                    intervalControls.classList.toggle('visible', state.ekIntervalEnabled);
+                    document.getElementById('ek-interval-number').value = state.ekIntervalMinutes;
+                    var summaryEl = document.getElementById('ek-interval-summary');
+                    summaryEl.innerHTML = '<span class="summary-icon">⚡</span><span>Las alertas se repetirán cada ' + state.ekIntervalMinutes + ' min durante toda la sesión</span>';
 
                     if (state.ekActive) {
                         document.getElementById('ek-toggle').classList.add('active');
